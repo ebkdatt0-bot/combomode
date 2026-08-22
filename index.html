@@ -69,15 +69,93 @@ footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
   <h2>Build your fit.</h2>
   <p>Choose your vibe. We'll give you a starting look.</p>
   <div class="generator">
-    <div class="grid">
-      <div class="field"><label>Style</label><select id="style"><option>Streetwear</option><option>Clean</option><option>Classic</option><option>Casual</option><option>Night / Dark</option></select></div>
-      <div class="field"><label>Occasion</label><select id="occasion"><option>Going out</option><option>School</option><option>Church</option><option>Hangout</option><option>Date</option></select></div>
-      <div class="field"><label>Main color</label><select id="color"><option>Black</option><option>Navy</option><option>Brown</option><option>White</option><option>Green</option><option>Red</option></select></div>
-      <div class="field"><label>Shoes</label><select id="shoes"><option>Sneakers</option><option>Classic shoes</option><option>Boots</option><option>High-tops</option></select></div>
-    </div>
-    <button class="generate" onclick="generateFit()">GENERATE FIT</button>
-    <div class="result" id="result"><h3 id="resultTitle"></h3><p id="resultText"></p></div>
+<div class="grid">
+  <div class="field">
+    <label>Style</label>
+    <select id="style">
+      <option>Streetwear</option>
+      <option>Dark Streetwear</option>
+      <option>Clean</option>
+      <option>Y2K</option>
+      <option>Vintage</option>
+      <option>Old Money</option>
+      <option>Sporty</option>
+      <option>Grunge</option>
+    </select>
   </div>
+
+  <div class="field">
+    <label>Occasion</label>
+    <select id="occasion">
+      <option>Going out</option>
+      <option>School</option>
+      <option>Casual</option>
+      <option>Party</option>
+      <option>Date</option>
+      <option>Church</option>
+      <option>Photoshoot</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Main color</label>
+    <select id="color">
+      <option>Black</option>
+      <option>White</option>
+      <option>Grey</option>
+      <option>Navy</option>
+      <option>Brown</option>
+      <option>Red</option>
+      <option>Blue</option>
+      <option>Pink</option>
+      <option>Purple</option>
+      <option>Lime</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Silhouette</label>
+    <select id="silhouette">
+      <option>Oversized</option>
+      <option>Baggy</option>
+      <option>Relaxed</option>
+      <option>Slim</option>
+      <option>Fitted</option>
+      <option>Layered</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Bottom</label>
+    <select id="bottom">
+      <option>Wide-leg jeans</option>
+      <option>Stacked jeans</option>
+      <option>Cargo pants</option>
+      <option>Baggy trousers</option>
+      <option>Flared pants</option>
+      <option>Shorts</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>Shoes</label>
+    <select id="shoes">
+      <option>Sneakers</option>
+      <option>High-top sneakers</option>
+      <option>Classic shoes</option>
+      <option>Boots</option>
+      <option>Skate shoes</option>
+    </select>
+  </div>
+</div>
+
+<button class="generate" onclick="generateFit()">GENERATE MY LOOK →</button>
+
+<div class="result" id="result">
+  <h3 id="resultTitle"></h3>
+  <p id="resultText"></p>
+  <button class="generate" onclick="generateFit()">↻ REGENERATE</button>
+</div>
 </section>
 
 <section class="section" id="inspo-grid">
@@ -111,17 +189,33 @@ footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
 
 <script>
 function generateFit(){
- const style=document.getElementById('style').value, occasion=document.getElementById('occasion').value, color=document.getElementById('color').value, shoes=document.getElementById('shoes').value;
- const combos={
-  Streetwear:`${color} oversized tee + relaxed/baggy pants + ${shoes.toLowerCase()}`,
-  Clean:`${color} fitted tee + straight trousers + ${shoes.toLowerCase()}`,
-  Classic:`${color} clean shirt + tailored trousers + classic shoes`,
-  Casual:`${color} tee + relaxed jeans + ${shoes.toLowerCase()}`,
-  'Night / Dark':`dark ${color.toLowerCase()} top + wide-leg pants + ${shoes.toLowerCase()}`
- };
- document.getElementById('resultTitle').textContent=`${style} fit • ${occasion}`;
- document.getElementById('resultText').textContent=`Try: ${combos[style]}. Add one small accent color and keep the rest balanced. This is your starting look — swap pieces you already own to make it yours.`;
- document.getElementById('result').classList.add('show');
+  const style = document.getElementById('style').value;
+  const occasion = document.getElementById('occasion').value;
+  const color = document.getElementById('color').value;
+  const silhouette = document.getElementById('silhouette').value;
+  const bottom = document.getElementById('bottom').value;
+  const shoes = document.getElementById('shoes').value;
+
+  const combos = {
+    "Streetwear": `${color} graphic/oversized tee + ${bottom} + ${shoes}`,
+    "Dark Streetwear": `dark ${color} oversized top + ${bottom} + ${shoes}`,
+    "Clean": `${color} clean tee/shirt + ${bottom} + ${shoes}`,
+    "Y2K": `${color} fitted graphic tee + ${bottom} + ${shoes}`,
+    "Vintage": `${color} vintage tee + ${bottom} + ${shoes}`,
+    "Old Money": `${color} polo/clean shirt + ${bottom} + classic shoes`,
+    "Sporty": `${color} jersey + ${bottom} + sneakers`,
+    "Grunge": `${color} layered graphic tee + ${bottom} + boots`
+  };
+
+  const outfit = combos[style] || `${color} top + ${bottom} + ${shoes}`;
+
+  document.getElementById('resultTitle').textContent =
+    `${style} • ${occasion} • ${silhouette}`;
+
+  document.getElementById('resultText').textContent =
+    `YOUR LOOK: ${outfit}. Add accessories that match the vibe, keep the silhouette ${silhouette.toLowerCase()}, and use ${color.toLowerCase()} as the main color.`;
+
+  document.getElementById('result').classList.add('show');
 }
 </script>
 </body>
