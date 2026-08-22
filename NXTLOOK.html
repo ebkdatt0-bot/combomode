@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NXTLOOK — Your next look starts here.</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#050505;color:#fff;overflow-x:hidden}
+nav{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;position:relative;z-index:5;border-bottom:1px solid #222;background:rgba(5,5,5,.82);backdrop-filter:blur(14px)}
+.logo{font-size:25px;font-weight:900;letter-spacing:-1.5px}.logo span{color:#a8ff00}
+nav a{color:#bbb;text-decoration:none;margin-left:26px;font-size:14px}nav a:hover{color:#fff}
+.hero{min-height:720px;position:relative;display:flex;align-items:center;padding:70px 7%;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:
+radial-gradient(circle at 15% 30%,rgba(168,255,0,.22),transparent 25%),
+radial-gradient(circle at 85% 20%,rgba(255,48,150,.22),transparent 24%),
+radial-gradient(circle at 70% 85%,rgba(0,170,255,.20),transparent 28%),
+radial-gradient(circle at 55% 45%,rgba(255,145,0,.10),transparent 22%),
+linear-gradient(125deg,#050505 20%,#0b0b0b 55%,#050505);z-index:-3}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.82) 42%,rgba(5,5,5,.25) 100%);z-index:-1}
+.copy{max-width:590px;z-index:2}.eyebrow{color:#a8ff00;font-weight:800;letter-spacing:3px;font-size:12px;margin-bottom:18px}
+h1{font-size:clamp(58px,9vw,112px);line-height:.82;letter-spacing:-6px;margin-bottom:28px}
+h1 span{color:#a8ff00;text-shadow:0 0 28px rgba(168,255,0,.18)}.sub{font-size:18px;line-height:1.6;color:#bdbdbd;max-width:500px}
+.cta{display:inline-block;margin-top:30px;background:#a8ff00;color:#050505;padding:16px 24px;border-radius:10px;text-decoration:none;font-weight:900}
+.scene{position:absolute;right:1%;bottom:0;width:58%;height:92%;z-index:0}
+.photo{position:absolute;width:245px;border:1px solid rgba(255,255,255,.22);border-radius:20px;background:#101010;padding:8px;box-shadow:0 25px 80px rgba(0,0,0,.65);overflow:hidden}
+.photo img{display:block;width:100%;height:330px;object-fit:cover;border-radius:14px;filter:saturate(1.08) contrast(1.03)}
+.photo:after{content:"";position:absolute;inset:8px 8px 42px;border-radius:14px;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35));pointer-events:none}
+.photo-label{padding:11px 5px 5px;font-size:10px;font-weight:900;letter-spacing:1.5px;color:#fff}
+.p1{right:47%;top:4%;transform:rotate(-8deg);z-index:3}.p2{right:8%;top:11%;transform:rotate(7deg);z-index:2}.p3{right:29%;bottom:-2%;transform:rotate(-3deg);z-index:4}.p4{right:0%;bottom:2%;transform:rotate(10deg);z-index:1}.c2{right:17%;top:18%;transform:rotate(8deg)}.c3{right:28%;bottom:4%;transform:rotate(-4deg)}
+.section{padding:90px 7%;background:#080808}.section h2{font-size:42px;letter-spacing:-2px;margin-bottom:12px}.section>p{color:#888;margin-bottom:35px}
+.generator{max-width:950px;margin:auto;border:1px solid #252525;border-radius:24px;background:#0e0e0e;padding:28px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.field label{display:block;font-size:12px;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+select{width:100%;padding:14px;background:#161616;border:1px solid #292929;color:#fff;border-radius:10px}
+.generate{width:100%;margin-top:20px;padding:16px;border:0;border-radius:10px;background:#a8ff00;font-weight:900;font-size:16px;cursor:pointer}
+.result{display:none;margin-top:25px;padding:22px;border-radius:16px;background:#151515;border:1px solid #2a2a2a}.result.show{display:block}.result h3{margin-bottom:8px}.result p{color:#aaa;line-height:1.6}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:950px;margin:35px auto 0}.plan{padding:26px;border:1px solid #292929;border-radius:18px;background:#0e0e0e}.plan.featured{border-color:#a8ff00}.price{font-size:30px;font-weight:900;margin:14px 0}.plan p{color:#999;line-height:1.6;font-size:14px}
+footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
+@media(max-width:800px){.scene{opacity:.28;width:100%;right:-30%;}.photo{width:190px}.photo img{height:260px}.hero{min-height:650px}.grid,.plans{grid-template-columns:1fr}nav a{margin-left:12px}.hero:after{background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.75) 70%,rgba(5,5,5,.4))}}
+
+.inspo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1100px;margin:32px auto 0}
+.inspo-grid img{width:100%;height:360px;object-fit:cover;border-radius:16px;border:1px solid #292929;transition:transform .25s,filter .25s}
+.inspo-grid img:hover{transform:translateY(-5px);filter:saturate(1.12)}
+@media(max-width:800px){.inspo-grid{grid-template-columns:repeat(2,1fr)}.inspo-grid img{height:260px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">NXT<span>LOOK</span></div>
+  <div><a href="#generator">Generator</a><a href="#plans">Plans</a><a href="#inspo">Inspo</a></div>
+</nav>
+
+<section class="hero">
+  <div class="copy">
+    <div class="eyebrow">FITS • INSPO • YOUR VIBE</div>
+    <h1>YOUR NEXT<br><span>LOOK.</span></h1>
+    <p class="sub">Find fits that actually hit. Pick your vibe, silhouette, colors and occasion — NXTLOOK turns real street-style inspiration into your next look.</p>
+    <a class="cta" href="#generator">GENERATE YOUR LOOK →</a>
+  </div>
+  <div class="scene" aria-hidden="true">
+    <div class="photo p1"><img src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Real streetwear outfit"><div class="photo-label">BAGGY / CITY</div></div>
+    <div class="photo p2"><img src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Real statement streetwear outfit"><div class="photo-label">BLACK / STATEMENT</div></div>
+    <div class="photo p3"><img src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Real group streetwear outfits"><div class="photo-label">CREW / STREET</div></div>
+    <div class="photo p4"><img src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Real colorful oversized streetwear outfit"><div class="photo-label">COLOR / OVERSIZED</div></div>
+  </div>
+</section>
+
+<section class="section" id="generator">
+  <h2>Build your fit.</h2>
+  <p>Choose your vibe. We'll give you a starting look.</p>
+  <div class="generator">
+    <div class="grid">
+      <div class="field"><label>Style</label><select id="style"><option>Streetwear</option><option>Clean</option><option>Classic</option><option>Casual</option><option>Night / Dark</option></select></div>
+      <div class="field"><label>Occasion</label><select id="occasion"><option>Going out</option><option>School</option><option>Church</option><option>Hangout</option><option>Date</option></select></div>
+      <div class="field"><label>Main color</label><select id="color"><option>Black</option><option>Navy</option><option>Brown</option><option>White</option><option>Green</option><option>Red</option></select></div>
+      <div class="field"><label>Shoes</label><select id="shoes"><option>Sneakers</option><option>Classic shoes</option><option>Boots</option><option>High-tops</option></select></div>
+    </div>
+    <button class="generate" onclick="generateFit()">GENERATE FIT</button>
+    <div class="result" id="result"><h3 id="resultTitle"></h3><p id="resultText"></p></div>
+  </div>
+</section>
+
+<section class="section" id="inspo-grid">
+  <h2>FITS THAT HIT.</h2>
+  <p>Real street-style references. Save the vibe, then build your own version.</p>
+  <div class="inspo-grid">
+    <img src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Streetwear inspiration">
+    <img src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Statement streetwear inspiration">
+    <img src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Colorful streetwear inspiration">
+    <img src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Streetwear group inspiration">
+  </div>
+</section>
+
+<section class="section" id="plans">
+  <h2>Choose your level.</h2>
+  <p>Start free. Upgrade when you want more.</p>
+  <div class="plans">
+    <div class="plan"><h3>FREE</h3><div class="price">$0</div><p>Basic outfit generations, core styles and color combinations.</p></div>
+    <div class="plan featured"><h3>NXTLOOK+</h3><div class="price">$1.99<span style="font-size:13px;color:#777">/mo</span></div><p>More generations, saved looks and extra customization.</p></div>
+    <div class="plan"><h3>PRO</h3><div class="price">$4.99<span style="font-size:13px;color:#777">/mo</span></div><p>Advanced recommendations, unlimited generations and exclusive features.</p></div>
+  </div>
+</section>
+
+<section class="section" id="inspo">
+  <h2>Style inspo.</h2>
+  <p>Real street-style inspiration, color combos and outfit ideas — coming next.</p>
+  <p style="margin-top:14px;font-size:11px;color:#666">Photography: Pexels contributors. Use properly licensed images for the final public version.</p>
+</section>
+
+<footer>NXTLOOK — Your next look starts here.</footer>
+
+<script>
+function generateFit(){
+ const style=document.getElementById('style').value, occasion=document.getElementById('occasion').value, color=document.getElementById('color').value, shoes=document.getElementById('shoes').value;
+ const combos={
+  Streetwear:`${color} oversized tee + relaxed/baggy pants + ${shoes.toLowerCase()}`,
+  Clean:`${color} fitted tee + straight trousers + ${shoes.toLowerCase()}`,
+  Classic:`${color} clean shirt + tailored trousers + classic shoes`,
+  Casual:`${color} tee + relaxed jeans + ${shoes.toLowerCase()}`,
+  'Night / Dark':`dark ${color.toLowerCase()} top + wide-leg pants + ${shoes.toLowerCase()}`
+ };
+ document.getElementById('resultTitle').textContent=`${style} fit • ${occasion}`;
+ document.getElementById('resultText').textContent=`Try: ${combos[style]}. Add one small accent color and keep the rest balanced. This is your starting look — swap pieces you already own to make it yours.`;
+ document.getElementById('result').classList.add('show');
+}
+</script>
+</body>
+</html>
