@@ -702,22 +702,6 @@ async function sendMessage(){
   }
 
   messages.scrollTop = messages.scrollHeight;
-}{
-  const text = chatInput.value.trim();
-
-  if(!text) return;
-
-  addChatMessage('YOU', text, 'user');
-
-  chatInput.value = '';
-
-  setTimeout(function(){
-    addChatMessage(
-      'NXTLOOK',
-      getFashionResponse(text),
-      'ai'
-    );
-  }, 500);
 }
 
 function getFashionResponse(text){
