@@ -280,6 +280,11 @@ footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
       <option>Purple</option>
       <option>Lime</option>
     </select>
+    
+    <div class="field" id="matchingColorField" style="display:none;">
+  <label>Matching color</label>
+  <select id="matchingColor"></select>
+</div>
   </div>
 
   <div class="field">
@@ -393,6 +398,7 @@ function generateFit(){
   const style = document.getElementById('style').value;
   const occasion = document.getElementById('occasion').value;
   const color = document.getElementById('color').value;
+  const matchingColor = document.getElementById('matchingColor').value;
   const silhouette = document.getElementById('silhouette').value;
   const bottom = document.getElementById('bottom').value;
   const shoes = document.getElementById('shoes').value;
@@ -403,7 +409,7 @@ function generateFit(){
       tops: [
         "Stüssy graphic tee",
         "Carhartt WIP oversized tee",
-        "Supreme box-logo style tee",
+        "Supreme graphic tee",
         "Fear of God ESSENTIALS oversized tee"
       ],
       bottoms: [
@@ -412,19 +418,11 @@ function generateFit(){
         "Levi's loose-fit denim",
         "wide-leg carpenter pants"
       ],
-      shoes: [
-        "Nike Air Force 1",
-        "New Balance 9060",
-        "Nike Dunk Low",
-        "adidas Campus 00s"
-      ],
       accessories: [
-        "silver chain + fitted cap",
+        "fitted cap + silver chain",
         "crossbody bag + rings",
-        "New Era cap + silver watch",
-        "small shoulder bag + layered chains"
-      ],
-      accents: ["electric blue", "red", "lime", "purple"]
+        "New Era cap + silver watch"
+      ]
     },
 
     "Dark Streetwear": {
@@ -440,25 +438,17 @@ function generateFit(){
         "Carhartt WIP relaxed cargos",
         "stacked black trousers"
       ],
-      shoes: [
-        "Jordan 4",
-        "New Balance 9060",
-        "Salomon XT-6",
-        "Nike Air Max"
-      ],
       accessories: [
-        "silver chain + black fitted cap",
-        "crossbody bag + rings",
-        "dark sunglasses + silver watch",
-        "layered silver chains + shoulder bag"
-      ],
-      accents: ["deep purple", "electric blue", "red", "silver"]
+        "layered silver chains + shoulder bag",
+        "silver watch + rings",
+        "dark sunglasses + crossbody bag"
+      ]
     },
 
     "Clean": {
       tops: [
         "Uniqlo heavyweight tee",
-        "COS clean overshirt",
+        "COS overshirt",
         "Ralph Lauren polo",
         "minimal knit polo"
       ],
@@ -468,19 +458,11 @@ function generateFit(){
         "clean pleated trousers",
         "straight-fit chinos"
       ],
-      shoes: [
-        "New Balance 550",
-        "adidas Samba",
-        "New Balance 574",
-        "clean leather sneakers"
-      ],
       accessories: [
         "minimal silver watch",
-        "small chain + clean belt",
-        "simple watch + rings",
+        "simple chain + clean belt",
         "minimal sunglasses"
-      ],
-      accents: ["navy", "cream", "forest green", "burgundy"]
+      ]
     },
 
     "Y2K": {
@@ -488,7 +470,7 @@ function generateFit(){
         "Diesel graphic tee",
         "Von Dutch graphic tee",
         "fitted racing tee",
-        "vintage graphic baby tee"
+        "vintage graphic tee"
       ],
       bottoms: [
         "Diesel-style wide-leg denim",
@@ -496,19 +478,11 @@ function generateFit(){
         "washed bootcut denim",
         "loose cargo pants"
       ],
-      shoes: [
-        "Nike Shox",
-        "adidas Response CL",
-        "Nike Air Max",
-        "New Balance 530"
-      ],
       accessories: [
         "small sunglasses + layered chains",
-        "truck­er cap + rings",
-        "shoulder bag + silver jewelry",
-        "colored headphones + chain"
-      ],
-      accents: ["pink", "chrome", "red", "baby blue"]
+        "trucker cap + rings",
+        "shoulder bag + silver jewelry"
+      ]
     },
 
     "Vintage": {
@@ -524,19 +498,11 @@ function generateFit(){
         "washed wide-leg jeans",
         "vintage straight trousers"
       ],
-      shoes: [
-        "Converse Chuck 70",
-        "Vans Old Skool",
-        "adidas Gazelle",
-        "Nike Cortez"
-      ],
       accessories: [
         "vintage watch + rings",
         "retro cap + chain",
-        "small shoulder bag + bracelet",
         "classic sunglasses + watch"
-      ],
-      accents: ["brown", "cream", "burgundy", "olive"]
+      ]
     },
 
     "Old Money": {
@@ -552,19 +518,11 @@ function generateFit(){
         "wide-leg wool trousers",
         "clean dark denim"
       ],
-      shoes: [
-        "classic loafers",
-        "clean leather sneakers",
-        "derby shoes",
-        "suede loafers"
-      ],
       accessories: [
         "classic watch + leather belt",
         "minimal bracelet + watch",
-        "clean sunglasses + watch",
-        "simple chain + leather belt"
-      ],
-      accents: ["cream", "burgundy", "forest green", "navy"]
+        "clean sunglasses + watch"
+      ]
     },
 
     "Sporty": {
@@ -578,21 +536,13 @@ function generateFit(){
         "Nike track pants",
         "adidas wide-leg track pants",
         "relaxed cargos",
-        "sport shorts over compression tights"
-      ],
-      shoes: [
-        "Nike Air Max",
-        "New Balance 9060",
-        "ASICS Gel-Kayano",
-        "adidas Response CL"
+        "sport shorts"
       ],
       accessories: [
         "New Era cap + crossbody",
         "sports watch + chain",
-        "headphones + shoulder bag",
-        "fitted cap + bracelet"
-      ],
-      accents: ["red", "blue", "lime", "orange"]
+        "headphones + shoulder bag"
+      ]
     },
 
     "Grunge": {
@@ -608,50 +558,23 @@ function generateFit(){
         "black carpenter pants",
         "dark cargos"
       ],
-      shoes: [
-        "Dr. Martens-style boots",
-        "Converse Chuck 70",
-        "Vans Sk8-Hi",
-        "black leather boots"
-      ],
       accessories: [
         "layered chains + rings",
         "beanie + silver chain",
-        "dark sunglasses + rings",
-        "crossbody + layered jewelry"
-      ],
-      accents: ["burgundy", "dark red", "purple", "washed blue"]
+        "dark sunglasses + rings"
+      ]
     }
   };
 
   const fit = fits[style] || fits["Streetwear"];
 
-  const random = arr => arr[Math.floor(Math.random() * arr.length)];
+  function random(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
 
   const top = random(fit.tops);
   const chosenBottom = random(fit.bottoms);
-  const shoe = random(fit.shoes);
   const accessory = random(fit.accessories);
-  const accent = random(fit.accents);
-
-  const poseIdeas = [
-    "slight side angle with one hand in your pocket",
-    "walking shot with the camera slightly low",
-    "lean against a wall with relaxed shoulders",
-    "mirror shot with the phone slightly below eye level",
-    "standing straight with one foot slightly forward"
-  ];
-
-  const editIdeas = [
-    "direct flash + subtle grain + clean contrast",
-    "cool shadows + sharp details + slight film grain",
-    "soft highlights + deeper blacks + light grain",
-    "flash photography + slight motion blur",
-    "high contrast + muted background + crisp outfit details"
-  ];
-
-  const pose = random(poseIdeas);
-  const edit = random(editIdeas);
 
   document.getElementById('resultTitle').textContent =
     `${style} • ${occasion} • ${silhouette}`;
@@ -682,7 +605,16 @@ function generateFit(){
           SHOES
         </small>
         <p style="margin-top:6px;color:#fff">
-          ${shoe}
+          ${shoes}
+        </p>
+      </div>
+
+      <div>
+        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
+          MATCHING COLOR
+        </small>
+        <p style="margin-top:6px;color:#fff">
+          ${matchingColor}
         </p>
       </div>
 
@@ -695,39 +627,16 @@ function generateFit(){
         </p>
       </div>
 
-      <div>
-        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
-          COLOR ACCENT
-        </small>
-        <p style="margin-top:6px;color:#fff">
-          ${accent}
-        </p>
-      </div>
-
-      <div>
-        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
-          POSE
-        </small>
-        <p style="margin-top:6px;color:#fff">
-          ${pose}
-        </p>
-      </div>
-
-      <div>
-        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
-          PHOTO EDIT
-        </small>
-        <p style="margin-top:6px;color:#fff">
-          ${edit}
-        </p>
-      </div>
+      <p style="color:#888;margin-top:5px">
+        Use ${matchingColor.toLowerCase()} as a smaller accent instead of
+        making the whole outfit that color.
+      </p>
 
     </div>
   `;
 
   document.getElementById('result').classList.add('show');
 }
-
 
 /* =========================
    ASK NXTLOOK CHAT
@@ -829,6 +738,40 @@ chatInput.addEventListener('keydown', function(e){
     sendMessage();
   }
 });
+  const colorMatches = {
+  Black: ["Deep Purple", "Red", "Silver", "White", "Gray"],
+  Navy: ["White", "Gray", "Burgundy", "Light Blue"],
+  Brown: ["Cream", "Olive", "Burgundy", "Beige"],
+  White: ["Black", "Navy", "Brown", "Gray", "Red"],
+  Green: ["Cream", "Brown", "Black", "Beige"],
+  Red: ["Black", "White", "Gray", "Navy"]
+};
+
+const colorSelect = document.getElementById('color');
+const matchingColorField = document.getElementById('matchingColorField');
+const matchingColor = document.getElementById('matchingColor');
+
+colorSelect.addEventListener('change', function(){
+  const selectedColor = this.value;
+  const matches = colorMatches[selectedColor] || [];
+
+  matchingColor.innerHTML = '';
+
+  matches.forEach(function(color){
+    const option = document.createElement('option');
+    option.textContent = color;
+    option.value = color;
+    matchingColor.appendChild(option);
+  });
+
+  if(matches.length > 0){
+    matchingColorField.style.display = 'block';
+  } else {
+    matchingColorField.style.display = 'none';
+  }
+});
+
+colorSelect.dispatchEvent(new Event('change'));
 </script>
 </body>
 </html>
