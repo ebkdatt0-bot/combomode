@@ -417,7 +417,98 @@ function generateFit(){
     `YOUR LOOK: ${outfit}. Add accessories that match the vibe, keep the silhouette ${silhouette.toLowerCase()}, and use ${color.toLowerCase()} as the main color.`;
 
   document.getElementById('result').classList.add('show');
+}const chatInput = document.getElementById('chatInput');
+const clothesImage = document.getElementById('clothesImage');
+const uploadPreview = document.getElementById('uploadPreview');
+
+function addChatMessage(sender, text, type){
+  const messages = document.getElementById('chatMessages');
+
+  const message = document.createElement('div');
+  message.className = 'message ' + type + '-message';
+
+  message.innerHTML =
+    '<strong>' + sender + '</strong>' +
+    '<p>' + text + '</p>';
+
+  messages.appendChild(message);
+  messages.scrollTop = messages.scrollHeight;
 }
+
+function sendMessage(){
+  const text = chatInput.value.trim();
+
+  if(!text) return;
+
+  addChatMessage('YOU', text, 'user');
+
+  chatInput.value = '';
+
+  setTimeout(function(){
+    addChatMessage(
+      'NXTLOOK',
+      getFashionResponse(text),
+      'ai'
+    );
+  }, 500);
+}
+
+function getFashionResponse(text){
+  const message = text.toLowerCase();
+
+  if(message.includes('shoe') || message.includes('sneaker')){
+    return 'Tell me the rest of the fit and I will match the shoes to it.';
+  }
+
+  if(message.includes('black')){
+    return 'Black is a strong base. Add one accent color and keep the rest of the fit balanced.';
+  }
+
+  if(message.includes('brand')){
+    return 'Tell me your style and budget. I can suggest brands that fit the aesthetic.';
+  }
+
+  if(message.includes('fit') || message.includes('outfit')){
+    return 'Tell me what pieces you have and where you are going. I will build the fit around them.';
+  }
+
+  return 'Bet 👀 Tell me what clothes you have, what style you want, or upload a photo.';
+}
+
+clothesImage.addEventListener('change', function(){
+  const file = this.files[0];
+
+  if(!file || !file.type.startsWith('image/')) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+    uploadPreview.innerHTML =
+      '<img src="' + e.target.result + '" alt="Uploaded clothing">';
+
+    addChatMessage(
+      'YOU',
+      'I uploaded a clothing photo 📸',
+      'user'
+    );
+
+    setTimeout(function(){
+      addChatMessage(
+        'NXTLOOK',
+        'I got the photo 👀. Tell me what you want to style with it.',
+        'ai'
+      );
+    }, 500);
+  };
+
+  reader.readAsDataURL(file);
+});
+
+chatInput.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    sendMessage();
+  }
+});
 </script>
 </body>
 </html>
