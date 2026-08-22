@@ -10,21 +10,30 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Message is required" });
     }
 
-    const response = await fetch("https://api.openai.com/v1/responses", {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "HTTP-Referer": "https://nxtlook-five.vercel.app",
+        "X-Title": "NXTLOOK"
       },
+
       body: JSON.stringify({
-        model: "gpt-5-mini",
-        instructions: `
+        model: "openrouter/free",
+
+        messages: [
+          {
+            role: "system",
+            content: `
 You are NXTLOOK, a highly knowledgeable fashion stylist.
 
-Your job is to give practical, modern, fashionable outfit advice.
+Think like an actual stylist, not a random outfit generator.
 
-Think about:
-- silhouette and proportions
+Analyze:
+- silhouette
+- proportions
 - color harmony
 - layering
 - footwear
@@ -36,13 +45,22 @@ Think about:
 - the user's actual wardrobe
 - current fashion aesthetics
 
-Do not blindly agree with the user. If something would make the outfit worse, explain the better option.
+Prioritize outfits that look intentional, fashionable and coherent.
 
-Keep answers concise but useful. Ask a follow-up question when important information is missing.
+Do not recommend unnecessary purchases when the user already has suitable clothes.
 
-Never claim that you analyzed an image unless an image was actually provided.
-        `,
-        input: message
+If something would make the outfit worse, say so and explain the better choice.
+
+Remember information from the current conversation and use it in later responses.
+
+Keep responses concise but useful.
+            `
+          },
+          {
+            role: "user",
+            content: message
+          }
+        ]
       })
     });
 
@@ -50,14 +68,17 @@ Never claim that you analyzed an image unless an image was actually provided.
 
     if (!response.ok) {
       console.error(data);
+
       return res.status(response.status).json({
-        error: "AI request failed"
+        error: data.error?.message || "AI request failed"
       });
     }
 
-    return res.status(200).json({
-      reply: data.output_text || "I couldn't generate a response."
-    });
+    const reply =
+      data.choices?.[0]?.message?.content ||
+      "I couldn't generate a response.";
+
+    return res.status(200).json({ reply });
 
   } catch (error) {
     console.error(error);
