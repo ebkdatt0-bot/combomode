@@ -6,211 +6,44 @@
 <title>NXTLOOK — Your next look starts here.</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{font-family:Arial,Helvetica,sans-serif;background:#050505;color:#fff;overflow-x:hidden}
 nav{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;position:relative;z-index:5;border-bottom:1px solid #222;background:rgba(5,5,5,.82);backdrop-filter:blur(14px)}
 .logo{font-size:25px;font-weight:900;letter-spacing:-1.5px}.logo span{color:#a8ff00}
 nav a{color:#bbb;text-decoration:none;margin-left:26px;font-size:14px}nav a:hover{color:#fff}
 .hero{min-height:720px;position:relative;display:flex;align-items:center;padding:70px 7%;overflow:hidden}
-.hero:before{content:"";position:absolute;inset:0;background:
-radial-gradient(circle at 15% 30%,rgba(168,255,0,.22),transparent 25%),
-radial-gradient(circle at 85% 20%,rgba(255,48,150,.22),transparent 24%),
-radial-gradient(circle at 70% 85%,rgba(0,170,255,.20),transparent 28%),
-radial-gradient(circle at 55% 45%,rgba(255,145,0,.10),transparent 22%),
-linear-gradient(125deg,#050505 20%,#0b0b0b 55%,#050505);z-index:-3}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 30%,rgba(168,255,0,.22),transparent 25%),radial-gradient(circle at 85% 20%,rgba(255,48,150,.22),transparent 24%),radial-gradient(circle at 70% 85%,rgba(0,170,255,.20),transparent 28%),radial-gradient(circle at 55% 45%,rgba(255,145,0,.10),transparent 22%),linear-gradient(125deg,#050505 20%,#0b0b0b 55%,#050505);z-index:-3}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.82) 42%,rgba(5,5,5,.25) 100%);z-index:-1}
 .copy{max-width:590px;z-index:2}.eyebrow{color:#a8ff00;font-weight:800;letter-spacing:3px;font-size:12px;margin-bottom:18px}
 h1{font-size:clamp(58px,9vw,112px);line-height:.82;letter-spacing:-6px;margin-bottom:28px}
 h1 span{color:#a8ff00;text-shadow:0 0 28px rgba(168,255,0,.18)}.sub{font-size:18px;line-height:1.6;color:#bdbdbd;max-width:500px}
 .cta{display:inline-block;margin-top:30px;background:#a8ff00;color:#050505;padding:16px 24px;border-radius:10px;text-decoration:none;font-weight:900}
-.scene{position:absolute;right:1%;bottom:0;width:58%;height:92%;z-index:0}
-.photo{position:absolute;width:245px;border:1px solid rgba(255,255,255,.22);border-radius:20px;background:#101010;padding:8px;box-shadow:0 25px 80px rgba(0,0,0,.65);overflow:hidden}
-.photo img{display:block;width:100%;height:330px;object-fit:cover;border-radius:14px;filter:saturate(1.08) contrast(1.03)}
-.photo:after{content:"";position:absolute;inset:8px 8px 42px;border-radius:14px;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35));pointer-events:none}
+.scene{position:absolute;right:1%;bottom:0;width:58%;height:92%;z-index:0}.photo{position:absolute;width:245px;border:1px solid rgba(255,255,255,.22);border-radius:20px;background:#101010;padding:8px;box-shadow:0 25px 80px rgba(0,0,0,.65);overflow:hidden}
+.photo img{display:block;width:100%;height:330px;object-fit:cover;border-radius:14px;filter:saturate(1.08) contrast(1.03)}.photo:after{content:"";position:absolute;inset:8px 8px 42px;border-radius:14px;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35));pointer-events:none}
 .photo-label{padding:11px 5px 5px;font-size:10px;font-weight:900;letter-spacing:1.5px;color:#fff}
-.p1{right:47%;top:4%;transform:rotate(-8deg);z-index:3}.p2{right:8%;top:11%;transform:rotate(7deg);z-index:2}.p3{right:29%;bottom:-2%;transform:rotate(-3deg);z-index:4}.p4{right:0%;bottom:2%;transform:rotate(10deg);z-index:1}.c2{right:17%;top:18%;transform:rotate(8deg)}.c3{right:28%;bottom:4%;transform:rotate(-4deg)}
+.p1{right:47%;top:4%;transform:rotate(-8deg);z-index:3}.p2{right:8%;top:11%;transform:rotate(7deg);z-index:2}.p3{right:29%;bottom:-2%;transform:rotate(-3deg);z-index:4}.p4{right:0%;bottom:2%;transform:rotate(10deg);z-index:1}
 .section{padding:90px 7%;background:#080808}.section h2{font-size:42px;letter-spacing:-2px;margin-bottom:12px}.section>p{color:#888;margin-bottom:35px}
 .generator{max-width:950px;margin:auto;border:1px solid #252525;border-radius:24px;background:#0e0e0e;padding:28px}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.field label{display:block;font-size:12px;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
 select{width:100%;padding:14px;background:#161616;border:1px solid #292929;color:#fff;border-radius:10px}
 .generate{width:100%;margin-top:20px;padding:16px;border:0;border-radius:10px;background:#a8ff00;font-weight:900;font-size:16px;cursor:pointer}
+.generate:disabled{opacity:.5;cursor:wait}
 .result{display:none;margin-top:25px;padding:22px;border-radius:16px;background:#151515;border:1px solid #2a2a2a}.result.show{display:block}.result h3{margin-bottom:8px}.result p{color:#aaa;line-height:1.6}
+.result-card{display:grid;gap:14px}.result-item{padding:14px;border:1px solid #242424;border-radius:12px;background:#101010}.result-item small{color:#a8ff00;letter-spacing:1.5px;font-weight:900}.result-item p{margin-top:6px;color:#fff}.score{font-size:28px;font-weight:900;color:#a8ff00}
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:950px;margin:35px auto 0}.plan{padding:26px;border:1px solid #292929;border-radius:18px;background:#0e0e0e}.plan.featured{border-color:#a8ff00}.price{font-size:30px;font-weight:900;margin:14px 0}.plan p{color:#999;line-height:1.6;font-size:14px}
+.inspo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1100px;margin:32px auto 0}.inspo-grid img{width:100%;height:360px;object-fit:cover;border-radius:16px;border:1px solid #292929;transition:transform .25s,filter .25s}.inspo-grid img:hover{transform:translateY(-5px);filter:saturate(1.12)}
+.ai-chat{max-width:850px;margin:35px auto 0;background:#0b0b0b;border:1px solid #292929;border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.chat-header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid #222;background:#101010}.chat-header strong{display:block;font-size:15px;letter-spacing:.5px}.chat-header span{display:block;margin-top:4px;color:#777;font-size:10px;letter-spacing:1.5px}
+.online-dot{width:9px;height:9px;border-radius:50%;background:#a8ff00;box-shadow:0 0 12px rgba(168,255,0,.8)}
+.chat-messages{min-height:320px;max-height:500px;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:14px}.message{max-width:82%;padding:14px 16px;border-radius:16px;line-height:1.55;font-size:14px;white-space:pre-wrap}
+.message strong{display:block;font-size:10px;letter-spacing:1px;margin-bottom:6px;color:#a8ff00}.message p{margin:0;color:#ddd}.ai-message{align-self:flex-start;background:#151515;border:1px solid #272727}.user-message{align-self:flex-end;background:#a8ff00;color:#050505}.user-message p,.user-message strong{color:#050505}
+.chat-input-area{display:flex;align-items:center;gap:10px;padding:14px;border-top:1px solid #222;background:#101010}.chat-input-area input[type="text"]{flex:1;min-width:0;padding:14px 16px;border:1px solid #292929;border-radius:12px;background:#151515;color:#fff;outline:none}.chat-input-area input[type="text"]:focus{border-color:#a8ff00}
+.chat-input-area button{padding:14px 18px;border:0;border-radius:12px;background:#a8ff00;color:#050505;font-weight:900;cursor:pointer}.upload-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid #292929;border-radius:12px;color:#a8ff00;font-size:25px;cursor:pointer;background:#151515}.upload-btn:hover{border-color:#a8ff00}
+.upload-preview{padding:0 24px 14px}.upload-preview img{max-width:220px;max-height:220px;border-radius:14px;border:1px solid #292929;display:block}
+.hint{margin-top:12px;color:#666;font-size:12px}.loading{color:#a8ff00}.error{color:#ff6b6b!important}
 footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
-@media(max-width:800px){.scene{opacity:.28;width:100%;right:-30%;}.photo{width:190px}.photo img{height:260px}.hero{min-height:650px}.grid,.plans{grid-template-columns:1fr}nav a{margin-left:12px}.hero:after{background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.75) 70%,rgba(5,5,5,.4))}}
-
-.inspo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1100px;margin:32px auto 0}
-.inspo-grid img{width:100%;height:360px;object-fit:cover;border-radius:16px;border:1px solid #292929;transition:transform .25s,filter .25s}
-.inspo-grid img:hover{transform:translateY(-5px);filter:saturate(1.12)}
-@media(max-width:800px){.inspo-grid{grid-template-columns:repeat(2,1fr)}.inspo-grid img{height:260px}}
-  .ai-chat{
-  max-width:850px;
-  margin:35px auto 0;
-  background:#0b0b0b;
-  border:1px solid #292929;
-  border-radius:22px;
-  overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,.35);
-}
-
-.chat-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 22px;
-  border-bottom:1px solid #222;
-  background:#101010;
-}
-
-.chat-header strong{
-  display:block;
-  font-size:15px;
-  letter-spacing:.5px;
-}
-
-.chat-header span{
-  display:block;
-  margin-top:4px;
-  color:#777;
-  font-size:10px;
-  letter-spacing:1.5px;
-}
-
-.online-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#a8ff00;
-  box-shadow:0 0 12px rgba(168,255,0,.8);
-}
-
-.chat-messages{
-  min-height:320px;
-  max-height:480px;
-  overflow-y:auto;
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.message{
-  max-width:78%;
-  padding:14px 16px;
-  border-radius:16px;
-  line-height:1.5;
-  font-size:14px;
-}
-
-.message strong{
-  display:block;
-  font-size:10px;
-  letter-spacing:1px;
-  margin-bottom:6px;
-  color:#a8ff00;
-}
-
-.message p{
-  margin:0;
-  color:#ddd;
-}
-
-.ai-message{
-  align-self:flex-start;
-  background:#151515;
-  border:1px solid #272727;
-}
-
-.user-message{
-  align-self:flex-end;
-  background:#a8ff00;
-  color:#050505;
-}
-
-.user-message p{
-  color:#050505;
-}
-
-.user-message strong{
-  color:#050505;
-}
-
-.chat-input-area{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:14px;
-  border-top:1px solid #222;
-  background:#101010;
-}
-
-.chat-input-area input[type="text"]{
-  flex:1;
-  min-width:0;
-  padding:14px 16px;
-  border:1px solid #292929;
-  border-radius:12px;
-  background:#151515;
-  color:#fff;
-  outline:none;
-}
-
-.chat-input-area input[type="text"]:focus{
-  border-color:#a8ff00;
-}
-
-.chat-input-area button{
-  padding:14px 18px;
-  border:0;
-  border-radius:12px;
-  background:#a8ff00;
-  color:#050505;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.upload-btn{
-  width:44px;
-  height:44px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid #292929;
-  border-radius:12px;
-  color:#a8ff00;
-  font-size:25px;
-  cursor:pointer;
-  background:#151515;
-}
-
-.upload-btn:hover{
-  border-color:#a8ff00;
-}
-
-.upload-preview{
-  padding:0 24px 14px;
-}
-
-.upload-preview img{
-  max-width:220px;
-  max-height:220px;
-  border-radius:14px;
-  border:1px solid #292929;
-  display:block;
-}
-
-@media(max-width:600px){
-  .message{
-    max-width:88%;
-  }
-
-  .chat-input-area button{
-    padding:14px;
-  }
-
-  .chat-messages{
-    min-height:280px;
-  }
-}
+@media(max-width:800px){.scene{opacity:.28;width:100%;right:-30%}.photo{width:190px}.photo img{height:260px}.hero{min-height:650px}.grid,.plans{grid-template-columns:1fr}nav a{margin-left:12px}.hero:after{background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.75) 70%,rgba(5,5,5,.4))}.inspo-grid{grid-template-columns:repeat(2,1fr)}.inspo-grid img{height:260px}}
+@media(max-width:600px){.message{max-width:90%}.chat-input-area button{padding:14px}.chat-messages{min-height:280px}}
 </style>
 </head>
 <body>
@@ -223,117 +56,52 @@ footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
   <div class="copy">
     <div class="eyebrow">FITS • INSPO • YOUR VIBE</div>
     <h1>YOUR NEXT<br><span>LOOK.</span></h1>
-    <p class="sub">Find fits that actually hit. Pick your vibe, silhouette, colors and occasion — NXTLOOK turns real street-style inspiration into your next look.</p>
+    <p class="sub">Find fits that actually hit. Pick your vibe, silhouette, colors and occasion — NXTLOOK turns your choices into a smarter next look.</p>
     <a class="cta" href="#generator">GENERATE YOUR LOOK →</a>
   </div>
   <div class="scene" aria-hidden="true">
-    <div class="photo p1"><img src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Real streetwear outfit"><div class="photo-label">BAGGY / CITY</div></div>
-    <div class="photo p2"><img src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Real statement streetwear outfit"><div class="photo-label">BLACK / STATEMENT</div></div>
-    <div class="photo p3"><img src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Real group streetwear outfits"><div class="photo-label">CREW / STREET</div></div>
-    <div class="photo p4"><img src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Real colorful oversized streetwear outfit"><div class="photo-label">COLOR / OVERSIZED</div></div>
+    <div class="photo p1"><img src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Streetwear outfit"><div class="photo-label">BAGGY / CITY</div></div>
+    <div class="photo p2"><img src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Statement streetwear outfit"><div class="photo-label">BLACK / STATEMENT</div></div>
+    <div class="photo p3"><img src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Streetwear group outfits"><div class="photo-label">CREW / STREET</div></div>
+    <div class="photo p4"><img src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Colorful oversized streetwear outfit"><div class="photo-label">COLOR / OVERSIZED</div></div>
   </div>
 </section>
 
 <section class="section" id="generator">
   <h2>Build your fit.</h2>
-  <p>Choose your vibe. We'll give you a starting look.</p>
+  <p>Give NXTLOOK the constraints. The AI makes the styling decisions.</p>
   <div class="generator">
-<div class="grid">
-  <div class="field">
-    <label>Style</label>
-    <select id="style">
-      <option>Streetwear</option>
-      <option>Dark Streetwear</option>
-      <option>Clean</option>
-      <option>Y2K</option>
-      <option>Vintage</option>
-      <option>Old Money</option>
-      <option>Sporty</option>
-      <option>Grunge</option>
-    </select>
+    <div class="grid">
+      <div class="field"><label>Style</label><select id="style">
+        <option>Streetwear</option><option>Dark Streetwear</option><option>Clean</option><option>Y2K</option><option>Vintage</option><option>Old Money</option><option>Sporty</option><option>Grunge</option><option>Techwear</option><option>Archive-inspired</option>
+      </select></div>
+      <div class="field"><label>Occasion</label><select id="occasion">
+        <option>Going out</option><option>School</option><option>Casual</option><option>Party</option><option>Date</option><option>Church</option><option>Photoshoot</option><option>Event</option>
+      </select></div>
+      <div class="field"><label>Main color</label><select id="color">
+        <option>Black</option><option>White</option><option>Grey</option><option>Navy</option><option>Brown</option><option>Red</option><option>Blue</option><option>Pink</option><option>Purple</option><option>Lime</option><option>Cream</option><option>Olive</option>
+      </select></div>
+      <div class="field"><label>Silhouette</label><select id="silhouette">
+        <option>Oversized</option><option>Baggy</option><option>Relaxed</option><option>Slim</option><option>Fitted</option><option>Layered</option><option>Wide-leg</option><option>Balanced</option>
+      </select></div>
+      <div class="field"><label>Bottom</label><select id="bottom">
+        <option>Wide-leg jeans</option><option>Stacked jeans</option><option>Cargo pants</option><option>Baggy trousers</option><option>Flared pants</option><option>Shorts</option><option>Chinos</option><option>Open choice</option>
+      </select></div>
+      <div class="field"><label>Shoes</label><select id="shoes">
+        <option>Sneakers</option><option>High-top sneakers</option><option>Classic shoes</option><option>Boots</option><option>Skate shoes</option><option>Open choice</option>
+      </select></div>
+    </div>
+    <button class="generate" id="generateBtn" onclick="generateFit()">GENERATE MY LOOK →</button>
+    <p class="hint">NXTLOOK will treat these as constraints, not blindly copy them.</p>
+    <div class="result" id="result">
+      <h3 id="resultTitle"></h3>
+      <div id="resultText"></div>
+      <button class="generate" onclick="generateFit()">↻ REGENERATE</button>
+    </div>
   </div>
-
-  <div class="field">
-    <label>Occasion</label>
-    <select id="occasion">
-      <option>Going out</option>
-      <option>School</option>
-      <option>Casual</option>
-      <option>Party</option>
-      <option>Date</option>
-      <option>Church</option>
-      <option>Photoshoot</option>
-    </select>
-  </div>
-
-  <div class="field">
-    <label>Main color</label>
-    <select id="color">
-      <option>Black</option>
-      <option>White</option>
-      <option>Grey</option>
-      <option>Navy</option>
-      <option>Brown</option>
-      <option>Red</option>
-      <option>Blue</option>
-      <option>Pink</option>
-      <option>Purple</option>
-      <option>Lime</option>
-    </select>
-    
-    <div class="field" id="matchingColorField" style="display:none;">
-  <label>Matching color</label>
-  <select id="matchingColor"></select>
-</div>
-  </div>
-
-  <div class="field">
-    <label>Silhouette</label>
-    <select id="silhouette">
-      <option>Oversized</option>
-      <option>Baggy</option>
-      <option>Relaxed</option>
-      <option>Slim</option>
-      <option>Fitted</option>
-      <option>Layered</option>
-    </select>
-  </div>
-
-  <div class="field">
-    <label>Bottom</label>
-    <select id="bottom">
-      <option>Wide-leg jeans</option>
-      <option>Stacked jeans</option>
-      <option>Cargo pants</option>
-      <option>Baggy trousers</option>
-      <option>Flared pants</option>
-      <option>Shorts</option>
-    </select>
-  </div>
-
-  <div class="field">
-    <label>Shoes</label>
-    <select id="shoes">
-      <option>Sneakers</option>
-      <option>High-top sneakers</option>
-      <option>Classic shoes</option>
-      <option>Boots</option>
-      <option>Skate shoes</option>
-    </select>
-  </div>
-</div>
-
-<button class="generate" onclick="generateFit()">GENERATE MY LOOK →</button>
-
-<div class="result" id="result">
-  <img id="fitImage" src="" alt="Generated outfit" style="width:100%;max-height:500px;object-fit:cover;border-radius:16px;margin-bottom:20px;display:none;">
-  <h3 id="resultTitle"></h3>
-  <p id="resultText"></p>
-  <button class="generate" onclick="generateFit()">↻ REGENERATE</button>
-</div>
 </section>
 
-<section class="section" id="inspo-grid">
+<section class="section">
   <h2>FITS THAT HIT.</h2>
   <p>Real street-style references. Save the vibe, then build your own version.</p>
   <div class="inspo-grid">
@@ -345,49 +113,27 @@ footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
 </section>
 
 <section class="section" id="plans">
-  <h2>Choose your level.</h2>
-  <p>Start free. Upgrade when you want more.</p>
+  <h2>Choose your level.</h2><p>Start free. Upgrade when you want more.</p>
   <div class="plans">
-    <div class="plan"><h3>FREE</h3><div class="price">$0</div><p>Basic outfit generations, core styles and color combinations.</p></div>
+    <div class="plan"><h3>FREE</h3><div class="price">$0</div><p>Basic AI outfit generations, core styles and color combinations.</p></div>
     <div class="plan featured"><h3>NXTLOOK+</h3><div class="price">$1.99<span style="font-size:13px;color:#777">/mo</span></div><p>More generations, saved looks and extra customization.</p></div>
     <div class="plan"><h3>PRO</h3><div class="price">$4.99<span style="font-size:13px;color:#777">/mo</span></div><p>Advanced recommendations, unlimited generations and exclusive features.</p></div>
   </div>
 </section>
 
 <section class="section" id="inspo">
-  <h2>ASK NXTLOOK.</h2>
-  <p>Show us what you have. Ask us what to wear.</p>
-
+  <h2>ASK NXTLOOK.</h2><p>Show us what you have. Ask us what to wear.</p>
   <div class="ai-chat">
-    <div class="chat-header">
-      <div>
-        <strong>NXTLOOK AI</strong>
-        <span>STYLE ASSISTANT</span>
-      </div>
-      <div class="online-dot"></div>
-    </div>
-
+    <div class="chat-header"><div><strong>NXTLOOK AI</strong><span>STYLE ASSISTANT</span></div><div class="online-dot"></div></div>
     <div class="chat-messages" id="chatMessages">
-      <div class="message ai-message">
-        <strong>NXTLOOK</strong>
-        <p>Yo 👋 Show me what you're working with. Send a photo of your clothes or tell me what you have.</p>
-      </div>
+      <div class="message ai-message"><strong>NXTLOOK</strong><p>Yo 👋 Tell me what you're working with. I can build, fix, rate or completely rethink a fit.</p></div>
     </div>
-
     <div class="upload-preview" id="uploadPreview"></div>
-
     <div class="chat-input-area">
       <label class="upload-btn" for="clothesImage">＋</label>
       <input type="file" id="clothesImage" accept="image/*" hidden>
-
-      <input
-        type="text"
-        id="chatInput"
-        placeholder="Ask NXTLOOK what to wear..."
-        autocomplete="off"
-      >
-
-      <button onclick="sendMessage()">SEND →</button>
+      <input type="text" id="chatInput" placeholder="Ask NXTLOOK what to wear..." autocomplete="off">
+      <button id="sendBtn" onclick="sendMessage()">SEND →</button>
     </div>
   </div>
 </section>
@@ -395,409 +141,166 @@ footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
 <footer>NXTLOOK — Your next look starts here.</footer>
 
 <script>
-function generateFit(){
-  const style = document.getElementById('style').value;
-  const occasion = document.getElementById('occasion').value;
-  const color = document.getElementById('color').value;
-  const matchingColor = document.getElementById('matchingColor').value;
-  const silhouette = document.getElementById('silhouette').value;
-  const bottom = document.getElementById('bottom').value;
-  const shoes = document.getElementById('shoes').value;
-
-  const fits = {
-
-    "Streetwear": {
-      tops: [
-        "Stüssy graphic tee",
-        "Carhartt WIP oversized tee",
-        "Supreme graphic tee",
-        "Fear of God ESSENTIALS oversized tee"
-      ],
-      bottoms: [
-        "Dickies relaxed trousers",
-        "Carhartt WIP baggy cargos",
-        "Levi's loose-fit denim",
-        "wide-leg carpenter pants"
-      ],
-      accessories: [
-        "fitted cap + silver chain",
-        "crossbody bag + rings",
-        "New Era cap + silver watch"
-      ]
-    },
-
-    "Dark Streetwear": {
-      tops: [
-        "black Stüssy graphic tee",
-        "Fear of God ESSENTIALS hoodie",
-        "Carhartt WIP heavyweight tee",
-        "oversized washed graphic tee"
-      ],
-      bottoms: [
-        "black Dickies cargos",
-        "washed-black wide-leg denim",
-        "Carhartt WIP relaxed cargos",
-        "stacked black trousers"
-      ],
-      accessories: [
-        "layered silver chains + shoulder bag",
-        "silver watch + rings",
-        "dark sunglasses + crossbody bag"
-      ]
-    },
-
-    "Clean": {
-      tops: [
-        "Uniqlo heavyweight tee",
-        "COS overshirt",
-        "Ralph Lauren polo",
-        "minimal knit polo"
-      ],
-      bottoms: [
-        "Levi's straight denim",
-        "COS wide-leg trousers",
-        "clean pleated trousers",
-        "straight-fit chinos"
-      ],
-      accessories: [
-        "minimal silver watch",
-        "simple chain + clean belt",
-        "minimal sunglasses"
-      ]
-    },
-
-    "Y2K": {
-      tops: [
-        "Diesel graphic tee",
-        "Von Dutch graphic tee",
-        "fitted racing tee",
-        "vintage graphic tee"
-      ],
-      bottoms: [
-        "Diesel-style wide-leg denim",
-        "baggy carpenter jeans",
-        "washed bootcut denim",
-        "loose cargo pants"
-      ],
-      accessories: [
-        "small sunglasses + layered chains",
-        "trucker cap + rings",
-        "shoulder bag + silver jewelry"
-      ]
-    },
-
-    "Vintage": {
-      tops: [
-        "vintage Levi's graphic tee",
-        "washed band tee",
-        "retro sports jersey",
-        "vintage workwear shirt"
-      ],
-      bottoms: [
-        "Levi's 501-style denim",
-        "relaxed carpenter pants",
-        "washed wide-leg jeans",
-        "vintage straight trousers"
-      ],
-      accessories: [
-        "vintage watch + rings",
-        "retro cap + chain",
-        "classic sunglasses + watch"
-      ]
-    },
-
-    "Old Money": {
-      tops: [
-        "Ralph Lauren polo",
-        "Ralph Lauren Oxford shirt",
-        "COS knit polo",
-        "clean linen shirt"
-      ],
-      bottoms: [
-        "pleated tailored trousers",
-        "straight chinos",
-        "wide-leg wool trousers",
-        "clean dark denim"
-      ],
-      accessories: [
-        "classic watch + leather belt",
-        "minimal bracelet + watch",
-        "clean sunglasses + watch"
-      ]
-    },
-
-    "Sporty": {
-      tops: [
-        "Nike football jersey",
-        "adidas track jacket",
-        "Puma oversized jersey",
-        "vintage sports jersey"
-      ],
-      bottoms: [
-        "Nike track pants",
-        "adidas wide-leg track pants",
-        "relaxed cargos",
-        "sport shorts"
-      ],
-      accessories: [
-        "New Era cap + crossbody",
-        "sports watch + chain",
-        "headphones + shoulder bag"
-      ]
-    },
-
-    "Grunge": {
-      tops: [
-        "washed graphic tee",
-        "vintage band tee",
-        "oversized flannel over graphic tee",
-        "distressed long-sleeve"
-      ],
-      bottoms: [
-        "washed-black wide-leg denim",
-        "distressed baggy jeans",
-        "black carpenter pants",
-        "dark cargos"
-      ],
-      accessories: [
-        "layered chains + rings",
-        "beanie + silver chain",
-        "dark sunglasses + rings"
-      ]
-    }
-  };
-
-  const fit = fits[style] || fits["Streetwear"];
-
-  function random(arr){
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
-
-  const top = random(fit.tops);
-  const chosenBottom = random(fit.bottoms);
-  const accessory = random(fit.accessories);
-
-  document.getElementById('resultTitle').textContent =
-    `${style} • ${occasion} • ${silhouette}`;
-
-  document.getElementById('resultText').innerHTML = `
-    <div style="display:grid;gap:14px">
-
-      <div>
-        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
-          YOUR FIT
-        </small>
-        <p style="margin-top:6px;color:#fff">
-          ${color} ${top}
-        </p>
-      </div>
-
-      <div>
-        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
-          BOTTOM
-        </small>
-        <p style="margin-top:6px;color:#fff">
-          ${chosenBottom}
-        </p>
-      </div>
-
-      <div>
-        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
-          SHOES
-        </small>
-        <p style="margin-top:6px;color:#fff">
-          ${shoes}
-        </p>
-      </div>
-
-      <div>
-        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
-          MATCHING COLOR
-        </small>
-        <p style="margin-top:6px;color:#fff">
-          ${matchingColor}
-        </p>
-      </div>
-
-      <div>
-        <small style="color:#a8ff00;letter-spacing:1.5px;font-weight:900">
-          ACCESSORIES
-        </small>
-        <p style="margin-top:6px;color:#fff">
-          ${accessory}
-        </p>
-      </div>
-
-      <p style="color:#888;margin-top:5px">
-        Use ${matchingColor.toLowerCase()} as a smaller accent instead of
-        making the whole outfit that color.
-      </p>
-
-    </div>
-  `;
-
-  document.getElementById('result').classList.add('show');
-}
-
-/* =========================
-   ASK NXTLOOK CHAT
-========================= */
-
 const chatInput = document.getElementById('chatInput');
 const clothesImage = document.getElementById('clothesImage');
 const uploadPreview = document.getElementById('uploadPreview');
+const chatMessages = document.getElementById('chatMessages');
+let chatHistory = [];
+let uploadedImageData = null;
 
-function addChatMessage(sender, text, type){
-  const messages = document.getElementById('chatMessages');
+const colorMatches = {
+  Black:["White","Gray","Deep Purple","Red","Silver"],
+  White:["Black","Navy","Brown","Gray","Olive"],
+  Grey:["Black","White","Navy","Burgundy","Red"],
+  Navy:["White","Gray","Burgundy","Light Blue","Cream"],
+  Brown:["Cream","Olive","Burgundy","Beige","Black"],
+  Red:["Black","White","Gray","Navy","Cream"],
+  Blue:["White","Brown","Gray","Cream","Navy"],
+  Pink:["Black","White","Gray","Brown","Red"],
+  Purple:["Black","White","Gray","Silver","Cream"],
+  Lime:["Black","White","Gray","Navy","Purple"],
+  Cream:["Brown","Olive","Navy","Black","Burgundy"],
+  Olive:["Cream","Brown","Black","White","Burgundy"]
+};
 
-  const message = document.createElement('div');
-  message.className = 'message ' + type + '-message';
+function escapeHTML(value){
+  return String(value || "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
 
-  message.innerHTML =
-    '<strong>' + sender + '</strong>' +
-    '<p>' + text + '</p>';
+function addChatMessage(sender,text,type){
+  const message=document.createElement('div');
+  message.className='message '+type+'-message';
+  const strong=document.createElement('strong');
+  strong.textContent=sender;
+  const p=document.createElement('p');
+  p.textContent=text;
+  message.appendChild(strong);
+  message.appendChild(p);
+  chatMessages.appendChild(message);
+  chatMessages.scrollTop=chatMessages.scrollHeight;
+  return message;
+}
 
-  messages.appendChild(message);
-  messages.scrollTop = messages.scrollHeight;
+function getPreferences(){
+  return {
+    style:document.getElementById('style').value,
+    occasion:document.getElementById('occasion').value,
+    color:document.getElementById('color').value,
+    silhouette:document.getElementById('silhouette').value,
+    bottom:document.getElementById('bottom').value,
+    shoes:document.getElementById('shoes').value
+  };
+}
+
+function generatorPrompt(p){
+  const matches=colorMatches[p.color] || [];
+  return `Create one strong outfit using these preferences:
+Style: ${p.style}
+Occasion: ${p.occasion}
+Main color: ${p.color}
+Good supporting colors: ${matches.join(", ")}
+Preferred silhouette: ${p.silhouette}
+Preferred bottom: ${p.bottom}
+Preferred shoes: ${p.shoes}
+
+Use expert styling judgment. If a selected bottom or shoe clashes with the silhouette or occasion, keep the user's direction but choose a more coherent variation. Give a complete outfit and a score out of 10.`;
+}
+
+async function callAI(message, mode='chat', imageData=null){
+  const response=await fetch('/api/chat',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      message,
+      mode,
+      history:chatHistory,
+      preferences:getPreferences(),
+      imageData
+    })
+  });
+  let data;
+  try{data=await response.json()}catch(e){throw new Error('The server returned an invalid response.')};
+  if(!response.ok) throw new Error(data.error || 'Request failed');
+  return data.reply || 'I could not generate a response.';
+}
+
+async function generateFit(){
+  const btn=document.getElementById('generateBtn');
+  const result=document.getElementById('result');
+  const resultText=document.getElementById('resultText');
+  const title=document.getElementById('resultTitle');
+  const p=getPreferences();
+
+  btn.disabled=true;
+  btn.textContent='BUILDING YOUR FIT…';
+  result.classList.add('show');
+  title.textContent=`${p.style} • ${p.occasion}`;
+  resultText.innerHTML='<div class="result-item"><p class="loading">NXTLOOK is styling it… 👀</p></div>';
+
+  try{
+    const reply=await callAI(generatorPrompt(p),'generator');
+    const scoreMatch=reply.match(/SCORE\s*:\s*(\d+(?:\.\d+)?)\s*\/\s*10/i);
+    const score=scoreMatch ? scoreMatch[1] : null;
+    resultText.innerHTML=
+      '<div class="result-item"><small>NXTLOOK AI</small><p>'+escapeHTML(reply)+'</p></div>'+
+      (score ? '<div class="result-item"><small>FIT SCORE</small><div class="score">'+score+'/10</div></div>' : '');
+  }catch(error){
+    resultText.innerHTML='<div class="result-item"><p class="error">ERROR: '+escapeHTML(error.message)+'</p></div>';
+  }finally{
+    btn.disabled=false;
+    btn.textContent='GENERATE MY LOOK →';
+  }
 }
 
 async function sendMessage(){
-  const text = chatInput.value.trim();
-
+  const text=chatInput.value.trim();
   if(!text) return;
 
-  addChatMessage('YOU', text, 'user');
-  chatInput.value = '';
+  addChatMessage('YOU',text,'user');
+  chatInput.value='';
+  const thinking=addChatMessage('NXTLOOK','Thinking… 👀','ai');
+  const p=thinking.querySelector('p');
+  const sendBtn=document.getElementById('sendBtn');
+  sendBtn.disabled=true;
 
-  addChatMessage('NXTLOOK', 'Thinking... 👀', 'ai');
+  try{
+    const reply=await callAI(text,'chat',uploadedImageData);
+    p.textContent=reply;
 
-  const messages = document.getElementById('chatMessages');
-  const lastMessage = messages.lastElementChild;
-
-  try {
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: text
-      })
-    });
-
-    const data = await response.json();
-
-    if(!response.ok){
-      throw new Error(data.error || 'Request failed');
-    }
-
-    lastMessage.querySelector('p').textContent =
-      data.reply || 'I could not generate a response.';
-
-  } catch(error) {
-    console.error(error);
-
-    lastMessage.querySelector('p').textContent =
-      'ERROR: ' + error.message;
+    chatHistory.push({role:'user',content:text});
+    chatHistory.push({role:'assistant',content:reply});
+    chatHistory=chatHistory.slice(-10);
+  }catch(error){
+    p.textContent='ERROR: '+error.message;
+    p.classList.add('error');
+  }finally{
+    sendBtn.disabled=false;
+    chatMessages.scrollTop=chatMessages.scrollHeight;
   }
-
-  messages.scrollTop = messages.scrollHeight;
 }
 
-function getFashionResponse(text){
-  const message = text.toLowerCase();
-
-  if(message.includes('shoe') || message.includes('sneaker')){
-    return 'Tell me the rest of the fit and I will match the shoes to the silhouette and color palette.';
-  }
-
-  if(message.includes('brand')){
-    return 'Tell me your aesthetic — dark streetwear, Y2K, vintage, clean, sporty, grunge, etc. — and your budget. I can narrow down brands that fit.';
-  }
-
-  if(message.includes('black')){
-    return 'Black is a strong base. Keep the silhouette interesting with wider bottoms, layering or one bright accent instead of making every piece identical.';
-  }
-
-  if(message.includes('outfit') || message.includes('fit')){
-    return 'Bet. Tell me what pieces you already own, the occasion and the vibe you want. I will build the look around what you actually have.';
-  }
-
-  if(message.includes('pose') || message.includes('picture') || message.includes('photo')){
-    return 'For a fashion shot, try a slight side angle, relaxed shoulders and one hand in your pocket. Direct flash + subtle grain can make the fit pop.';
-  }
-
-  return 'Bet 👀 Tell me what clothes you have, your style, where you are going, or upload a photo and we can build the look around it.';
-}
-
-clothesImage.addEventListener('change', function(){
-  const file = this.files[0];
-
+clothesImage.addEventListener('change',function(){
+  const file=this.files[0];
   if(!file || !file.type.startsWith('image/')) return;
 
-  const reader = new FileReader();
-
-  reader.onload = function(e){
-    uploadPreview.innerHTML =
-      '<img src="' + e.target.result + '" alt="Uploaded clothing">';
-
-    addChatMessage(
-      'YOU',
-      'I uploaded a clothing photo 📸',
-      'user'
-    );
-
-    setTimeout(function(){
-      addChatMessage(
-        'NXTLOOK',
-        'I got the photo 👀. Tell me what you want to build with this piece and I will help style it.',
-        'ai'
-      );
-    }, 500);
+  const reader=new FileReader();
+  reader.onload=function(e){
+    uploadedImageData=e.target.result;
+    uploadPreview.innerHTML='<img src="'+escapeHTML(uploadedImageData)+'" alt="Uploaded clothing">';
+    addChatMessage('YOU','I uploaded a clothing photo 📸','user');
+    addChatMessage('NXTLOOK','Photo attached. Ask me to identify the piece, build an outfit around it, match colors, or rate the styling.','ai');
   };
-
   reader.readAsDataURL(file);
 });
 
-chatInput.addEventListener('keydown', function(e){
-  if(e.key === 'Enter'){
+chatInput.addEventListener('keydown',e=>{
+  if(e.key==='Enter' && !e.shiftKey){
+    e.preventDefault();
     sendMessage();
   }
 });
-  const colorMatches = {
-  Black: ["Deep Purple", "Red", "Silver", "White", "Gray"],
-  Navy: ["White", "Gray", "Burgundy", "Light Blue"],
-  Brown: ["Cream", "Olive", "Burgundy", "Beige"],
-  White: ["Black", "Navy", "Brown", "Gray", "Red"],
-  Green: ["Cream", "Brown", "Black", "Beige"],
-  Red: ["Black", "White", "Gray", "Navy"]
-};
-
-const colorSelect = document.getElementById('color');
-const matchingColorField = document.getElementById('matchingColorField');
-const matchingColor = document.getElementById('matchingColor');
-
-colorSelect.addEventListener('change', function(){
-  const selectedColor = this.value;
-  const matches = colorMatches[selectedColor] || [];
-
-  matchingColor.innerHTML = '';
-
-  matches.forEach(function(color){
-    const option = document.createElement('option');
-    option.textContent = color;
-    option.value = color;
-    matchingColor.appendChild(option);
-  });
-
-  if(matches.length > 0){
-    matchingColorField.style.display = 'block';
-  } else {
-    matchingColorField.style.display = 'none';
-  }
-});
-
-colorSelect.dispatchEvent(new Event('change'));
 </script>
 </body>
 </html>
