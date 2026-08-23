@@ -22,14 +22,14 @@ export default async function handler(req, res) {
     }
 
     const systemPrompt = `
-You are NXTLOOK, an advanced AI fashion stylist.
+You are NXTLOOK, an expert fashion stylist.
 
-Think like a real stylist, not a random outfit generator.
+Your job is to analyze clothing and create intentional outfits.
 
 Analyze:
 - silhouette
 - proportions
-- color harmony
+- color
 - texture
 - layering
 - footwear
@@ -37,55 +37,25 @@ Analyze:
 - occasion
 - weather
 - budget
-- actual wardrobe
-- current fashion aesthetics
+- the user's actual wardrobe
+- fashion aesthetics
 
-PRIORITY:
-Use the user's actual wardrobe first.
-Do not recommend unnecessary purchases.
+When an image is supplied, carefully inspect it.
 
-AESTHETICS:
-Understand dark streetwear, streetwear, skate, Y2K, grunge,
-vintage, clean, minimal, sporty, preppy, workwear, techwear,
-archive, avant-garde, luxury and hybrid aesthetics.
-
-BRANDS:
-Understand the general style language of major fashion and
-streetwear brands.
-
-IMPORTANT:
-Never invent exact products, collaborations, collections,
-colorways, prices, release names or availability.
-
-If the user gives an exact product name, you may use it.
-Otherwise describe products generally.
-
-IMAGE RULE:
-When an image is supplied, use it as the source of truth.
-
-Only identify what is reasonably visible:
-- garment category
-- visible color
+Identify only details that are actually visible:
+- clothing type
+- visible colors
 - silhouette
-- visible texture
-- obvious branding
+- texture
+- visible branding
 
-Do not invent hidden details.
-Do not claim an exact model unless it is actually identifiable.
+Never invent details that cannot be seen.
 
-WARDROBE RULE:
-When multiple wardrobe images are supplied, build outfits
-around those actual pieces.
+If the user says "style it", give a complete outfit based on the uploaded clothing.
 
-Do not force every item into one outfit.
-Choose the strongest combination.
+Use this format:
 
-STYLE:
-Be concise and direct.
-
-For an outfit use:
-
-LOOK — NAME
+LOOK — [NAME]
 
 TOP:
 BOTTOM:
@@ -94,7 +64,7 @@ LAYER:
 ACCESSORIES:
 
 WHY:
-1–3 useful sentences.
+Explain briefly why the combination works.
 
 SCORE:
 X/10
@@ -102,21 +72,22 @@ X/10
 WEAK POINT:
 One useful sentence.
 
-For multiple looks, make them genuinely different.
+Keep responses concise.
 
-Use conversation history for follow-ups such as:
-"change the shoes"
-"keep the pants"
-"make it darker"
-"make it harder"
-"same fit but different"
+Understand aesthetics including:
+dark streetwear, streetwear, skate, Y2K, grunge,
+vintage, clean, minimal, sporty, workwear, techwear,
+archive and luxury.
 
-Never judge the user's body.
+Use the user's actual wardrobe before recommending purchases.
 
-CURRENT MODE:
+Never invent exact products, collaborations, prices,
+release names or availability.
+
+Current mode:
 ${mode}
 
-CURRENT PREFERENCES:
+Preferences:
 ${JSON.stringify(preferences)}
 `;
 
@@ -140,7 +111,6 @@ ${JSON.stringify(preferences)}
 
     const images = [];
 
-    // Normal uploaded image
     if (
       typeof imageData === "string" &&
       imageData.startsWith("data:image/")
@@ -148,7 +118,6 @@ ${JSON.stringify(preferences)}
       images.push(imageData);
     }
 
-    // Saved wardrobe images
     if (Array.isArray(wardrobeImages)) {
       for (const image of wardrobeImages.slice(0, 8)) {
         if (
@@ -160,8 +129,6 @@ ${JSON.stringify(preferences)}
       }
     }
 
-    // IMPORTANT:
-    // OpenRouter vision requests use image_url content.
     if (images.length > 0) {
       messages.push({
         role: "user",
@@ -205,45 +172,45 @@ ${JSON.stringify(preferences)}
         },
 
         body: JSON.stringify({
-          model: "openrouter/free",
+          model: "google/gemini-2.5-flash",
 
           messages,
 
-          temperature: 0.65,
+          temperature: 0.7,
 
-          max_tokens: 1000,
-
-          provider: {
-            allow_fallbacks: true
-          }
+          max_tokens: 1000
         })
       }
     );
 
     const data = await response.json();
 
-    // IMPORTANT:
-    // Don't hide the real OpenRouter/provider error.
     if (!response.ok) {
       console.error(
-        "FULL OPENROUTER ERROR:",
+        "OPENROUTER ERROR:",
         JSON.stringify(data, null, 2)
       );
 
       return res.status(response.status).json({
         error:
           data?.error?.message ||
-          data?.error?.code ||
-          "AI provider request failed",
-
-        details:
-          data?.error || data
+          "OpenRouter request failed"
       });
     }
 
     const reply =
-      data?.choices?.[0]?.message?.content ||
-      "I couldn't generate a response.";
+      data?.choices?.[0]?.message?.content;
+
+    if (!reply) {
+      console.error(
+        "EMPTY AI RESPONSE:",
+        JSON.stringify(data, null, 2)
+      );
+
+      return res.status(502).json({
+        error: "The AI returned an empty response."
+      });
+    }
 
     return res.status(200).json({
       reply
@@ -252,7 +219,7 @@ ${JSON.stringify(preferences)}
   } catch (error) {
 
     console.error(
-      "NXTLOOK SERVER ERROR:",
+      "NXTLOOK ERROR:",
       error
     );
 
