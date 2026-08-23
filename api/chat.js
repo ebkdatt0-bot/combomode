@@ -276,8 +276,7 @@ ${JSON.stringify(preferences)}
 
           body:JSON.stringify({
 
-            model:"openrouter/free",
-
+model:"google/gemma-4-31b-it:free",
             messages,
 
             temperature:0.65,
