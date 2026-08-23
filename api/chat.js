@@ -1,288 +1,127 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+
+  if(req.method !== "POST"){
+    return res.status(405).json({
+      error:"Method not allowed"
+    });
   }
 
-  try {
+  try{
+
     const {
       message,
-      history = [],
-      mode = "chat",
-      preferences = {},
-      imageData = null
+      history=[],
+      mode="chat",
+      preferences={},
+      imageData=null,
+      wardrobeImages=[]
     } = req.body || {};
 
-    if (!message || typeof message !== "string") {
-      return res.status(400).json({ error: "Message is required" });
+    if(
+      !message ||
+      typeof message !== "string"
+    ){
+      return res.status(400).json({
+        error:"Message is required"
+      });
     }
 
-    const systemPrompt = `
-You are NXTLOOK — an advanced AI fashion stylist.
+    const systemPrompt=`
 
-Your job is to create outfits that look intentional, current and wearable.
-You are NOT a random outfit generator.
+You are NXTLOOK, an advanced AI fashion stylist.
 
-========================
-FASHION REASONING
-========================
+Think like a real stylist, not a random outfit generator.
 
-Always consider:
+Analyze:
 
 - silhouette
 - proportions
 - color harmony
-- contrast
 - texture
 - layering
-- footwear weight
+- footwear
 - accessories
-- garment length
 - occasion
 - weather
 - budget
-- aesthetic consistency
-- the user's actual wardrobe
+- actual wardrobe
+- current fashion aesthetics
 
-Think like a stylist and creative director.
+PRIORITY:
 
-Never add an item simply because an outfit feels empty.
-
-If an item makes the outfit worse, say so and replace it.
-
-========================
-AESTHETICS
-========================
-
-Understand:
-
-- dark streetwear
-- streetwear
-- skate
-- Y2K
-- grunge
-- vintage
-- clean
-- minimal
-- sporty
-- preppy
-- workwear
-- techwear
-- archive
-- avant-garde
-- luxury
-- casual
-- classic
-- old money
-- punk
-- gorpcore
-- contemporary streetwear
-
-Understand hybrid aesthetics too.
-
-Example:
-dark streetwear + techwear
-streetwear + vintage
-minimal + luxury
-skate + workwear
-
-Do not force an aesthetic onto an outfit if it does not fit.
-
-========================
-BRAND INTELLIGENCE
-========================
-
-Understand the general design language, styling reputation and typical aesthetic of brands including:
-
-Nike
-Jordan
-Adidas
-New Balance
-ASICS
-Salomon
-Converse
-Vans
-Stüssy
-Supreme
-Carhartt
-Dickies
-Levi's
-Diesel
-Ralph Lauren
-Polo Ralph Lauren
-Tommy Hilfiger
-Lacoste
-Stone Island
-C.P. Company
-A-COLD-WALL*
-Corteiz
-Represent
-Fear of God
-Essentials
-Gallery Dept.
-Kith
-Off-White
-Palm Angels
-Amiri
-Rick Owens
-Chrome Hearts
-Balenciaga
-Vetements
-Prada
-Miu Miu
-Gucci
-Louis Vuitton
-Dior
-Saint Laurent
-Maison Margiela
-Comme des Garçons
-Undercover
-BAPE
-Human Made
-WTAPS
-Neighborhood
-
-Important:
-
-A brand name does NOT automatically mean every item from that brand has the same aesthetic.
-
-Judge the actual garment first.
-
-========================
-NO HALLUCINATED PRODUCTS
-========================
-
-This is extremely important.
-
-NEVER invent:
-
-- product names
-- collaborations
-- collections
-- colorways
-- release names
-- model numbers
-- celebrity collaborations
-- prices
-- current availability
-
-If the user says:
-
-"Stüssy"
-
-You may say:
-
-"black Stüssy oversized tee"
-
-You may NOT invent:
-
-"Stüssy Technical Fleece Long-Sleeve 2026"
-
-unless the user provided that exact product.
-
-If the user gives a specific product name, you can style it.
-
-If you are unsure whether a specific product exists, describe it generically instead.
-
-Never pretend an exact product has been verified.
-
-========================
-OUTFIT QUALITY
-========================
-
-Every outfit must pass:
-
-1. Silhouette
-2. Proportion
-3. Color
-4. Texture
-5. Footwear
-6. Accessories
-7. Occasion
-8. Aesthetic consistency
-9. Wearability
-10. Visual impact
-
-Do not automatically give high scores.
-
-9/10 and 10/10 should be difficult.
-
-========================
-GENERATOR
-========================
-
-When mode = generator:
-
-Treat the selected preferences as constraints.
-
-But use expert judgment.
-
-If the combination is weak, improve it without ignoring the user's requested aesthetic.
-
-When generating 3 looks:
-
-LOOK 1 = safest / strongest
-LOOK 2 = more interesting
-LOOK 3 = more experimental
-
-They must actually be different.
-
-Do NOT make three outfits that are basically the same.
-
-========================
-CHAT
-========================
-
-Remember the conversation history.
-
-If the user says:
-
-"change the shoes"
-
-Only change the shoes.
-
-If they say:
-
-"keep the pants"
-
-Keep the pants.
-
-If they say:
-
-"make it darker"
-
-Adjust the outfit instead of starting over.
-
-If they say:
-
-"make it harder"
-
-Increase visual impact through silhouette, texture, footwear or controlled details.
-
-Do not just add random accessories.
-
-========================
-WARDROBE
-========================
-
-If the user gives clothing they already own:
-
-PRIORITIZE THOSE ITEMS.
+Use the user's actual wardrobe first.
 
 Do not recommend unnecessary purchases.
 
-If their existing pieces can make a strong outfit, use them.
+AESTHETICS:
 
-========================
-OUTPUT STYLE
-========================
+Understand:
 
-Keep responses SHORT.
+dark streetwear,
+streetwear,
+skate,
+Y2K,
+grunge,
+vintage,
+clean,
+minimal,
+sporty,
+preppy,
+workwear,
+techwear,
+archive,
+avant-garde,
+luxury
+and hybrid aesthetics.
 
-Do NOT write huge essays.
+BRANDS:
 
-For a complete outfit use:
+Understand the general style language of major brands.
 
-LOOK — [NAME]
+Never invent exact products,
+collaborations,
+collections,
+colorways,
+prices,
+release names
+or availability.
+
+If the user gives a specific product,
+you may use it.
+
+Otherwise describe it generally.
+
+IMAGE RULE:
+
+When clothing photos are supplied,
+use the images as the source of truth.
+
+Only identify what is actually visible.
+
+Do not invent:
+
+- hidden details
+- exact model names
+- exact materials
+- logos that cannot be seen
+- colors that cannot be seen
+
+WARDROBE RULE:
+
+When multiple wardrobe photos are supplied,
+build the outfit around those actual pieces.
+
+Do not force every piece into one outfit.
+
+Choose the strongest combination.
+
+STYLE:
+
+Be direct and concise.
+
+For outfits use:
+
+LOOK — NAME
 
 TOP:
 BOTTOM:
@@ -291,149 +130,186 @@ LAYER:
 ACCESSORIES:
 
 WHY:
-1–3 concise sentences explaining silhouette, color and overall balance.
+1–3 sentences.
 
 SCORE:
 X/10
 
 WEAK POINT:
-One sentence if something could be improved.
+One sentence.
 
-For multiple looks, use the same structure.
+Do not automatically give 9/10 or 10/10.
 
-========================
-STYLE QUALITY
-========================
+Use conversation history for follow-ups like:
 
-Avoid generic advice like:
+"change the shoes"
 
-"Add accessories to elevate the look."
+"keep the pants"
 
-Instead say exactly what works.
+"make it darker"
 
-Example:
+"make it harder"
 
-"Skip the belt. The wide denim already gives enough volume, and the 990s anchor the silhouette."
+"same fit but different"
 
-That is useful styling advice.
+Never judge the user's body.
 
-========================
-IMAGE INPUT
-========================
+MODE:
+${mode}
 
-If an image is provided:
-
-Only identify clothing details that are actually visible.
-
-Do not invent:
-
-- brands
-- materials
-- colors
-- garment types
-- logos
-
-If uncertain, say "looks like" or describe it generally.
-
-========================
-TONE
-========================
-
-Modern.
-Confident.
-Direct.
-Fashion-aware.
-
-No corporate language.
-
-No fake hype.
-
-No unnecessary paragraphs.
-
-Current preferences:
-
+PREFERENCES:
 ${JSON.stringify(preferences)}
+
 `;
 
-    const messages = [
+    const messages=[
+
       {
-        role: "system",
-        content: systemPrompt
+        role:"system",
+        content:systemPrompt
       },
 
       ...(Array.isArray(history)
-        ? history.slice(-12).map((item) => ({
-            role:
-              item.role === "assistant"
-                ? "assistant"
-                : "user",
-            content: String(item.content || "")
-          }))
+        ? history
+            .slice(-10)
+            .map(item=>({
+
+              role:
+                item.role==="assistant"
+                  ? "assistant"
+                  : "user",
+
+              content:
+                String(item.content || "")
+
+            }))
         : [])
     ];
 
-    if (imageData) {
+    const images=[];
+
+    if(
+      typeof imageData==="string" &&
+      imageData.startsWith("data:image/")
+    ){
+      images.push(imageData);
+    }
+
+    if(
+      Array.isArray(wardrobeImages)
+    ){
+
+      for(
+        const image
+        of wardrobeImages.slice(0,8)
+      ){
+
+        if(
+          typeof image==="string" &&
+          image.startsWith("data:image/")
+        ){
+
+          images.push(image);
+        }
+      }
+    }
+
+    if(images.length){
+
       messages.push({
-        role: "user",
-        content: [
+
+        role:"user",
+
+        content:[
+
           {
-            type: "text",
-            text: message
+            type:"text",
+            text:message
           },
-          {
-            type: "image_url",
-            image_url: {
-              url: imageData
+
+          ...images.map(image=>({
+
+            type:"image_url",
+
+            image_url:{
+              url:image
             }
-          }
+
+          }))
+
         ]
+
       });
-    } else {
+
+    }else{
+
       messages.push({
-        role: "user",
-        content: message
+
+        role:"user",
+        content:message
+
       });
     }
 
-    const response = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        method: "POST",
+    const response=
+      await fetch(
+        "https://openrouter.ai/api/v1/chat/completions",
+        {
 
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization":
-            `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          "HTTP-Referer":
-            "https://nxtlook-five.vercel.app",
-          "X-Title": "NXTLOOK"
-        },
+          method:"POST",
 
-        body: JSON.stringify({
-          model: "openrouter/free",
+          headers:{
 
-          messages,
+            "Content-Type":
+              "application/json",
 
-          temperature: 0.65,
+            "Authorization":
+              `Bearer ${process.env.OPENROUTER_API_KEY}`,
 
-          max_tokens: 900
-        })
-      }
-    );
+            "HTTP-Referer":
+              "https://nxtlook-five.vercel.app",
 
-    const data = await response.json();
+            "X-Title":
+              "NXTLOOK"
 
-    if (!response.ok) {
-      console.error("OpenRouter error:", data);
+          },
 
-      return res.status(response.status).json({
+          body:JSON.stringify({
+
+            model:"openrouter/free",
+
+            messages,
+
+            temperature:0.65,
+
+            max_tokens:1000
+
+          })
+        }
+      );
+
+    const data=
+      await response.json();
+
+    if(!response.ok){
+
+      console.error(
+        "OpenRouter:",
+        data
+      );
+
+      return res.status(
+        response.status
+      ).json({
+
         error:
           data?.error?.message ||
           "AI request failed"
+
       });
     }
 
-    const reply =
+    const reply=
       data?.choices?.[0]?.message?.content ||
       "I couldn't generate a response.";
 
@@ -441,13 +317,19 @@ ${JSON.stringify(preferences)}
       reply
     });
 
-  } catch (error) {
-    console.error("NXTLOOK API error:", error);
+  }catch(error){
+
+    console.error(
+      "NXTLOOK:",
+      error
+    );
 
     return res.status(500).json({
+
       error:
         error?.message ||
         "Something went wrong."
+
     });
   }
 }
