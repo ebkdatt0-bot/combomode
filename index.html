@@ -675,7 +675,7 @@ async function sendMessage(){
   const lastMessage = messages.lastElementChild;
 
   try {
-    const response = await fetch('https://nxtlook-five.vercel.app/api/chat', {
+    const response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
