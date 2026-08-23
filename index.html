@@ -698,7 +698,8 @@ async function sendMessage(){
     console.error(error);
 
     lastMessage.querySelector('p').textContent =
-      'ERROR: ${error.message}';
+      'ERROR: ' + error.message;
+  }
 
   messages.scrollTop = messages.scrollHeight;
 }
