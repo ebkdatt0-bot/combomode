@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — NXTLOOK</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .shop-page {
+      max-width: 1200px;
+      margin: auto;
+      padding: 90px 7%;
+    }
+
+    .shop-grid {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .product {
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .product-image {
+      height: 300px;
+      background: #151515;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .product-info {
+      padding: 22px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 8px;
+    }
+
+    .product-info p {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+
+    .product-price {
+      color: #a8ff00;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .shop-button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      text-align: center;
+      border-radius: 9px;
+      background: #a8ff00;
+      color: #050505;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    @media (max-width: 800px) {
+      .shop-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+  <a href="index.html" class="logo">
+    NXT<span>LOOK</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="generator.html">Generator</a>
+    <a href="wardrobe.html">Wardrobe</a>
+    <a href="inspo.html">AI Stylist</a>
+    <a href="plans.html">Plans</a>
+    <a class="active" href="shop.html">Shop</a>
+    <a href="account.html">Account</a>
+  </div>
+
+</nav>
+
+<main>
+
+  <section class="shop-page">
+
+    <p class="eyebrow">
+      NXTLOOK SHOP
+    </p>
+
+    <h1>
+      SHOP THE
+      <br>
+      <span>VIBE.</span>
+    </h1>
+
+    <p class="hero-text">
+      Pieces selected to build harder, cleaner fits.
+    </p>
+
+    <div class="shop-grid">
+
+      <div class="product">
+
+        <div class="product-image">
+          NXTLOOK TEE
+        </div>
+
+        <div class="product-info">
+
+          <h3>
+            NXTLOOK Oversized Tee
+          </h3>
+
+          <p>
+            Heavyweight oversized black tee
+            with minimal NXTLOOK branding.
+          </p>
+
+          <div class="product-price">
+            $24.99
+          </div>
+
+          <a
+            href="#"
+            class="shop-button"
+            onclick="shopAlert(event)"
+          >
+            VIEW PRODUCT →
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="product">
+
+        <div class="product-image">
+          NXTLOOK HOODIE
+        </div>
+
+        <div class="product-info">
+
+          <h3>
+            NXTLOOK Core Hoodie
+          </h3>
+
+          <p>
+            Oversized heavyweight hoodie
+            made for a clean streetwear silhouette.
+          </p>
+
+          <div class="product-price">
+            $44.99
+          </div>
+
+          <a
+            href="#"
+            class="shop-button"
+            onclick="shopAlert(event)"
+          >
+            VIEW PRODUCT →
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="product">
+
+        <div class="product-image">
+          NXTLOOK CAP
+        </div>
+
+        <div class="product-info">
+
+          <h3>
+            NXTLOOK Signature Cap
+          </h3>
+
+          <p>
+            Minimal black cap with
+            understated NXTLOOK branding.
+          </p>
+
+          <div class="product-price">
+            $19.99
+          </div>
+
+          <a
+            href="#"
+            class="shop-button"
+            onclick="shopAlert(event)"
+          >
+            VIEW PRODUCT →
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+    <div class="footer-brand">
+
+      <a href="index.html" class="logo">
+        NXT<span>LOOK</span>
+      </a>
+
+      <p>
+        Your next look starts here.
+        AI styling built around your vibe,
+        wardrobe and proportions.
+      </p>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h4>PRODUCT</h4>
+
+      <a href="generator.html">Generator</a>
+      <a href="wardrobe.html">Wardrobe</a>
+      <a href="inspo.html">AI Stylist</a>
+      <a href="shop.html">Shop</a>
+      <a href="plans.html">Plans</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h4>DISCOVER</h4>
+
+      <a href="inspo.html">Inspo</a>
+      <a href="faq.html">FAQ</a>
+      <a href="account.html">Account</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h4>ACCOUNT</h4>
+
+      <a href="account.html">My Account</a>
+      <a href="plans.html">Subscription</a>
+      <a href="wardrobe.html">Saved Wardrobe</a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h4>SOCIAL</h4>
+
+      <a
+        href="https://www.instagram.com/15k_roy/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram — @15k_roy ↗
+      </a>
+
+    </div>
+
+    <div class="footer-column">
+
+      <h4>LEGAL</h4>
+
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="refunds.html">Refunds</a>
+      <a href="mailto:hello@nxtlook.com">Contact</a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 NXTLOOK. All rights reserved.
+    </span>
+
+    <span>
+      BUILT FOR BETTER FITS.
+    </span>
+
+  </div>
+
+</footer>
+
+<script>
+  function shopAlert(event) {
+    event.preventDefault();
+
+    alert(
+      "NXTLOOK Shop is coming soon."
+    );
+  }
+</script>
+
+</body>
+</html>
