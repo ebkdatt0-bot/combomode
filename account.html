@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account — NXTLOOK</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .account-page {
+      max-width: 1000px;
+      margin: auto;
+      padding: 90px 7%;
+    }
+
+    .account-card {
+      margin-top: 45px;
+      padding: 35px;
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      border-radius: 20px;
+    }
+
+    .account-row {
+      padding: 20px 0;
+      border-bottom: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .account-row:last-child {
+      border-bottom: none;
+    }
+
+    .account-label {
+      color: #777;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .account-value {
+      color: #fff;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .account-actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .account-button {
+      padding: 14px 20px;
+      border-radius: 9px;
+      border: 1px solid #333;
+      background: #151515;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .account-button.primary {
+      background: #a8ff00;
+      color: #050505;
+      border-color: #a8ff00;
+    }
+
+    @media (max-width: 600px) {
+      .account-row {
+        flex-direction: column;
+      }
+
+      .account-value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+  <a href="index.html" class="logo">
+    NXT<span>LOOK</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="generator.html">Generator</a>
+    <a href="wardrobe.html">Wardrobe</a>
+    <a href="inspo.html">AI Stylist</a>
+    <a href="plans.html">Plans</a>
+    <a href="shop.html">Shop</a>
+    <a class="active" href="account.html">Account</a>
+  </div>
+
+</nav>
+
+<main>
+
+  <section class="account-page">
+
+    <p class="eyebrow">
+      NXTLOOK ACCOUNT
+    </p>
+
+    <h1>
+      YOUR
+      <br>
+      <span>ACCOUNT.</span>
+    </h1>
+
+    <p class="hero-text">
+      Manage your NXTLOOK profile, plan and saved looks.
+    </p>
+
+    <div class="account-card">
+
+      <div class="account-row">
+        <div class="account-label">
+          USERNAME
+        </div>
+
+        <div class="account-value">
+          NXTLOOK USER
+        </div>
+      </div>
+
+      <div class="account-row">
+        <div class="account-label">
+          PLAN
+        </div>
+
+        <div class="account-value">
+          FREE
+        </div>
+      </div>
+
+      <div class="account-row">
+        <div class="account-label">
+          SAVED LOOKS
+        </div>
+
+        <div class="account-value">
+          0
+        </div>
+      </div>
+
+      <div class="account-row">
+        <div class="account-label">
+          WARDROBE
+        </div>
+
+        <div class="account-value">
+          Empty
+        </div>
+      </div>
+
+      <div class="account-actions">
+
+        <a
+          href="wardrobe.html"
+          class="account-button primary"
+        >
+          OPEN WARDROBE →
+        </a>
+
+        <a
+          href="plans.html"
+          class="account-button"
+        >
+          VIEW PLANS
+        </a>
+
+        <a
+          href="generator.html"
+          class="account-button"
+        >
+          CREATE A FIT
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+    <div class="footer-brand">
+
+      <a href="index.html" class="logo">
+        NXT<span>LOOK</span>
+      </a>
+
+      <p>
+        Your next look starts here.
+        AI styling built around your vibe,
+        wardrobe and proportions.
+      </p>
+
+    </div>
+
+    <div class="footer-column">
+      <h4>PRODUCT</h4>
+      <a href="generator.html">Generator</a>
+      <a href="wardrobe.html">Wardrobe</a>
+      <a href="inspo.html">AI Stylist</a>
+      <a href="shop.html">Shop</a>
+      <a href="plans.html">Plans</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>DISCOVER</h4>
+      <a href="inspo.html">Inspo</a>
+      <a href="faq.html">FAQ</a>
+      <a href="account.html">Account</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>ACCOUNT</h4>
+      <a href="account.html">My Account</a>
+      <a href="plans.html">Subscription</a>
+      <a href="wardrobe.html">Saved Wardrobe</a>
+    </div>
+
+    <div class="footer-column">
+      <h4>SOCIAL</h4>
+
+      <a
+        href="https://www.instagram.com/15k_roy/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram — @15k_roy ↗
+      </a>
+    </div>
+
+    <div class="footer-column">
+      <h4>LEGAL</h4>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="refunds.html">Refunds</a>
+      <a href="mailto:hello@nxtlook.com">Contact</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 NXTLOOK. All rights reserved.
+    </span>
+
+    <span>
+      BUILT FOR BETTER FITS.
+    </span>
+
+  </div>
+
+</footer>
+
+</body>
+</html>
