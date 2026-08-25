@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Account — NXTLOOK</title>
+
   <link rel="stylesheet" href="styles.css">
 
   <style>
+
     .account-page {
       max-width: 1000px;
       margin: auto;
@@ -45,6 +50,10 @@
       text-align: right;
     }
 
+    .account-value.green {
+      color: #a8ff00;
+    }
+
     .account-actions {
       margin-top: 30px;
       display: flex;
@@ -69,7 +78,84 @@
       border-color: #a8ff00;
     }
 
-    @media (max-width: 600px) {
+    .account-button:hover {
+      opacity: .85;
+    }
+
+    .account-section {
+      margin-top: 35px;
+      padding: 28px;
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      border-radius: 20px;
+    }
+
+    .account-section h2 {
+      margin-bottom: 8px;
+    }
+
+    .account-section p {
+      color: #777;
+      font-size: 13px;
+    }
+
+    .account-stat-grid {
+      margin-top: 25px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .account-stat {
+      padding: 20px;
+      background: #151515;
+      border: 1px solid #242424;
+      border-radius: 12px;
+    }
+
+    .account-stat strong {
+      display: block;
+      color: #a8ff00;
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+
+    .account-stat span {
+      color: #777;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .danger-zone {
+      margin-top: 35px;
+      padding: 25px;
+      border: 1px solid #292929;
+      border-radius: 20px;
+    }
+
+    .danger-zone h3 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .danger-zone p {
+      color: #666;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    .danger-button {
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 1px solid #552222;
+      background: #1a1010;
+      color: #ff6666;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (max-width: 650px) {
+
       .account-row {
         flex-direction: column;
       }
@@ -77,11 +163,22 @@
       .account-value {
         text-align: left;
       }
+
+      .account-stat-grid {
+        grid-template-columns: 1fr;
+      }
+
     }
+
   </style>
+
 </head>
 
+
 <body>
+
+
+<!-- NAV -->
 
 <nav class="navbar">
 
@@ -90,16 +187,39 @@
   </a>
 
   <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="generator.html">Generator</a>
-    <a href="wardrobe.html">Wardrobe</a>
-    <a href="inspo.html">AI Stylist</a>
-    <a href="plans.html">Plans</a>
-    <a href="shop.html">Shop</a>
-    <a class="active" href="account.html">Account</a>
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="generator.html">
+      Generator
+    </a>
+
+    <a href="wardrobe.html">
+      Wardrobe
+    </a>
+
+    <a href="inspo.html">
+      AI Stylist
+    </a>
+
+    <a href="plans.html">
+      Plans
+    </a>
+
+    <a href="shop.html">
+      Shop
+    </a>
+
+    <a class="active" href="account.html">
+      Account
+    </a>
+
   </div>
 
 </nav>
+
 
 <main>
 
@@ -116,50 +236,78 @@
     </h1>
 
     <p class="hero-text">
-      Manage your NXTLOOK profile, plan and saved looks.
+      Your NXTLOOK profile, wardrobe,
+      saved fits and membership.
     </p>
+
+
+    <!-- ACCOUNT INFO -->
 
     <div class="account-card">
 
       <div class="account-row">
+
         <div class="account-label">
           USERNAME
         </div>
 
-        <div class="account-value">
+        <div
+          id="accountUsername"
+          class="account-value"
+        >
           NXTLOOK USER
         </div>
+
       </div>
 
+
       <div class="account-row">
+
         <div class="account-label">
           PLAN
         </div>
 
-        <div class="account-value">
+        <div
+          id="accountPlan"
+          class="account-value green"
+        >
           FREE
         </div>
+
       </div>
 
+
       <div class="account-row">
+
         <div class="account-label">
           SAVED LOOKS
         </div>
 
-        <div class="account-value">
+        <div
+          id="accountSavedLooks"
+          class="account-value"
+        >
           0
         </div>
+
       </div>
+
 
       <div class="account-row">
+
         <div class="account-label">
-          WARDROBE
+          WARDROBE ITEMS
         </div>
 
-        <div class="account-value">
-          Empty
+        <div
+          id="accountWardrobe"
+          class="account-value"
+        >
+          0
         </div>
+
       </div>
+
 
       <div class="account-actions">
 
@@ -170,12 +318,14 @@
           OPEN WARDROBE →
         </a>
 
+
         <a
           href="plans.html"
           class="account-button"
         >
           VIEW PLANS
         </a>
+
 
         <a
           href="generator.html"
@@ -188,13 +338,146 @@
 
     </div>
 
+
+    <!-- STATS -->
+
+    <div class="account-section">
+
+      <p class="eyebrow">
+        YOUR NXTLOOK
+      </p>
+
+      <h2>
+        STYLE
+        <span>STATS.</span>
+      </h2>
+
+      <p>
+        Your activity is stored locally in this browser.
+      </p>
+
+
+      <div class="account-stat-grid">
+
+        <div class="account-stat">
+
+          <strong id="statLooks">
+            0
+          </strong>
+
+          <span>
+            SAVED FITS
+          </span>
+
+        </div>
+
+
+        <div class="account-stat">
+
+          <strong id="statWardrobe">
+            0
+          </strong>
+
+          <span>
+            CLOTHING ITEMS
+          </span>
+
+        </div>
+
+
+        <div class="account-stat">
+
+          <strong id="statPlan">
+            FREE
+          </strong>
+
+          <span>
+            CURRENT PLAN
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- QUICK LINKS -->
+
+    <div class="account-section">
+
+      <p class="eyebrow">
+        QUICK ACCESS
+      </p>
+
+      <h2>
+        KEEP
+        <span>STYLING.</span>
+      </h2>
+
+      <div class="account-actions">
+
+        <a
+          href="generator.html"
+          class="account-button primary"
+        >
+          GENERATE A FIT →
+        </a>
+
+        <a
+          href="inspo.html"
+          class="account-button"
+        >
+          ASK AI STYLIST
+        </a>
+
+        <a
+          href="shop.html"
+          class="account-button"
+        >
+          SHOP BRANDS
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- RESET -->
+
+    <div class="danger-zone">
+
+      <h3>
+        RESET LOCAL DATA
+      </h3>
+
+      <p>
+        This removes saved looks, wardrobe items
+        and NXTLOOK settings from this browser.
+        This cannot be undone.
+      </p>
+
+      <button
+        class="danger-button"
+        onclick="resetNXTLOOK()"
+      >
+        RESET MY DATA
+      </button>
+
+    </div>
+
+
   </section>
 
 </main>
 
+
+<!-- FOOTER -->
+
 <footer class="footer">
 
   <div class="footer-grid">
+
 
     <div class="footer-brand">
 
@@ -210,31 +493,83 @@
 
     </div>
 
-    <div class="footer-column">
-      <h4>PRODUCT</h4>
-      <a href="generator.html">Generator</a>
-      <a href="wardrobe.html">Wardrobe</a>
-      <a href="inspo.html">AI Stylist</a>
-      <a href="shop.html">Shop</a>
-      <a href="plans.html">Plans</a>
-    </div>
 
     <div class="footer-column">
-      <h4>DISCOVER</h4>
-      <a href="inspo.html">Inspo</a>
-      <a href="faq.html">FAQ</a>
-      <a href="account.html">Account</a>
+
+      <h4>
+        PRODUCT
+      </h4>
+
+      <a href="generator.html">
+        Generator
+      </a>
+
+      <a href="wardrobe.html">
+        Wardrobe
+      </a>
+
+      <a href="inspo.html">
+        AI Stylist
+      </a>
+
+      <a href="shop.html">
+        Shop
+      </a>
+
+      <a href="plans.html">
+        Plans
+      </a>
+
     </div>
 
-    <div class="footer-column">
-      <h4>ACCOUNT</h4>
-      <a href="account.html">My Account</a>
-      <a href="plans.html">Subscription</a>
-      <a href="wardrobe.html">Saved Wardrobe</a>
-    </div>
 
     <div class="footer-column">
-      <h4>SOCIAL</h4>
+
+      <h4>
+        DISCOVER
+      </h4>
+
+      <a href="inspo.html">
+        Inspo
+      </a>
+
+      <a href="faq.html">
+        FAQ
+      </a>
+
+      <a href="account.html">
+        Account
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        ACCOUNT
+      </h4>
+
+      <a href="account.html">
+        My Account
+      </a>
+
+      <a href="plans.html">
+        Subscription
+      </a>
+
+      <a href="wardrobe.html">
+        Saved Wardrobe
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        SOCIAL
+      </h4>
 
       <a
         href="https://www.instagram.com/15k_roy/"
@@ -243,17 +578,36 @@
       >
         Instagram — @15k_roy ↗
       </a>
+
     </div>
 
+
     <div class="footer-column">
-      <h4>LEGAL</h4>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="refunds.html">Refunds</a>
-      <a href="mailto:hello@nxtlook.com">Contact</a>
+
+      <h4>
+        LEGAL
+      </h4>
+
+      <a href="privacy.html">
+        Privacy
+      </a>
+
+      <a href="terms.html">
+        Terms
+      </a>
+
+      <a href="refunds.html">
+        Refunds
+      </a>
+
+      <a href="mailto:hello@nxtlook.com">
+        Contact
+      </a>
+
     </div>
 
   </div>
+
 
   <div class="footer-bottom">
 
@@ -268,6 +622,190 @@
   </div>
 
 </footer>
+
+
+<script>
+
+/* =========================
+   LOAD ACCOUNT DATA
+========================= */
+
+function getArray(
+  key
+) {
+
+  try {
+
+    const data =
+      JSON.parse(
+        localStorage.getItem(key) || "[]"
+      );
+
+    return Array.isArray(data)
+      ? data
+      : [];
+
+  } catch {
+
+    return [];
+
+  }
+
+}
+
+
+function getPlan() {
+
+  return (
+    localStorage.getItem(
+      "nxtlook_plan"
+    ) ||
+    localStorage.getItem(
+      "nxtlookPlan"
+    ) ||
+    "FREE"
+  );
+
+}
+
+
+function loadAccount() {
+
+  const savedLooks =
+    getArray(
+      "nxtlook_saved_looks"
+    );
+
+
+  const wardrobe =
+    getArray(
+      "nxtlookWardrobe"
+    );
+
+
+  const plan =
+    getPlan();
+
+
+  /*
+    Username.
+
+    If the user later adds a real
+    account system, this value can
+    come from that system.
+  */
+
+  const username =
+    localStorage.getItem(
+      "nxtlook_username"
+    ) ||
+    "NXTLOOK USER";
+
+
+  document.getElementById(
+    "accountUsername"
+  ).textContent =
+    username;
+
+
+  document.getElementById(
+    "accountPlan"
+  ).textContent =
+    plan.toUpperCase();
+
+
+  document.getElementById(
+    "accountSavedLooks"
+  ).textContent =
+    savedLooks.length;
+
+
+  document.getElementById(
+    "accountWardrobe"
+  ).textContent =
+    wardrobe.length;
+
+
+  document.getElementById(
+    "statLooks"
+  ).textContent =
+    savedLooks.length;
+
+
+  document.getElementById(
+    "statWardrobe"
+  ).textContent =
+    wardrobe.length;
+
+
+  document.getElementById(
+    "statPlan"
+  ).textContent =
+    plan.toUpperCase();
+
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetNXTLOOK() {
+
+  const confirmed =
+    confirm(
+      "Reset all NXTLOOK data from this browser? This will delete your saved looks, wardrobe and account settings."
+    );
+
+
+  if (!confirmed) {
+    return;
+  }
+
+
+  localStorage.removeItem(
+    "nxtlook_saved_looks"
+  );
+
+
+  localStorage.removeItem(
+    "nxtlookWardrobe"
+  );
+
+
+  localStorage.removeItem(
+    "nxtlook_plan"
+  );
+
+
+  localStorage.removeItem(
+    "nxtlookPlan"
+  );
+
+
+  localStorage.removeItem(
+    "nxtlook_username"
+  );
+
+
+  alert(
+    "NXTLOOK data has been reset."
+  );
+
+
+  loadAccount();
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadAccount();
+
+</script>
+
 
 </body>
 </html>
