@@ -674,7 +674,163 @@
 </footer>
 
 
+<script src="fashion-brain.js"></script>
 <script src="app.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const form = document.getElementById("generatorForm");
+  const result = document.getElementById("generatorResult");
+
+  if (!form || !result) return;
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const style = document.getElementById("style").value;
+    const color = document.getElementById("color").value;
+    const occasion = document.getElementById("occasion").value;
+    const silhouette = document.getElementById("fit").value;
+    const footwear = document.getElementById("footwear").value;
+    const brand = document.getElementById("brand").value;
+    const wardrobe = document.getElementById("wardrobeItems").value;
+
+    result.innerHTML = `
+      <p class="loading">BUILDING YOUR FIT...</p>
+    `;
+
+    setTimeout(function () {
+
+      try {
+
+        if (
+          !window.NXTLOOK_STYLE_BRAIN ||
+          typeof window.NXTLOOK_STYLE_BRAIN.generateFit !== "function"
+        ) {
+          throw new Error("Fashion brain not loaded");
+        }
+
+        let brainStyle = "streetwear";
+
+        const styleMap = {
+          "dark streetwear": "dark",
+          "streetwear": "streetwear",
+          "archive": "archive",
+          "grunge": "grunge",
+          "minimal": "clean",
+          "old money": "clean",
+          "Y2K": "streetwear",
+          "techwear": "technical",
+          "casual": "streetwear"
+        };
+
+        brainStyle =
+          styleMap[style] || "streetwear";
+
+        const fit =
+          window.NXTLOOK_STYLE_BRAIN.generateFit(
+            brainStyle
+          );
+
+        let html = `
+          <h3>YOUR NXTLOOK</h3>
+
+          <div style="margin-top:18px">
+
+            <p><strong>STYLE</strong><br>
+            ${style}</p>
+
+            <p><strong>TOP</strong><br>
+            ${fit.top}</p>
+
+            <p><strong>BOTTOM</strong><br>
+            ${fit.bottom}</p>
+
+            <p><strong>SHOES</strong><br>
+            ${fit.shoes}</p>
+        `;
+
+        if (fit.layer) {
+          html += `
+            <p><strong>LAYER</strong><br>
+            ${fit.layer}</p>
+          `;
+        }
+
+        html += `
+            <p><strong>ACCESSORY</strong><br>
+            ${fit.accessory}</p>
+
+            <p><strong>COLOR DIRECTION</strong><br>
+            ${color}</p>
+
+            <p><strong>SILHOUETTE</strong><br>
+            ${silhouette}</p>
+
+            <p><strong>OCCASION</strong><br>
+            ${occasion}</p>
+
+            <p><strong>BRAND VIBE</strong><br>
+            ${brand}</p>
+        `;
+
+        if (wardrobe.trim()) {
+          html += `
+            <p>
+              <strong>YOUR WARDROBE</strong><br>
+              ${wardrobe}
+            </p>
+          `;
+        }
+
+        html += `
+          </div>
+
+          <div style="
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-top:25px;
+          ">
+
+            <button
+              type="button"
+              class="generate-button"
+              onclick="document.getElementById('generatorForm').requestSubmit()"
+            >
+              GENERATE AGAIN →
+            </button>
+
+          </div>
+        `;
+
+        result.innerHTML = html;
+
+      } catch (error) {
+
+        console.error(
+          "NXTLOOK Generator Error:",
+          error
+        );
+
+        result.innerHTML = `
+          <h3>GENERATOR ERROR</h3>
+          <p>
+            NXTLOOK couldn't build the outfit.
+            Check that fashion-brain.js is loaded correctly.
+          </p>
+        `;
+
+      }
+
+    }, 400);
+
+  });
+
+});
+</script>
 
 </body>
 </html>
