@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>AI Stylist — NXTLOOK</title>
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+
+  <style>
+
+    .stylist-page {
+      max-width: 1200px;
+      margin: auto;
+      padding: 90px 7%;
+    }
+
+    .inspo-grid {
+      margin-top: 45px;
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .inspo-grid img {
+      width: 100%;
+      height: 330px;
+
+      object-fit: cover;
+
+      border-radius: 15px;
+      border: 1px solid #292929;
+    }
+
+    .ai-chat {
+      margin-top: 55px;
+
+      background: #0c0c0c;
+
+      border: 1px solid #292929;
+      border-radius: 20px;
+
+      overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 20px 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-bottom: 1px solid #292929;
+      background: #101010;
+    }
+
+    .chat-header strong {
+      display: block;
+      color: #fff;
+      font-size: 15px;
+    }
+
+    .chat-header span {
+      display: block;
+      margin-top: 4px;
+
+      color: #666;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .online-dot {
+      width: 9px;
+      height: 9px;
+
+      border-radius: 50%;
+
+      background: #a8ff00;
+
+      box-shadow:
+        0 0 12px
+        rgba(168, 255, 0, .7);
+    }
+
+    .chat-messages {
+      height: 440px;
+
+      padding: 25px;
+
+      overflow-y: auto;
+
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .message {
+      max-width: 80%;
+
+      padding: 15px 17px;
+
+      border-radius: 12px;
+
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message strong {
+      display: block;
+
+      margin-bottom: 6px;
+
+      color: #a8ff00;
+
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .message p {
+      white-space: pre-wrap;
+    }
+
+    .ai-message {
+      align-self: flex-start;
+
+      background: #151515;
+
+      border: 1px solid #292929;
+    }
+
+    .user-message {
+      align-self: flex-end;
+
+      background: #a8ff00;
+
+      color: #050505;
+    }
+
+    .user-message strong {
+      color: #050505;
+    }
+
+    .user-message p {
+      color: #050505;
+    }
+
+    .upload-preview {
+      padding: 0 20px;
+    }
+
+    .image-preview {
+      position: relative;
+
+      width: 130px;
+
+      margin-bottom: 15px;
+    }
+
+    .image-preview img {
+      width: 130px;
+      height: 130px;
+
+      object-fit: cover;
+
+      border-radius: 10px;
+
+      border: 1px solid #333;
+    }
+
+    .image-preview button {
+      position: absolute;
+
+      top: -8px;
+      right: -8px;
+
+      width: 25px;
+      height: 25px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: #fff;
+      color: #000;
+
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .chat-input-area {
+      padding: 15px;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      border-top: 1px solid #292929;
+      background: #101010;
+    }
+
+    .upload-btn {
+      width: 45px;
+      height: 45px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #181818;
+
+      border: 1px solid #292929;
+      border-radius: 9px;
+
+      color: #a8ff00;
+
+      font-size: 25px;
+
+      cursor: pointer;
+    }
+
+    #chatInput {
+      flex: 1;
+
+      min-width: 0;
+
+      height: 45px;
+
+      padding: 0 15px;
+
+      background: #050505;
+
+      border: 1px solid #292929;
+      border-radius: 9px;
+
+      color: #fff;
+
+      outline: none;
+    }
+
+    #chatInput:focus {
+      border-color: #a8ff00;
+    }
+
+    #sendBtn {
+      height: 45px;
+
+      padding: 0 20px;
+
+      border: none;
+      border-radius: 9px;
+
+      background: #a8ff00;
+      color: #050505;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      cursor: pointer;
+    }
+
+    #sendBtn:hover {
+      opacity: .85;
+    }
+
+    @media (max-width: 900px) {
+
+      .inspo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .inspo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .inspo-grid img {
+        height: 400px;
+      }
+
+      .chat-messages {
+        height: 400px;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+
+      .chat-input-area {
+        flex-wrap: wrap;
+      }
+
+      #chatInput {
+        order: 2;
+        width: calc(100% - 55px);
+      }
+
+      #sendBtn {
+        order: 3;
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVIGATION -->
+
+<nav class="navbar">
+
+  <a
+    class="logo"
+    href="index.html"
+  >
+    NXT<span>LOOK</span>
+  </a>
+
+
+  <div class="nav-links">
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="generator.html">
+      Generator
+    </a>
+
+    <a href="wardrobe.html">
+      Wardrobe
+    </a>
+
+    <a
+      class="active"
+      href="inspo.html"
+    >
+      AI Stylist
+    </a>
+
+    <a href="plans.html">
+      Plans
+    </a>
+
+    <a href="shop.html">
+      Shop
+    </a>
+
+    <a href="account.html">
+      Account
+    </a>
+
+  </div>
+
+</nav>
+
+
+<main>
+
+  <section class="stylist-page">
+
+    <p class="eyebrow">
+      NXTLOOK AI
+    </p>
+
+    <h1>
+      AI
+      <br>
+      <span>STYLIST.</span>
+    </h1>
+
+    <p class="hero-text">
+      Upload what you're wearing,
+      show us your clothes, or simply
+      tell NXTLOOK what vibe you're after.
+    </p>
+
+
+    <!-- INSPIRATION -->
+
+    <section>
+
+      <p class="eyebrow">
+        INSPO
+      </p>
+
+      <h2>
+        FITS THAT
+        <span>HIT.</span>
+      </h2>
+
+      <p>
+        Streetwear references for your next look.
+      </p>
+
+
+      <div class="inspo-grid">
+
+        <img
+          src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=700"
+          alt="Streetwear inspiration"
+        >
+
+        <img
+          src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=700"
+          alt="Statement streetwear inspiration"
+        >
+
+        <img
+          src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=700"
+          alt="Colorful streetwear inspiration"
+        >
+
+        <img
+          src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=700"
+          alt="Streetwear group inspiration"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- AI CHAT -->
+
+    <section style="margin-top: 110px">
+
+      <p class="eyebrow">
+        STYLE ASSISTANT
+      </p>
+
+      <h2>
+        ASK
+        <span>NXTLOOK.</span>
+      </h2>
+
+      <p>
+        Tell me what you have and what you're trying to wear.
+      </p>
+
+
+      <div class="ai-chat">
+
+
+        <!-- HEADER -->
+
+        <div class="chat-header">
+
+          <div>
+
+            <strong>
+              NXTLOOK AI
+            </strong>
+
+            <span>
+              STYLE ASSISTANT
+            </span>
+
+          </div>
+
+          <div class="online-dot"></div>
+
+        </div>
+
+
+        <!-- MESSAGES -->
+
+        <div
+          class="chat-messages"
+          id="chatMessages"
+        >
+
+          <div class="message ai-message">
+
+            <strong>
+              NXTLOOK
+            </strong>
+
+            <p>
+              Yo 👋 Tell me what you're working with.
+              I can build, fix, rate or completely
+              rethink a fit.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- IMAGE PREVIEW -->
+
+        <div
+          class="upload-preview"
+          id="uploadPreview"
+        ></div>
+
+
+        <!-- INPUT -->
+
+        <div class="chat-input-area">
+
+          <label
+            class="upload-btn"
+            for="clothesImage"
+          >
+            ＋
+          </label>
+
+
+          <input
+            type="file"
+            id="clothesImage"
+            accept="image/*"
+            hidden
+          >
+
+
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Ask NXTLOOK what to wear..."
+            autocomplete="off"
+          >
+
+
+          <button
+            id="sendBtn"
+            type="button"
+            onclick="sendMessage()"
+          >
+            SEND →
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+
+    <div class="footer-brand">
+
+      <a
+        class="logo"
+        href="index.html"
+      >
+        NXT<span>LOOK</span>
+      </a>
+
+      <p>
+        Your next look starts here.
+        AI styling built around your vibe,
+        wardrobe and proportions.
+      </p>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        PRODUCT
+      </h4>
+
+      <a href="generator.html">
+        Generator
+      </a>
+
+      <a href="wardrobe.html">
+        Wardrobe
+      </a>
+
+      <a href="inspo.html">
+        AI Stylist
+      </a>
+
+      <a href="shop.html">
+        Shop
+      </a>
+
+      <a href="plans.html">
+        Plans
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        DISCOVER
+      </h4>
+
+      <a href="inspo.html">
+        Inspo
+      </a>
+
+      <a href="faq.html">
+        FAQ
+      </a>
+
+      <a href="account.html">
+        Account
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        ACCOUNT
+      </h4>
+
+      <a href="account.html">
+        My Account
+      </a>
+
+      <a href="plans.html">
+        Subscription
+      </a>
+
+      <a href="wardrobe.html">
+        Saved Wardrobe
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        SOCIAL
+      </h4>
+
+      <a
+        href="https://www.instagram.com/15k_roy/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram — @15k_roy ↗
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        LEGAL
+      </h4>
+
+      <a href="privacy.html">
+        Privacy
+      </a>
+
+      <a href="terms.html">
+        Terms
+      </a>
+
+      <a href="refunds.html">
+        Refunds
+      </a>
+
+      <a href="mailto:hello@nxtlook.com">
+        Contact
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 NXTLOOK. All rights reserved.
+    </span>
+
+    <span>
+      BUILT FOR BETTER FITS.
+    </span>
+
+  </div>
+
+</footer>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
