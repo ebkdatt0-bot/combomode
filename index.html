@@ -1,366 +1,423 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NXTLOOK — Your next look starts here.</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Arial,Helvetica,sans-serif;background:#050505;color:#fff;overflow-x:hidden}
-nav{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 7%;position:relative;z-index:5;border-bottom:1px solid #222;background:rgba(5,5,5,.82);backdrop-filter:blur(14px)}
-.logo{font-size:25px;font-weight:900;letter-spacing:-1.5px}.logo span{color:#a8ff00}
-nav a{color:#bbb;text-decoration:none;margin-left:26px;font-size:14px}nav a:hover{color:#fff}
-.hero{min-height:720px;position:relative;display:flex;align-items:center;padding:70px 7%;overflow:hidden}
-.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 30%,rgba(168,255,0,.22),transparent 25%),radial-gradient(circle at 85% 20%,rgba(255,48,150,.22),transparent 24%),radial-gradient(circle at 70% 85%,rgba(0,170,255,.20),transparent 28%),radial-gradient(circle at 55% 45%,rgba(255,145,0,.10),transparent 22%),linear-gradient(125deg,#050505 20%,#0b0b0b 55%,#050505);z-index:-3}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.82) 42%,rgba(5,5,5,.25) 100%);z-index:-1}
-.copy{max-width:590px;z-index:2}.eyebrow{color:#a8ff00;font-weight:800;letter-spacing:3px;font-size:12px;margin-bottom:18px}
-h1{font-size:clamp(58px,9vw,112px);line-height:.82;letter-spacing:-6px;margin-bottom:28px}
-h1 span{color:#a8ff00;text-shadow:0 0 28px rgba(168,255,0,.18)}.sub{font-size:18px;line-height:1.6;color:#bdbdbd;max-width:500px}
-.cta{display:inline-block;margin-top:30px;background:#a8ff00;color:#050505;padding:16px 24px;border-radius:10px;text-decoration:none;font-weight:900}
-.scene{position:absolute;right:1%;bottom:0;width:58%;height:92%;z-index:0}.photo{position:absolute;width:245px;border:1px solid rgba(255,255,255,.22);border-radius:20px;background:#101010;padding:8px;box-shadow:0 25px 80px rgba(0,0,0,.65);overflow:hidden}
-.photo img{display:block;width:100%;height:330px;object-fit:cover;border-radius:14px;filter:saturate(1.08) contrast(1.03)}.photo:after{content:"";position:absolute;inset:8px 8px 42px;border-radius:14px;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35));pointer-events:none}
-.photo-label{padding:11px 5px 5px;font-size:10px;font-weight:900;letter-spacing:1.5px;color:#fff}
-.p1{right:47%;top:4%;transform:rotate(-8deg);z-index:3}.p2{right:8%;top:11%;transform:rotate(7deg);z-index:2}.p3{right:29%;bottom:-2%;transform:rotate(-3deg);z-index:4}.p4{right:0%;bottom:2%;transform:rotate(10deg);z-index:1}
-.section{padding:90px 7%;background:#080808}.section h2{font-size:42px;letter-spacing:-2px;margin-bottom:12px}.section>p{color:#888;margin-bottom:35px}
-.generator{max-width:950px;margin:auto;border:1px solid #252525;border-radius:24px;background:#0e0e0e;padding:28px}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.field label{display:block;font-size:12px;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
-select{width:100%;padding:14px;background:#161616;border:1px solid #292929;color:#fff;border-radius:10px}
-.generate{width:100%;margin-top:20px;padding:16px;border:0;border-radius:10px;background:#a8ff00;font-weight:900;font-size:16px;cursor:pointer}
-.generate:disabled{opacity:.5;cursor:wait}
-.result{display:none;margin-top:25px;padding:22px;border-radius:16px;background:#151515;border:1px solid #2a2a2a}.result.show{display:block}.result h3{margin-bottom:8px}.result p{color:#aaa;line-height:1.6}
-.result-card{display:grid;gap:14px}.result-item{padding:14px;border:1px solid #242424;border-radius:12px;background:#101010}.result-item small{color:#a8ff00;letter-spacing:1.5px;font-weight:900}.result-item p{margin-top:6px;color:#fff}.score{font-size:28px;font-weight:900;color:#a8ff00}
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:950px;margin:35px auto 0}.plan{padding:26px;border:1px solid #292929;border-radius:18px;background:#0e0e0e}.plan.featured{border-color:#a8ff00}.price{font-size:30px;font-weight:900;margin:14px 0}.plan p{color:#999;line-height:1.6;font-size:14px}
-.inspo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:1100px;margin:32px auto 0}.inspo-grid img{width:100%;height:360px;object-fit:cover;border-radius:16px;border:1px solid #292929;transition:transform .25s,filter .25s}.inspo-grid img:hover{transform:translateY(-5px);filter:saturate(1.12)}
-.ai-chat{max-width:850px;margin:35px auto 0;background:#0b0b0b;border:1px solid #292929;border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
-.chat-header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid #222;background:#101010}.chat-header strong{display:block;font-size:15px;letter-spacing:.5px}.chat-header span{display:block;margin-top:4px;color:#777;font-size:10px;letter-spacing:1.5px}
-.online-dot{width:9px;height:9px;border-radius:50%;background:#a8ff00;box-shadow:0 0 12px rgba(168,255,0,.8)}
-.chat-messages{min-height:320px;max-height:500px;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:14px}.message{max-width:82%;padding:14px 16px;border-radius:16px;line-height:1.55;font-size:14px;white-space:pre-wrap}
-.message strong{display:block;font-size:10px;letter-spacing:1px;margin-bottom:6px;color:#a8ff00}.message p{margin:0;color:#ddd}.ai-message{align-self:flex-start;background:#151515;border:1px solid #272727}.user-message{align-self:flex-end;background:#a8ff00;color:#050505}.user-message p,.user-message strong{color:#050505}
-.chat-input-area{display:flex;align-items:center;gap:10px;padding:14px;border-top:1px solid #222;background:#101010}.chat-input-area input[type="text"]{flex:1;min-width:0;padding:14px 16px;border:1px solid #292929;border-radius:12px;background:#151515;color:#fff;outline:none}.chat-input-area input[type="text"]:focus{border-color:#a8ff00}
-.chat-input-area button{padding:14px 18px;border:0;border-radius:12px;background:#a8ff00;color:#050505;font-weight:900;cursor:pointer}.upload-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid #292929;border-radius:12px;color:#a8ff00;font-size:25px;cursor:pointer;background:#151515}.upload-btn:hover{border-color:#a8ff00}
-.upload-preview{padding:0 24px 14px}.upload-preview img{max-width:220px;max-height:220px;border-radius:14px;border:1px solid #292929;display:block}
-.hint{margin-top:12px;color:#666;font-size:12px}.loading{color:#a8ff00}.error{color:#ff6b6b!important}
-footer{padding:30px 7%;color:#666;border-top:1px solid #222;font-size:13px}
-@media(max-width:800px){.scene{opacity:.28;width:100%;right:-30%}.photo{width:190px}.photo img{height:260px}.hero{min-height:650px}.grid,.plans{grid-template-columns:1fr}nav a{margin-left:12px}.hero:after{background:linear-gradient(90deg,#050505 0%,rgba(5,5,5,.75) 70%,rgba(5,5,5,.4))}.inspo-grid{grid-template-columns:repeat(2,1fr)}.inspo-grid img{height:260px}}
-@media(max-width:600px){.message{max-width:90%}.chat-input-area button{padding:14px}.chat-messages{min-height:280px}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.wardrobe-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}.wardrobe-card{background:#101010;border:1px solid #292929;border-radius:14px;padding:10px}.wardrobe-card img{width:100%;height:210px;object-fit:cover;border-radius:9px;display:block}.wardrobe-card .piece-name{font-weight:800;margin:10px 2px 6px}.wardrobe-card .piece-type{font-size:10px;color:#a8ff00;letter-spacing:1px;font-weight:900}.wardrobe-card button{width:100%;margin-top:9px;padding:9px;border:1px solid #333;background:#151515;color:#aaa;border-radius:8px;cursor:pointer}.wardrobe-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.wardrobe-toolbar input[type=text]{flex:1;min-width:180px;padding:14px;background:#151515;border:1px solid #292929;border-radius:10px;color:#fff;outline:none}@media(max-width:800px){.wardrobe-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.wardrobe-grid{grid-template-columns:1fr}}
+  <title>NXTLOOK — Your Next Look Starts Here</title>
 
-.footer-wrap{max-width:1200px;margin:auto}.footer-grid{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:32px;padding:55px 0 35px}.footer-brand .logo{font-size:26px;font-weight:1000;color:#fff}.footer-brand .logo span{color:#a8ff00}.footer-brand p{max-width:300px;line-height:1.6;color:#777;margin-top:12px}.footer-col h4{color:#fff;font-size:11px;letter-spacing:1.5px;margin:0 0 14px}.footer-col a{display:block;color:#777;text-decoration:none;margin:9px 0;font-size:13px}.footer-col a:hover{color:#a8ff00}.footer-bottom{border-top:1px solid #222;padding:20px 0;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:#555;font-size:12px}.site-panel{background:#0d0d0d;border:1px solid #222;border-radius:18px;padding:26px}.shop-grid,.account-grid,.faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.shop-card,.account-card,.faq-card{background:#121212;border:1px solid #252525;border-radius:14px;padding:20px}.shop-card h3,.account-card h3,.faq-card h3{margin-top:0;color:#fff}.shop-card .shop-price{font-size:25px;font-weight:900;color:#a8ff00;margin:12px 0}.mini-btn{display:inline-block;padding:11px 15px;border-radius:9px;background:#a8ff00;color:#050505;font-weight:900;text-decoration:none;border:0;cursor:pointer}.muted{color:#777;font-size:13px;line-height:1.6}.section-anchor{scroll-margin-top:80px}.legal-note{font-size:11px;color:#555;line-height:1.5;margin-top:18px}@media(max-width:800px){.footer-grid,.shop-grid,.account-grid,.faq-grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.footer-grid,.shop-grid,.account-grid,.faq-grid{grid-template-columns:1fr}.footer-bottom{display:block}.footer-bottom span{display:block;margin-top:7px}}
-</style>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-<nav>
-  <div class="logo">NXT<span>LOOK</span></div>
-  <div><a href="#generator">Generator</a><a href="#wardrobe">Wardrobe</a><a href="#plans">Plans</a><a href="#inspo">Inspo</a></div>
+
+<nav class="navbar">
+
+  <a href="index.html" class="logo">
+    NXT<span>LOOK</span>
+  </a>
+
+  <div class="nav-links">
+
+    <a class="active" href="index.html">
+      Home
+    </a>
+
+    <a href="generator.html">
+      Generator
+    </a>
+
+    <a href="wardrobe.html">
+      Wardrobe
+    </a>
+
+    <a href="inspo.html">
+      AI Stylist
+    </a>
+
+    <a href="plans.html">
+      Plans
+    </a>
+
+    <a href="shop.html">
+      Shop
+    </a>
+
+    <a href="account.html">
+      Account
+    </a>
+
+  </div>
+
 </nav>
 
-<section class="hero">
-  <div class="copy">
-    <div class="eyebrow">FITS • INSPO • YOUR VIBE</div>
-    <h1>YOUR NEXT<br><span>LOOK.</span></h1>
-    <p class="sub">Find fits that actually hit. Pick your vibe, silhouette, colors and occasion — NXTLOOK turns your choices into a smarter next look.</p>
-    <a class="cta" href="#generator">GENERATE YOUR LOOK →</a>
-  </div>
-  <div class="scene" aria-hidden="true">
-    <div class="photo p1"><img src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Streetwear outfit"><div class="photo-label">BAGGY / CITY</div></div>
-    <div class="photo p2"><img src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Statement streetwear outfit"><div class="photo-label">BLACK / STATEMENT</div></div>
-    <div class="photo p3"><img src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Streetwear group outfits"><div class="photo-label">CREW / STREET</div></div>
-    <div class="photo p4"><img src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Colorful oversized streetwear outfit"><div class="photo-label">COLOR / OVERSIZED</div></div>
-  </div>
-</section>
 
-<section class="section" id="generator">
-  <h2>Build your fit.</h2>
-  <p>Give NXTLOOK the constraints. The AI makes the styling decisions.</p>
-  <div class="generator">
-    <div class="grid">
-      <div class="field"><label>Style</label><select id="style">
-        <option>Streetwear</option><option>Dark Streetwear</option><option>Clean</option><option>Y2K</option><option>Vintage</option><option>Old Money</option><option>Sporty</option><option>Grunge</option><option>Techwear</option><option>Archive-inspired</option>
-      </select></div>
-      <div class="field"><label>Occasion</label><select id="occasion">
-        <option>Going out</option><option>School</option><option>Casual</option><option>Party</option><option>Date</option><option>Church</option><option>Photoshoot</option><option>Event</option>
-      </select></div>
-      <div class="field"><label>Main color</label><select id="color">
-        <option>Black</option><option>White</option><option>Grey</option><option>Navy</option><option>Brown</option><option>Red</option><option>Blue</option><option>Pink</option><option>Purple</option><option>Lime</option><option>Cream</option><option>Olive</option>
-      </select></div>
-      <div class="field"><label>Silhouette</label><select id="silhouette">
-        <option>Oversized</option><option>Baggy</option><option>Relaxed</option><option>Slim</option><option>Fitted</option><option>Layered</option><option>Wide-leg</option><option>Balanced</option>
-      </select></div>
-      <div class="field"><label>Bottom</label><select id="bottom">
-        <option>Wide-leg jeans</option><option>Stacked jeans</option><option>Cargo pants</option><option>Baggy trousers</option><option>Flared pants</option><option>Shorts</option><option>Chinos</option><option>Open choice</option>
-      </select></div>
-      <div class="field"><label>Shoes</label><select id="shoes">
-        <option>Sneakers</option><option>High-top sneakers</option><option>Classic shoes</option><option>Boots</option><option>Skate shoes</option><option>Open choice</option>
-      </select></div>
-    </div>
-    <button class="generate" id="generateBtn" onclick="generateFit()">GENERATE MY LOOK →</button>
-    <p class="hint">NXTLOOK will treat these as constraints, not blindly copy them.</p>
-    <div class="result" id="result">
-      <h3 id="resultTitle"></h3>
-      <div id="resultText"></div>
-      <button class="generate" onclick="generateFit()">↻ REGENERATE</button>
-    </div>
-  </div>
-</section>
+<main>
 
+  <!-- HERO -->
 
-<section class="section" id="wardrobe"><h2>YOUR WARDROBE.</h2><p>Save your actual pieces here, then make NXTLOOK style around them.</p><div class="generator"><div class="wardrobe-toolbar"><label class="upload-btn" for="wardrobeImages">＋</label><input type="file" id="wardrobeImages" accept="image/*" multiple hidden><input type="text" id="wardrobeName" placeholder="Optional piece name — e.g. black cargos"><button class="generate" id="addWardrobeBtn" style="width:auto;margin:0" onclick="addWardrobe()">ADD PIECES →</button></div><p class="hint">Photos are stored in this browser. Add shirts, pants, shoes, jackets or accessories.</p><div class="wardrobe-grid" id="wardrobeGrid"></div><button class="generate" id="wardrobeFitBtn" style="display:none" onclick="styleMyWardrobe()">BUILD A FIT FROM MY WARDROBE →</button></div></section>
+  <section class="hero">
 
-<section class="section">
-  <h2>FITS THAT HIT.</h2>
-  <p>Real street-style references. Save the vibe, then build your own version.</p>
-  <div class="inspo-grid">
-    <img src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Streetwear inspiration">
-    <img src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Statement streetwear inspiration">
-    <img src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Colorful streetwear inspiration">
-    <img src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Streetwear group inspiration">
-  </div>
-</section>
+    <div class="hero-content">
 
-<section class="section" id="plans">
-  <h2>Choose your level.</h2><p>Start free. Upgrade when you want more.</p>
-  <div class="plans">
-    <div class="plan"><h3>FREE</h3><div class="price">$0</div><p>Basic AI outfit generations, core styles and color combinations.</p></div>
-    <div class="plan featured"><h3>NXTLOOK+</h3><div class="price">$1.99<span style="font-size:13px;color:#777">/mo</span></div><p>More generations, saved looks and extra customization.</p></div>
-    <div class="plan"><h3>PRO</h3><div class="price">$4.99<span style="font-size:13px;color:#777">/mo</span></div><p>Advanced recommendations, unlimited generations and exclusive features.</p></div>
-  </div>
-</section>
+      <p class="eyebrow">
+        AI STYLING • YOUR WARDROBE • YOUR VIBE
+      </p>
 
-<section class="section" id="inspo">
-  <h2>ASK NXTLOOK.</h2><p>Show us what you have. Ask us what to wear.</p>
-  <div class="ai-chat">
-    <div class="chat-header"><div><strong>NXTLOOK AI</strong><span>STYLE ASSISTANT</span></div><div class="online-dot"></div></div>
-    <div class="chat-messages" id="chatMessages">
-      <div class="message ai-message"><strong>NXTLOOK</strong><p>Yo 👋 Tell me what you're working with. I can build, fix, rate or completely rethink a fit.</p></div>
-    </div>
-    <div class="upload-preview" id="uploadPreview"></div>
-    <div class="chat-input-area">
-      <label class="upload-btn" for="clothesImage">＋</label>
-      <input type="file" id="clothesImage" accept="image/*" hidden>
-      <input type="text" id="chatInput" placeholder="Ask NXTLOOK what to wear..." autocomplete="off">
-      <button id="sendBtn" onclick="sendMessage()">SEND →</button>
-    </div>
-  </div>
-</section>
+      <h1>
+        YOUR NEXT
+        <br>
+        <span>LOOK.</span>
+      </h1>
 
+      <p class="hero-text">
+        NXTLOOK helps you build intentional outfits
+        around your style, your wardrobe and the occasion.
+      </p>
 
-<section class="section section-anchor" id="shop">
-  <h2>THE NXTLOOK SHOP.</h2>
-  <p>Style references and essentials. Prices are placeholders until real products are connected.</p>
-  <div class="shop-grid">
-    <div class="shop-card"><h3>STYLE ESSENTIALS</h3><p class="muted">Curated basics for building stronger outfits.</p><div class="shop-price">From $15</div><a class="mini-btn" href="#plans">VIEW PICKS →</a></div>
-    <div class="shop-card"><h3>STREETWEAR</h3><p class="muted">Oversized tees, cargos, denim and layers.</p><div class="shop-price">From $25</div><a class="mini-btn" href="#plans">VIEW PICKS →</a></div>
-    <div class="shop-card"><h3>ACCESSORIES</h3><p class="muted">Bags, caps, chains and finishing pieces.</p><div class="shop-price">From $10</div><a class="mini-btn" href="#plans">VIEW PICKS →</a></div>
-  </div>
-  <p class="legal-note">No purchase is processed by these demo cards yet. Connect a real catalog/payment provider before accepting orders.</p>
-</section>
+      <div class="hero-buttons">
 
-<section class="section section-anchor" id="account">
-  <h2>YOUR ACCOUNT.</h2>
-  <p>Keep your NXTLOOK profile and saved style in one place.</p>
-  <div class="account-grid">
-    <div class="account-card"><h3>PROFILE</h3><p class="muted">Your style preferences and favorite aesthetics.</p><a class="mini-btn" href="#generator">EDIT STYLE →</a></div>
-    <div class="account-card"><h3>SAVED LOOKS</h3><p class="muted">Your generated looks will live here once account storage is connected.</p><a class="mini-btn" href="#generator">GENERATE →</a></div>
-    <div class="account-card"><h3>PLAN</h3><p class="muted">See your current plan and available upgrades.</p><a class="mini-btn" href="#plans">VIEW PLANS →</a></div>
-  </div>
-</section>
+        <a href="generator.html" class="btn primary">
+          GENERATE A LOOK →
+        </a>
 
-<section class="section section-anchor" id="faq">
-  <h2>FAQ.</h2>
-  <div class="faq-grid">
-    <div class="faq-card"><h3>Does NXTLOOK use my wardrobe?</h3><p class="muted">Yes. The wardrobe feature stores your uploaded pieces in your browser and can send those images to the AI when you build a fit.</p></div>
-    <div class="faq-card"><h3>Are the prices real?</h3><p class="muted">The current plan prices are the prices displayed on the site. Shop-card product prices are demo placeholders until a real catalog is connected.</p></div>
-    <div class="faq-card"><h3>Can I use my own clothes?</h3><p class="muted">Yes. Upload your pieces in YOUR WARDROBE and build an outfit from them.</p></div>
-  </div>
-</section>
+        <a href="wardrobe.html" class="btn secondary">
+          MY WARDROBE
+        </a>
 
-<footer>
-  <div class="footer-wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo">NXT<span>LOOK</span></div>
-        <p>Your next look starts here. AI styling built around your vibe, your wardrobe and your proportions.</p>
       </div>
-      <div class="footer-col"><h4>PRODUCT</h4><a href="#generator">Generator</a><a href="#nxtWardrobe">Wardrobe</a><a href="#shop">Shop</a><a href="#plans">Plans</a></div>
-      <div class="footer-col"><h4>DISCOVER</h4><a href="#inspo-grid">Inspo</a><a href="#inspo">AI Stylist</a><a href="#faq">FAQ</a></div>
-      <div class="footer-col"><h4>ACCOUNT</h4><a href="#account">My Account</a><a href="#plans">Subscription</a><a href="#nxtWardrobe">Saved Wardrobe</a></div>
-      <div class="footer-col"><h4>LEGAL</h4><a href="#privacy">Privacy</a><a href="#terms">Terms</a><a href="#refunds">Refunds</a><a href="mailto:hello@nxtlook.com">Contact</a></div>
+
     </div>
-    <div class="footer-bottom"><span>© 2026 NXTLOOK. All rights reserved.</span><span>BUILT FOR BETTER FITS.</span></div>
+
+  </section>
+
+
+  <!-- FEATURES -->
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <p class="eyebrow">
+        EVERYTHING IN ONE PLACE
+      </p>
+
+      <h2>
+        BUILD BETTER FITS.
+      </h2>
+
+      <p>
+        Choose what you want to do and NXTLOOK
+        takes you to the right part of the site.
+      </p>
+
+    </div>
+
+
+    <div class="feature-grid">
+
+
+      <!-- GENERATOR -->
+
+      <div class="feature-card">
+
+        <div class="feature-number">
+          01
+        </div>
+
+        <h3>
+          AI GENERATOR
+        </h3>
+
+        <p>
+          Build a complete outfit from your
+          preferred style, colors, silhouette,
+          occasion and footwear.
+        </p>
+
+        <a href="generator.html">
+          OPEN GENERATOR →
+        </a>
+
+      </div>
+
+
+      <!-- WARDROBE -->
+
+      <div class="feature-card">
+
+        <div class="feature-number">
+          02
+        </div>
+
+        <h3>
+          YOUR WARDROBE
+        </h3>
+
+        <p>
+          Save the clothes you already own
+          and build outfits around them.
+        </p>
+
+        <a href="wardrobe.html">
+          OPEN WARDROBE →
+        </a>
+
+      </div>
+
+
+      <!-- AI STYLIST -->
+
+      <div class="feature-card">
+
+        <div class="feature-number">
+          03
+        </div>
+
+        <h3>
+          AI STYLIST
+        </h3>
+
+        <p>
+          Upload a clothing photo and ask
+          NXTLOOK to style, identify, match
+          or rate the fit.
+        </p>
+
+        <a href="inspo.html">
+          ASK NXTLOOK →
+        </a>
+
+      </div>
+
+
+      <!-- INSPO -->
+
+      <div class="feature-card">
+
+        <div class="feature-number">
+          04
+        </div>
+
+        <h3>
+          STYLE INSPO
+        </h3>
+
+        <p>
+          Explore different aesthetics and
+          find new directions for your wardrobe.
+        </p>
+
+        <a href="inspo.html">
+          EXPLORE INSPO →
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="section dark-section">
+
+    <div class="cta-box">
+
+      <p class="eyebrow">
+        READY?
+      </p>
+
+      <h2>
+        STOP WEARING
+        <br>
+        <span>RANDOM FITS.</span>
+      </h2>
+
+      <p>
+        Tell NXTLOOK what you're working with.
+        We'll handle the styling.
+      </p>
+
+      <a href="generator.html" class="btn primary">
+        BUILD MY FIT →
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+
+    <!-- BRAND -->
+
+    <div class="footer-brand">
+
+      <a href="index.html" class="logo">
+        NXT<span>LOOK</span>
+      </a>
+
+      <p>
+        Your next look starts here.
+        AI styling built around your vibe,
+        wardrobe and proportions.
+      </p>
+
+    </div>
+
+
+    <!-- PRODUCT -->
+
+    <div class="footer-column">
+
+      <h4>
+        PRODUCT
+      </h4>
+
+      <a href="generator.html">
+        Generator
+      </a>
+
+      <a href="wardrobe.html">
+        Wardrobe
+      </a>
+
+      <a href="inspo.html">
+        AI Stylist
+      </a>
+
+      <a href="shop.html">
+        Shop
+      </a>
+
+      <a href="plans.html">
+        Plans
+      </a>
+
+    </div>
+
+
+    <!-- DISCOVER -->
+
+    <div class="footer-column">
+
+      <h4>
+        DISCOVER
+      </h4>
+
+      <a href="inspo.html">
+        Inspo
+      </a>
+
+      <a href="faq.html">
+        FAQ
+      </a>
+
+      <a href="account.html">
+        Account
+      </a>
+
+    </div>
+
+
+    <!-- ACCOUNT -->
+
+    <div class="footer-column">
+
+      <h4>
+        ACCOUNT
+      </h4>
+
+      <a href="account.html">
+        My Account
+      </a>
+
+      <a href="plans.html">
+        Subscription
+      </a>
+
+      <a href="wardrobe.html">
+        Saved Wardrobe
+      </a>
+
+    </div>
+
+
+    <!-- SOCIAL -->
+
+    <div class="footer-column">
+
+      <h4>
+        SOCIAL
+      </h4>
+
+      <a
+        href="https://www.instagram.com/15k_roy/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram — @15k_roy ↗
+      </a>
+
+    </div>
+
+
+    <!-- LEGAL -->
+
+    <div class="footer-column">
+
+      <h4>
+        LEGAL
+      </h4>
+
+      <a href="privacy.html">
+        Privacy
+      </a>
+
+      <a href="terms.html">
+        Terms
+      </a>
+
+      <a href="refunds.html">
+        Refunds
+      </a>
+
+      <a href="mailto:hello@nxtlook.com">
+        Contact
+      </a>
+
+    </div>
+
+
   </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 NXTLOOK. All rights reserved.
+    </span>
+
+    <span>
+      BUILT FOR BETTER FITS.
+    </span>
+
+  </div>
+
 </footer>
 
-<section class="section" id="privacy" style="display:none"><h2>PRIVACY</h2></section>
-<section class="section" id="terms" style="display:none"><h2>TERMS</h2></section>
-<section class="section" id="refunds" style="display:none"><h2>REFUNDS</h2></section>
 
-<script>
-const chatInput = document.getElementById('chatInput');
-const clothesImage = document.getElementById('clothesImage');
-const uploadPreview = document.getElementById('uploadPreview');
-const chatMessages = document.getElementById('chatMessages');
-let chatHistory = [];
-let uploadedImageData = null;
-const WARDROBE_KEY="nxtlook_wardrobe_v1";
-let wardrobe=JSON.parse(localStorage.getItem(WARDROBE_KEY)||"[]");
+<script src="app.js"></script>
 
-const colorMatches = {
-  Black:["White","Gray","Deep Purple","Red","Silver"],
-  White:["Black","Navy","Brown","Gray","Olive"],
-  Grey:["Black","White","Navy","Burgundy","Red"],
-  Navy:["White","Gray","Burgundy","Light Blue","Cream"],
-  Brown:["Cream","Olive","Burgundy","Beige","Black"],
-  Red:["Black","White","Gray","Navy","Cream"],
-  Blue:["White","Brown","Gray","Cream","Navy"],
-  Pink:["Black","White","Gray","Brown","Red"],
-  Purple:["Black","White","Gray","Silver","Cream"],
-  Lime:["Black","White","Gray","Navy","Purple"],
-  Cream:["Brown","Olive","Navy","Black","Burgundy"],
-  Olive:["Cream","Brown","Black","White","Burgundy"]
-};
-
-function escapeHTML(value){
-  return String(value || "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[c]));
-}
-
-function addChatMessage(sender,text,type){
-  const message=document.createElement('div');
-  message.className='message '+type+'-message';
-  const strong=document.createElement('strong');
-  strong.textContent=sender;
-  const p=document.createElement('p');
-  p.textContent=text;
-  message.appendChild(strong);
-  message.appendChild(p);
-  chatMessages.appendChild(message);
-  chatMessages.scrollTop=chatMessages.scrollHeight;
-  return message;
-}
-
-function getPreferences(){
-  return {
-    style:document.getElementById('style').value,
-    occasion:document.getElementById('occasion').value,
-    color:document.getElementById('color').value,
-    silhouette:document.getElementById('silhouette').value,
-    bottom:document.getElementById('bottom').value,
-    shoes:document.getElementById('shoes').value
-  };
-}
-
-function generatorPrompt(p){
-  const matches=colorMatches[p.color] || [];
-  return `Create one strong outfit using these preferences:
-Style: ${p.style}
-Occasion: ${p.occasion}
-Main color: ${p.color}
-Good supporting colors: ${matches.join(", ")}
-Preferred silhouette: ${p.silhouette}
-Preferred bottom: ${p.bottom}
-Preferred shoes: ${p.shoes}
-
-Use expert styling judgment. If a selected bottom or shoe clashes with the silhouette or occasion, keep the user's direction but choose a more coherent variation. Give a complete outfit and a score out of 10.`;
-}
-
-async function callAI(message, mode='chat', imageData=null){
-  const response=await fetch('/api/chat',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      message,
-      mode,
-      history:chatHistory,
-      preferences:getPreferences(),
-      imageData,
-      wardrobeImages:wardrobe.map(item=>item.image)
-    })
-  });
-  let data;
-  try{data=await response.json()}catch(e){throw new Error('The server returned an invalid response.')};
-  if(!response.ok) throw new Error(data.error || 'Request failed');
-  return data.reply || 'I could not generate a response.';
-}
-
-\nfunction saveWardrobe(){localStorage.setItem(WARDROBE_KEY,JSON.stringify(wardrobe));renderWardrobe()}\nfunction renderWardrobe(){const g=document.getElementById('wardrobeGrid'),b=document.getElementById('wardrobeFitBtn');if(!g)return;b.style.display=wardrobe.length?'block':'none';if(!wardrobe.length){g.innerHTML='<div class="result-item" style="grid-column:1/-1"><p style="color:#777">No pieces saved yet. Add your first clothing photo.</p></div>';return}g.innerHTML=wardrobe.map((x,i)=>`<div class="wardrobe-card"><img src="${escapeHTML(x.image)}" alt="${escapeHTML(x.name)}"><div class="piece-type">${escapeHTML(x.type||'WARDROBE PIECE')}</div><div class="piece-name">${escapeHTML(x.name)}</div><button onclick="removeWardrobe(${i})">REMOVE</button></div>`).join('')}\nfunction removeWardrobe(i){wardrobe.splice(i,1);saveWardrobe()}\nfunction fileToDataURL(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)})}\nasync function addWardrobe(){const input=document.getElementById('wardrobeImages'),name=document.getElementById('wardrobeName'),btn=document.getElementById('addWardrobeBtn'),files=Array.from(input.files||[]);if(!files.length){alert('Choose at least one clothing photo.');return}btn.disabled=true;btn.textContent='ADDING…';try{for(const file of files){if(!file.type.startsWith('image/')||file.size>5*1024*1024)continue;const image=await fileToDataURL(file);wardrobe.push({id:String(Date.now()+Math.random()),name:files.length===1&&name.value.trim()?name.value.trim():file.name.replace(/\\.[^.]+$/,''),type:'CLOTHING PHOTO',image})}name.value='';input.value='';saveWardrobe()}finally{btn.disabled=false;btn.textContent='ADD PIECES →'}}\nasync function styleMyWardrobe(){if(!wardrobe.length)return;const btn=document.getElementById('wardrobeFitBtn');btn.disabled=true;btn.textContent='STYLING YOUR CLOSET…';const list=wardrobe.map((x,i)=>`${i+1}. ${x.name}`).join('\\n');const prompt=`Build one strong outfit using my ACTUAL wardrobe photos.\\n\\nSaved pieces:\\n${list}\\n\\nUse the wardrobe images as the source of truth. Only use details visibly supported by the photos. Do not invent exact brands, models, materials or colors. Choose the strongest combination. If something does not improve the fit, leave it out. Keep the response concise.\\n\\nLOOK — NAME\\nTOP:\\nBOTTOM:\\nSHOES:\\nLAYER:\\nACCESSORIES:\\nWHY:\\nSCORE:\\nWEAK POINT:`;try{const reply=await callAI(prompt,'wardrobe',null,wardrobe.slice(0,8).map(x=>x.image));addChatMessage('YOU','Build a fit from my saved wardrobe.','user');addChatMessage('NXTLOOK',reply,'ai');chatHistory.push({role:'user',content:prompt},{role:'assistant',content:reply});chatHistory=chatHistory.slice(-10);document.getElementById('inspo').scrollIntoView({behavior:'smooth'})}catch(e){addChatMessage('NXTLOOK','ERROR: '+e.message,'ai')}finally{btn.disabled=false;btn.textContent='BUILD A FIT FROM MY WARDROBE →'}}\nrenderWardrobe();\n\nasync function generateFit(){
-  const btn=document.getElementById('generateBtn');
-  const result=document.getElementById('result');
-  const resultText=document.getElementById('resultText');
-  const title=document.getElementById('resultTitle');
-  const p=getPreferences();
-
-  btn.disabled=true;
-  btn.textContent='BUILDING YOUR FIT…';
-  result.classList.add('show');
-  title.textContent=`${p.style} • ${p.occasion}`;
-  resultText.innerHTML='<div class="result-item"><p class="loading">NXTLOOK is styling it… 👀</p></div>';
-
-  try{
-    const reply=await callAI(generatorPrompt(p),'generator');
-    const scoreMatch=reply.match(/SCORE\s*:\s*(\d+(?:\.\d+)?)\s*\/\s*10/i);
-    const score=scoreMatch ? scoreMatch[1] : null;
-    resultText.innerHTML=
-      '<div class="result-item"><small>NXTLOOK AI</small><p>'+escapeHTML(reply)+'</p></div>'+
-      (score ? '<div class="result-item"><small>FIT SCORE</small><div class="score">'+score+'/10</div></div>' : '');
-  }catch(error){
-    resultText.innerHTML='<div class="result-item"><p class="error">ERROR: '+escapeHTML(error.message)+'</p></div>';
-  }finally{
-    btn.disabled=false;
-    btn.textContent='GENERATE MY LOOK →';
-  }
-}
-
-async function sendMessage(){
-  const text=chatInput.value.trim();
-  if(!text) return;
-
-  addChatMessage('YOU',text,'user');
-  chatInput.value='';
-  const thinking=addChatMessage('NXTLOOK','Thinking… 👀','ai');
-  const p=thinking.querySelector('p');
-  const sendBtn=document.getElementById('sendBtn');
-  sendBtn.disabled=true;
-
-  try{
-    const reply=await callAI(text,'chat',uploadedImageData);
-    p.textContent=reply;
-
-    chatHistory.push({role:'user',content:text});
-    chatHistory.push({role:'assistant',content:reply});
-    chatHistory=chatHistory.slice(-10);
-  }catch(error){
-    p.textContent='ERROR: '+error.message;
-    p.classList.add('error');
-  }finally{
-    sendBtn.disabled=false;
-    chatMessages.scrollTop=chatMessages.scrollHeight;
-  }
-}
-
-clothesImage.addEventListener('change',function(){
-  const file=this.files[0];
-  if(!file || !file.type.startsWith('image/')) return;
-  if(file.size > 7*1024*1024){ addChatMessage('NXTLOOK','That photo is too large. Use an image under 7MB.','ai'); return; }
-
-  const reader=new FileReader();
-  reader.onload=function(e){
-    uploadedImageData=e.target.result;
-    uploadPreview.innerHTML='<img src="'+escapeHTML(uploadedImageData)+'" alt="Uploaded clothing">';
-    addChatMessage('YOU','I uploaded a clothing photo 📸','user');
-    addChatMessage('NXTLOOK','Photo attached. Ask me to identify the piece, build an outfit around it, match colors, or rate the styling.','ai');
-  };
-  reader.readAsDataURL(file);
-});
-
-chatInput.addEventListener('keydown',e=>{
-  if(e.key==='Enter' && !e.shiftKey){
-    e.preventDefault();
-    sendMessage();
-  }
-});
-</script>
 </body>
 </html>
