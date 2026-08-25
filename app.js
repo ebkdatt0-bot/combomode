@@ -1,246 +1,304 @@
-const chatInput = document.getElementById("chatInput");
-const chatMessages = document.getElementById("chatMessages");
-const clothesImage = document.getElementById("clothesImage");
-const uploadPreview = document.getElementById("uploadPreview");
+/* =========================================================
+   NXTLOOK — MAIN APP
+   Handles:
+   - AI Stylist chat
+   - Clothing image upload preview
+   - Navigation helpers
+   - Basic saved wardrobe
+   - Saved looks
+   - Generator support
+   ========================================================= */
 
-let selectedImage = null;
 
+/* =========================================================
+   GLOBAL STORAGE
+   ========================================================= */
 
-/* =========================
-   IMAGE UPLOAD
-========================= */
+const NXTLOOK_STORAGE = {
 
-if (clothesImage) {
+  get(key, fallback = []) {
 
-  clothesImage.addEventListener("change", function () {
+    try {
 
-    const file = this.files[0];
+      const value = localStorage.getItem(key);
 
-    if (!file) {
-      selectedImage = null;
+      return value
+        ? JSON.parse(value)
+        : fallback;
 
-      if (uploadPreview) {
-        uploadPreview.innerHTML = "";
-      }
+    } catch (error) {
 
-      return;
+      console.error("Storage read error:", error);
+
+      return fallback;
+
     }
 
-    selectedImage = file;
+  },
 
-    if (uploadPreview) {
 
-      const reader = new FileReader();
+  set(key, value) {
 
-      reader.onload = function (event) {
+    try {
 
-        uploadPreview.innerHTML = `
-          <div class="image-preview">
-            <img src="${event.target.result}" alt="Uploaded clothing">
-            <button type="button" onclick="removeImage()">×</button>
-          </div>
-        `;
+      localStorage.setItem(
+        key,
+        JSON.stringify(value)
+      );
 
-      };
+      return true;
 
-      reader.readAsDataURL(file);
+    } catch (error) {
+
+      console.error("Storage write error:", error);
+
+      return false;
+
     }
 
-  });
-
-}
-
-
-/* =========================
-   REMOVE IMAGE
-========================= */
-
-function removeImage() {
-
-  selectedImage = null;
-
-  if (clothesImage) {
-    clothesImage.value = "";
   }
 
-  if (uploadPreview) {
-    uploadPreview.innerHTML = "";
-  }
-
-}
+};
 
 
-/* =========================
-   CHAT MESSAGE
-========================= */
+/* =========================================================
+   AI STYLIST
+   ========================================================= */
 
-function addChatMessage(name, text, type) {
+let selectedClothingImage = null;
 
-  if (!chatMessages) return null;
 
-  const message = document.createElement("div");
+/* ---------------------------------------------------------
+   Add message to chat
+   --------------------------------------------------------- */
+
+function addChatMessage(type, text) {
+
+  const messages =
+    document.getElementById("chatMessages");
+
+  if (!messages) return;
+
+
+  const message =
+    document.createElement("div");
 
   message.className =
     type === "user"
       ? "message user-message"
       : "message ai-message";
 
-  message.innerHTML = `
-    <strong>${escapeHTML(name)}</strong>
-    <p>${escapeHTML(text)}</p>
-  `;
 
-  chatMessages.appendChild(message);
+  const label =
+    document.createElement("strong");
 
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  label.textContent =
+    type === "user"
+      ? "YOU"
+      : "NXTLOOK";
 
-  return message;
+
+  const paragraph =
+    document.createElement("p");
+
+  paragraph.textContent = text;
+
+
+  message.appendChild(label);
+
+  message.appendChild(paragraph);
+
+  messages.appendChild(message);
+
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
 }
 
 
-/* =========================
-   SEND MESSAGE
-========================= */
+/* ---------------------------------------------------------
+   Typing indicator
+   --------------------------------------------------------- */
 
-async function sendMessage() {
+function showTyping() {
 
-  if (!chatInput || !chatMessages) return;
+  const messages =
+    document.getElementById("chatMessages");
 
-  const text = chatInput.value.trim();
-
-  if (!text && !selectedImage) return;
+  if (!messages) return;
 
 
-  /* USER MESSAGE */
+  const typing =
+    document.createElement("div");
 
-  const displayText =
-    text ||
-    "Style this clothing photo.";
+  typing.id = "nxtlookTyping";
+
+  typing.className =
+    "message ai-message";
+
+
+  typing.innerHTML = `
+    <strong>NXTLOOK</strong>
+    <p>Thinking...</p>
+  `;
+
+
+  messages.appendChild(typing);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+/* ---------------------------------------------------------
+   Remove typing indicator
+   --------------------------------------------------------- */
+
+function hideTyping() {
+
+  const typing =
+    document.getElementById(
+      "nxtlookTyping"
+    );
+
+  if (typing) {
+
+    typing.remove();
+
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   Generate AI response
+   --------------------------------------------------------- */
+
+function generateNXTLOOKResponse(message) {
+
+  /*
+   * fashion-brain.js must be loaded before app.js
+   * on pages using the AI Stylist.
+   */
+
+  if (
+    window.NXTLOOK_STYLE_BRAIN &&
+    typeof window.NXTLOOK_STYLE_BRAIN.respond ===
+      "function"
+  ) {
+
+    return window.NXTLOOK_STYLE_BRAIN.respond(
+      message
+    );
+
+  }
+
+
+  return `
+I’m having trouble loading my styling brain right now.
+
+Make sure fashion-brain.js is connected before app.js.
+`;
+
+}
+
+
+/* ---------------------------------------------------------
+   Send chat message
+   --------------------------------------------------------- */
+
+function sendMessage() {
+
+  const input =
+    document.getElementById("chatInput");
+
+  if (!input) return;
+
+
+  const message =
+    input.value.trim();
+
+
+  if (!message) return;
+
 
   addChatMessage(
-    "YOU",
-    displayText,
-    "user"
-  );
-
-  chatInput.value = "";
-
-
-  /* AI THINKING */
-
-  const aiMessage = addChatMessage(
-    "NXTLOOK",
-    "Thinking... 👀",
-    "ai"
+    "user",
+    message
   );
 
 
-  try {
+  input.value = "";
 
-    let messageToSend = text;
 
-    if (!messageToSend && selectedImage) {
-      messageToSend =
-        "Analyze this clothing photo and style the outfit.";
+  showTyping();
+
+
+  /*
+   * Small delay makes the interaction feel
+   * like an actual AI assistant.
+   */
+
+  setTimeout(() => {
+
+    hideTyping();
+
+
+    let response;
+
+
+    try {
+
+      response =
+        generateNXTLOOKResponse(
+          message
+        );
+
+    } catch (error) {
+
+      console.error(
+        "NXTLOOK AI error:",
+        error
+      );
+
+
+      response =
+        "Something went wrong while building the fit. Try asking again.";
+
     }
 
 
-    /*
-      IMPORTANT:
-
-      Your Vercel API is:
-
-      /api/chat
-
-      We send the user's message there.
-    */
-
-    const response = await fetch(
-      "/api/chat",
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json"
-        },
-
-        body: JSON.stringify({
-          message: messageToSend
-        })
-      }
+    addChatMessage(
+      "ai",
+      response
     );
 
 
-    const data = await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.error ||
-        "AI request failed"
-      );
-
-    }
-
-
-    const reply =
-      data.reply ||
-      "I couldn't generate a response.";
-
-
-    if (aiMessage) {
-
-      const paragraph =
-        aiMessage.querySelector("p");
-
-      if (paragraph) {
-        paragraph.textContent = reply;
-      }
-
-    }
-
-
-  } catch (error) {
-
-    console.error(error);
-
-
-    if (aiMessage) {
-
-      const paragraph =
-        aiMessage.querySelector("p");
-
-      if (paragraph) {
-
-        paragraph.textContent =
-          "ERROR: " +
-          error.message;
-
-      }
-
-    }
-
-  }
-
-
-  if (chatMessages) {
-    chatMessages.scrollTop =
-      chatMessages.scrollHeight;
-  }
+  }, 450);
 
 }
 
 
-/* =========================
-   ENTER TO SEND
-========================= */
+/* ---------------------------------------------------------
+   Enter key sends message
+   --------------------------------------------------------- */
 
-if (chatInput) {
+function setupChatInput() {
 
-  chatInput.addEventListener(
+  const input =
+    document.getElementById(
+      "chatInput"
+    );
+
+
+  if (!input) return;
+
+
+  input.addEventListener(
     "keydown",
-    function (event) {
+    function(event) {
 
       if (
         event.key === "Enter" &&
@@ -259,141 +317,600 @@ if (chatInput) {
 }
 
 
-/* =========================
-   HTML ESCAPE
-========================= */
+/* ---------------------------------------------------------
+   Image upload
+   --------------------------------------------------------- */
 
-function escapeHTML(value) {
+function setupImageUpload() {
 
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  const input =
+    document.getElementById(
+      "clothesImage"
+    );
+
+
+  const preview =
+    document.getElementById(
+      "uploadPreview"
+    );
+
+
+  if (!input || !preview) return;
+
+
+  input.addEventListener(
+    "change",
+    function() {
+
+      const file =
+        input.files &&
+        input.files[0];
+
+
+      if (!file) return;
+
+
+      if (
+        !file.type.startsWith(
+          "image/"
+        )
+      ) {
+
+        preview.textContent =
+          "Please choose an image.";
+
+        return;
+
+      }
+
+
+      selectedClothingImage =
+        file;
+
+
+      const reader =
+        new FileReader();
+
+
+      reader.onload =
+        function(event) {
+
+          preview.innerHTML = `
+            <div class="nxtlook-uploaded-image">
+
+              <img
+                src="${event.target.result}"
+                alt="Uploaded clothing"
+                style="
+                  max-width:120px;
+                  max-height:120px;
+                  object-fit:cover;
+                  border-radius:10px;
+                  display:block;
+                "
+              >
+
+              <button
+                type="button"
+                onclick="clearClothingImage()"
+                style="
+                  margin-top:8px;
+                  cursor:pointer;
+                "
+              >
+                REMOVE
+              </button>
+
+            </div>
+          `;
+
+        };
+
+
+      reader.readAsDataURL(file);
+
+    }
+  );
 
 }
 
 
-/* =========================
+/* ---------------------------------------------------------
+   Clear uploaded image
+   --------------------------------------------------------- */
+
+function clearClothingImage() {
+
+  const input =
+    document.getElementById(
+      "clothesImage"
+    );
+
+
+  const preview =
+    document.getElementById(
+      "uploadPreview"
+    );
+
+
+  selectedClothingImage =
+    null;
+
+
+  if (input) {
+
+    input.value = "";
+
+  }
+
+
+  if (preview) {
+
+    preview.innerHTML = "";
+
+  }
+
+}
+
+
+/* =========================================================
+   WARDROBE
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   Get wardrobe
+   --------------------------------------------------------- */
+
+function getWardrobe() {
+
+  return NXTLOOK_STORAGE.get(
+    "nxtlook_wardrobe",
+    []
+  );
+
+}
+
+
+/* ---------------------------------------------------------
+   Save wardrobe
+   --------------------------------------------------------- */
+
+function saveWardrobe(items) {
+
+  return NXTLOOK_STORAGE.set(
+    "nxtlook_wardrobe",
+    items
+  );
+
+}
+
+
+/* ---------------------------------------------------------
+   Add wardrobe item
+   --------------------------------------------------------- */
+
+function addWardrobeItem(item) {
+
+  const wardrobe =
+    getWardrobe();
+
+
+  wardrobe.push({
+
+    id:
+      Date.now(),
+
+    name:
+      item.name ||
+      "Untitled item",
+
+    category:
+      item.category ||
+      "Other",
+
+    brand:
+      item.brand ||
+      "",
+
+    color:
+      item.color ||
+      "",
+
+    image:
+      item.image ||
+      null
+
+  });
+
+
+  saveWardrobe(
+    wardrobe
+  );
+
+
+  return wardrobe;
+
+}
+
+
+/* ---------------------------------------------------------
+   Remove wardrobe item
+   --------------------------------------------------------- */
+
+function removeWardrobeItem(id) {
+
+  const wardrobe =
+    getWardrobe()
+      .filter(
+        item =>
+          item.id !== id
+      );
+
+
+  saveWardrobe(
+    wardrobe
+  );
+
+
+  return wardrobe;
+
+}
+
+
+/* =========================================================
+   SAVED LOOKS
+   ========================================================= */
+
+function getSavedLooks() {
+
+  return NXTLOOK_STORAGE.get(
+    "nxtlook_saved_looks",
+    []
+  );
+
+}
+
+
+function saveLook(look) {
+
+  const looks =
+    getSavedLooks();
+
+
+  looks.push({
+
+    id:
+      Date.now(),
+
+    createdAt:
+      new Date().toISOString(),
+
+    ...look
+
+  });
+
+
+  saveSavedLooks(
+    looks
+  );
+
+
+  return looks;
+
+}
+
+
+function saveSavedLooks(looks) {
+
+  return NXTLOOK_STORAGE.set(
+    "nxtlook_saved_looks",
+    looks
+  );
+
+}
+
+
+function removeSavedLook(id) {
+
+  const looks =
+    getSavedLooks()
+      .filter(
+        look =>
+          look.id !== id
+      );
+
+
+  saveSavedLooks(
+    looks
+  );
+
+
+  return looks;
+
+}
+
+
+/* =========================================================
    GENERATOR
-========================= */
+   ========================================================= */
 
-const generatorForm =
-  document.getElementById("generatorForm");
+function generateOutfit(style = "streetwear") {
 
-if (generatorForm) {
+  if (
+    !window.NXTLOOK_STYLE_BRAIN
+  ) {
 
-  generatorForm.addEventListener(
-    "submit",
-    async function (event) {
+    console.error(
+      "fashion-brain.js is not loaded."
+    );
 
-      event.preventDefault();
+    return null;
 
-
-      const style =
-        document.getElementById("style")?.value ||
-        "streetwear";
-
-      const color =
-        document.getElementById("color")?.value ||
-        "black";
-
-      const occasion =
-        document.getElementById("occasion")?.value ||
-        "casual";
-
-      const message =
-        `Create a complete ${style} outfit.
-
-Color preference: ${color}
-
-Occasion: ${occasion}
-
-Give me:
-- top
-- bottom
-- shoes
-- layering
-- accessories
-- why the outfit works
-- a score out of 10
-
-Keep it concise.`;
+  }
 
 
-      const result =
-        document.getElementById("generatorResult");
+  const fit =
+    window.NXTLOOK_STYLE_BRAIN
+      .generateFit(style);
 
 
-      if (result) {
-        result.innerHTML =
-          "<p>Building your fit... 👀</p>";
-      }
+  return fit;
+
+}
 
 
-      try {
+/* ---------------------------------------------------------
+   Format generated outfit
+   --------------------------------------------------------- */
 
-        const response =
-          await fetch(
-            "/api/chat",
-            {
-              method: "POST",
+function formatGeneratedOutfit(fit) {
 
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
+  if (!fit) {
 
-              body: JSON.stringify({
-                message
-              })
-            }
-          );
+    return "Unable to generate outfit.";
+
+  }
 
 
-        const data =
-          await response.json();
+  let text =
+`LOOK — ${String(
+  fit.style || "STREETWEAR"
+).toUpperCase()}
+
+TOP: ${fit.top || "—"}
+
+BOTTOM: ${fit.bottom || "—"}
+
+SHOES: ${fit.shoes || "—"}`;
 
 
-        if (!response.ok) {
-          throw new Error(
-            data.error ||
-            "Request failed"
-          );
-        }
+  if (fit.layer) {
+
+    text +=
+      `\n\nLAYER: ${fit.layer}`;
+
+  }
 
 
-        if (result) {
+  if (fit.accessory) {
 
-          result.innerHTML = `
-            <h3>NXTLOOK</h3>
-            <p>${escapeHTML(
-              data.reply ||
-              "Couldn't generate the fit."
-            ).replace(/\n/g, "<br>")}</p>
-          `;
+    text +=
+      `\n\nACCESSORIES: ${fit.accessory}`;
 
-        }
+  }
 
 
-      } catch (error) {
+  return text;
 
-        if (result) {
+}
 
-          result.innerHTML = `
-            <p>
-              ERROR: ${escapeHTML(
-                error.message
-              )}
-            </p>
-          `;
 
-        }
+/* =========================================================
+   ACCOUNT HELPERS
+   ========================================================= */
 
-      }
+function getAccount() {
+
+  return NXTLOOK_STORAGE.get(
+    "nxtlook_account",
+    {
+
+      username:
+        "NXTLOOK USER",
+
+      plan:
+        "FREE"
 
     }
   );
+
+}
+
+
+function saveAccount(account) {
+
+  return NXTLOOK_STORAGE.set(
+    "nxtlook_account",
+    account
+  );
+
+}
+
+
+/* ---------------------------------------------------------
+   Set plan
+   --------------------------------------------------------- */
+
+function setNXTLOOKPlan(plan) {
+
+  const account =
+    getAccount();
+
+
+  account.plan =
+    plan;
+
+
+  saveAccount(
+    account
+  );
+
+
+  return account;
+
+}
+
+
+/* =========================================================
+   GLOBAL UPGRADE HANDLER
+   ========================================================= */
+
+function upgrade(plan) {
+
+  alert(
+    plan +
+    " selected.\n\n" +
+    "Payments are not connected yet."
+  );
+
+}
+
+
+/* =========================================================
+   SHOP PLACEHOLDER HANDLER
+   ========================================================= */
+
+function shopAlert(event) {
+
+  if (event) {
+
+    event.preventDefault();
+
+  }
+
+
+  alert(
+    "NXTLOOK Shop is coming soon."
+  );
+
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+function setupMobileNavigation() {
+
+  const nav =
+    document.querySelector(
+      ".nav-links"
+    );
+
+
+  if (!nav) return;
+
+
+  /*
+   * Only add a mobile button if the
+   * existing website doesn't already
+   * have one.
+   */
+
+  const existingButton =
+    document.querySelector(
+      ".mobile-menu-button"
+    );
+
+
+  if (existingButton) return;
+
+
+  const button =
+    document.createElement(
+      "button"
+    );
+
+
+  button.className =
+    "mobile-menu-button";
+
+
+  button.type =
+    "button";
+
+
+  button.textContent =
+    "☰";
+
+
+  button.setAttribute(
+    "aria-label",
+    "Open navigation"
+  );
+
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      nav.classList.toggle(
+        "mobile-open"
+      );
+
+    }
+  );
+
+
+  const navbar =
+    document.querySelector(
+      ".navbar, nav"
+    );
+
+
+  if (navbar) {
+
+    navbar.appendChild(
+      button
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   PAGE INITIALIZATION
+   ========================================================= */
+
+function initNXTLOOK() {
+
+  setupChatInput();
+
+  setupImageUpload();
+
+  setupMobileNavigation();
+
+}
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+if (
+  document.readyState ===
+  "loading"
+) {
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    initNXTLOOK
+  );
+
+} else {
+
+  initNXTLOOK();
 
 }
