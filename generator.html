@@ -1,1 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Generator — NXTLOOK</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .generator-page {
+      max-width: 1100px;
+      margin: auto;
+      padding: 90px 7%;
+    }
+
+    .generator-box {
+      margin-top: 45px;
+      padding: 35px;
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      border-radius: 20px;
+    }
+
+    .generator-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: #aaa;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .field select,
+    .field input {
+      width: 100%;
+      padding: 15px;
+
+      background: #050505;
+      color: white;
+
+      border: 1px solid #292929;
+      border-radius: 9px;
+
+      outline: none;
+      font-size: 14px;
+    }
+
+    .field select:focus,
+    .field input:focus {
+      border-color: #a8ff00;
+    }
+
+    .generate-button {
+      margin-top: 10px;
+      padding: 16px 24px;
+
+      background: #a8ff00;
+      color: #050505;
+
+      border: none;
+      border-radius: 9px;
+
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .generate-button:hover {
+      opacity: .85;
+    }
+
+    .generator-result {
+      margin-top: 30px;
+      padding: 25px;
+
+      background: #050505;
+      border: 1px solid #292929;
+      border-radius: 15px;
+
+      min-height: 100px;
+    }
+
+    .generator-result h3 {
+      color: #a8ff00;
+    }
+
+    @media (max-width: 650px) {
+      .generator-form {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .generator-box {
+        padding: 20px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+  <a href="index.html" class="logo">
+    NXT<span>LOOK</span>
+  </a>
+
+  <div class="nav-links">
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a class="active" href="generator.html">
+      Generator
+    </a>
+
+    <a href="wardrobe.html">
+      Wardrobe
+    </a>
+
+    <a href="inspo.html">
+      AI Stylist
+    </a>
+
+    <a href="plans.html">
+      Plans
+    </a>
+
+    <a href="shop.html">
+      Shop
+    </a>
+
+    <a href="account.html">
+      Account
+    </a>
+
+  </div>
+
+</nav>
+
+
+<main>
+
+  <section class="generator-page">
+
+    <p class="eyebrow">
+      NXTLOOK AI
+    </p>
+
+    <h1>
+      BUILD YOUR
+      <br>
+      <span>FIT.</span>
+    </h1>
+
+    <p class="hero-text">
+      Tell NXTLOOK what you're going for.
+      We'll build an intentional outfit around it.
+    </p>
+
+
+    <div class="generator-box">
+
+      <form
+        id="generatorForm"
+        class="generator-form"
+      >
+
+
+        <!-- STYLE -->
+
+        <div class="field">
+
+          <label for="style">
+            STYLE
+          </label>
+
+          <select id="style">
+
+            <option value="dark streetwear">
+              Dark Streetwear
+            </option>
+
+            <option value="streetwear">
+              Streetwear
+            </option>
+
+            <option value="archive">
+              Archive
+            </option>
+
+            <option value="grunge">
+              Grunge
+            </option>
+
+            <option value="minimal">
+              Minimal
+            </option>
+
+            <option value="old money">
+              Old Money
+            </option>
+
+            <option value="Y2K">
+              Y2K
+            </option>
+
+            <option value="techwear">
+              Techwear
+            </option>
+
+            <option value="casual">
+              Casual
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- COLOR -->
+
+        <div class="field">
+
+          <label for="color">
+            MAIN COLOR
+          </label>
+
+          <select id="color">
+
+            <option value="black">
+              Black
+            </option>
+
+            <option value="white">
+              White
+            </option>
+
+            <option value="grey">
+              Grey
+            </option>
+
+            <option value="navy">
+              Navy
+            </option>
+
+            <option value="brown">
+              Brown
+            </option>
+
+            <option value="beige">
+              Beige
+            </option>
+
+            <option value="earth tones">
+              Earth Tones
+            </option>
+
+            <option value="dark colors">
+              Dark Colors
+            </option>
+
+            <option value="mixed colors">
+              Mixed Colors
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- OCCASION -->
+
+        <div class="field">
+
+          <label for="occasion">
+            OCCASION
+          </label>
+
+          <select id="occasion">
+
+            <option value="everyday casual">
+              Everyday
+            </option>
+
+            <option value="school">
+              School
+            </option>
+
+            <option value="church">
+              Church
+            </option>
+
+            <option value="party">
+              Party
+            </option>
+
+            <option value="date">
+              Date
+            </option>
+
+            <option value="night out">
+              Night Out
+            </option>
+
+            <option value="formal event">
+              Formal
+            </option>
+
+            <option value="summer day">
+              Summer Day
+            </option>
+
+            <option value="winter">
+              Winter
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- FIT -->
+
+        <div class="field">
+
+          <label for="fit">
+            SILHOUETTE
+          </label>
+
+          <select id="fit">
+
+            <option value="oversized">
+              Oversized
+            </option>
+
+            <option value="baggy">
+              Baggy
+            </option>
+
+            <option value="relaxed">
+              Relaxed
+            </option>
+
+            <option value="straight">
+              Straight
+            </option>
+
+            <option value="slim">
+              Slim
+            </option>
+
+            <option value="fitted">
+              Fitted
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- FOOTWEAR -->
+
+        <div class="field">
+
+          <label for="footwear">
+            FOOTWEAR
+          </label>
+
+          <select id="footwear">
+
+            <option value="sneakers">
+              Sneakers
+            </option>
+
+            <option value="chunky sneakers">
+              Chunky Sneakers
+            </option>
+
+            <option value="boots">
+              Boots
+            </option>
+
+            <option value="loafers">
+              Loafers
+            </option>
+
+            <option value="dress shoes">
+              Dress Shoes
+            </option>
+
+            <option value="any footwear">
+              Anything
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- BRAND -->
+
+        <div class="field">
+
+          <label for="brand">
+            BRAND VIBE
+          </label>
+
+          <select id="brand">
+
+            <option value="no specific brand">
+              No Specific Brand
+            </option>
+
+            <option value="Stussy">
+              Stüssy
+            </option>
+
+            <option value="Carhartt">
+              Carhartt
+            </option>
+
+            <option value="Stone Island">
+              Stone Island
+            </option>
+
+            <option value="New Balance">
+              New Balance
+            </option>
+
+            <option value="Nike">
+              Nike
+            </option>
+
+            <option value="Adidas">
+              Adidas
+            </option>
+
+            <option value="mixed streetwear brands">
+              Mixed Streetwear Brands
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- WARDROBE -->
+
+        <div class="field full">
+
+          <label for="wardrobeItems">
+            WHAT DO YOU ALREADY OWN?
+          </label>
+
+          <input
+            id="wardrobeItems"
+            type="text"
+            placeholder="Example: black oversized tee, baggy jeans, black Vans..."
+          >
+
+        </div>
+
+
+        <!-- SUBMIT -->
+
+        <div class="field full">
+
+          <button
+            class="generate-button"
+            type="submit"
+          >
+            GENERATE MY FIT →
+          </button>
+
+        </div>
+
+      </form>
+
+
+      <!-- RESULT -->
+
+      <div
+        id="generatorResult"
+        class="generator-result"
+      >
+
+        <p>
+          Your generated outfit will appear here.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  <div class="footer-grid">
+
+
+    <div class="footer-brand">
+
+      <a href="index.html" class="logo">
+        NXT<span>LOOK</span>
+      </a>
+
+      <p>
+        Your next look starts here.
+        AI styling built around your vibe,
+        wardrobe and proportions.
+      </p>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        PRODUCT
+      </h4>
+
+      <a href="generator.html">
+        Generator
+      </a>
+
+      <a href="wardrobe.html">
+        Wardrobe
+      </a>
+
+      <a href="inspo.html">
+        AI Stylist
+      </a>
+
+      <a href="shop.html">
+        Shop
+      </a>
+
+      <a href="plans.html">
+        Plans
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        DISCOVER
+      </h4>
+
+      <a href="inspo.html">
+        Inspo
+      </a>
+
+      <a href="faq.html">
+        FAQ
+      </a>
+
+      <a href="account.html">
+        Account
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        ACCOUNT
+      </h4>
+
+      <a href="account.html">
+        My Account
+      </a>
+
+      <a href="plans.html">
+        Subscription
+      </a>
+
+      <a href="wardrobe.html">
+        Saved Wardrobe
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        SOCIAL
+      </h4>
+
+      <a
+        href="https://www.instagram.com/15k_roy/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Instagram — @15k_roy ↗
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        LEGAL
+      </h4>
+
+      <a href="privacy.html">
+        Privacy
+      </a>
+
+      <a href="terms.html">
+        Terms
+      </a>
+
+      <a href="refunds.html">
+        Refunds
+      </a>
+
+      <a href="mailto:hello@nxtlook.com">
+        Contact
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 NXTLOOK. All rights reserved.
+    </span>
+
+    <span>
+      BUILT FOR BETTER FITS.
+    </span>
+
+  </div>
+
+</footer>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
