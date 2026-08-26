@@ -1,14 +1,22 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Account — NXTLOOK</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
 
   <style>
 
@@ -24,6 +32,68 @@
       background: #0d0d0d;
       border: 1px solid #292929;
       border-radius: 20px;
+    }
+
+    .account-form {
+      display: grid;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .account-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 15px;
+      border-radius: 9px;
+      border: 1px solid #292929;
+      background: #151515;
+      color: #fff;
+      outline: none;
+    }
+
+    .account-input:focus {
+      border-color: #a8ff00;
+    }
+
+    .account-button {
+      padding: 14px 20px;
+      border-radius: 9px;
+      border: 1px solid #333;
+      background: #151515;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .account-button.primary {
+      background: #a8ff00;
+      color: #050505;
+      border-color: #a8ff00;
+    }
+
+    .account-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .account-tab {
+      flex: 1;
+      padding: 13px;
+      border: 1px solid #292929;
+      background: #151515;
+      color: #888;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .account-tab.active {
+      background: #a8ff00;
+      color: #050505;
+      border-color: #a8ff00;
     }
 
     .account-row {
@@ -50,10 +120,6 @@
       text-align: right;
     }
 
-    .account-value.green {
-      color: #a8ff00;
-    }
-
     .account-actions {
       margin-top: 30px;
       display: flex;
@@ -61,100 +127,40 @@
       flex-wrap: wrap;
     }
 
-    .account-button {
-      padding: 14px 20px;
-      border-radius: 9px;
-      border: 1px solid #333;
-      background: #151515;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 12px;
+    .account-error {
+      margin-top: 12px;
+      color: #ff5555;
+      font-size: 13px;
+      display: none;
     }
 
-    .account-button.primary {
-      background: #a8ff00;
-      color: #050505;
-      border-color: #a8ff00;
+    .account-success {
+      margin-top: 12px;
+      color: #a8ff00;
+      font-size: 13px;
+      display: none;
     }
 
-    .account-button:hover {
-      opacity: .85;
-    }
-
-    .account-section {
-      margin-top: 35px;
-      padding: 28px;
-      background: #0d0d0d;
-      border: 1px solid #292929;
-      border-radius: 20px;
-    }
-
-    .account-section h2 {
-      margin-bottom: 8px;
-    }
-
-    .account-section p {
+    .account-switch {
+      margin-top: 18px;
       color: #777;
       font-size: 13px;
+      text-align: center;
     }
 
-    .account-stat-grid {
-      margin-top: 25px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .account-stat {
-      padding: 20px;
-      background: #151515;
-      border: 1px solid #242424;
-      border-radius: 12px;
-    }
-
-    .account-stat strong {
-      display: block;
+    .account-switch button {
+      border: none;
+      background: none;
       color: #a8ff00;
-      font-size: 25px;
-      margin-bottom: 5px;
-    }
-
-    .account-stat span {
-      color: #777;
-      font-size: 10px;
-      letter-spacing: 1px;
-    }
-
-    .danger-zone {
-      margin-top: 35px;
-      padding: 25px;
-      border: 1px solid #292929;
-      border-radius: 20px;
-    }
-
-    .danger-zone h3 {
-      color: #fff;
-      margin-bottom: 8px;
-    }
-
-    .danger-zone p {
-      color: #666;
-      font-size: 12px;
-      margin-bottom: 18px;
-    }
-
-    .danger-button {
-      padding: 12px 18px;
-      border-radius: 8px;
-      border: 1px solid #552222;
-      background: #1a1010;
-      color: #ff6666;
-      font-weight: 800;
       cursor: pointer;
+      font-weight: 800;
     }
 
-    @media (max-width: 650px) {
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 600px) {
 
       .account-row {
         flex-direction: column;
@@ -162,10 +168,6 @@
 
       .account-value {
         text-align: left;
-      }
-
-      .account-stat-grid {
-        grid-template-columns: 1fr;
       }
 
     }
@@ -178,13 +180,15 @@
 <body>
 
 
-<!-- NAV -->
-
 <nav class="navbar">
 
-  <a href="index.html" class="logo">
+  <a
+    href="index.html"
+    class="logo"
+  >
     NXT<span>LOOK</span>
   </a>
+
 
   <div class="nav-links">
 
@@ -212,7 +216,10 @@
       Shop
     </a>
 
-    <a class="active" href="account.html">
+    <a
+      class="active"
+      href="account.html"
+    >
       Account
     </a>
 
@@ -229,21 +236,175 @@
       NXTLOOK ACCOUNT
     </p>
 
-    <h1>
+
+    <h1 id="pageTitle">
+
       YOUR
       <br>
       <span>ACCOUNT.</span>
+
     </h1>
 
+
     <p class="hero-text">
-      Your NXTLOOK profile, wardrobe,
-      saved fits and membership.
+      Create your NXTLOOK account and keep
+      your profile, wardrobe and saved looks together.
     </p>
 
 
-    <!-- ACCOUNT INFO -->
+    <!-- AUTH CARD -->
 
-    <div class="account-card">
+    <div
+      id="authCard"
+      class="account-card"
+    >
+
+      <div class="account-tabs">
+
+        <button
+          id="loginTab"
+          class="account-tab active"
+          onclick="showLogin()"
+        >
+          LOGIN
+        </button>
+
+        <button
+          id="signupTab"
+          class="account-tab"
+          onclick="showSignup()"
+        >
+          CREATE ACCOUNT
+        </button>
+
+      </div>
+
+
+      <!-- LOGIN -->
+
+      <form
+        id="loginForm"
+        class="account-form"
+      >
+
+        <input
+          id="loginEmail"
+          class="account-input"
+          type="email"
+          placeholder="Email"
+          autocomplete="email"
+          required
+        >
+
+        <input
+          id="loginPassword"
+          class="account-input"
+          type="password"
+          placeholder="Password"
+          autocomplete="current-password"
+          required
+        >
+
+        <button
+          class="account-button primary"
+          type="submit"
+        >
+          LOGIN →
+        </button>
+
+      </form>
+
+
+      <!-- SIGNUP -->
+
+      <form
+        id="signupForm"
+        class="account-form hidden"
+      >
+
+        <input
+          id="signupUsername"
+          class="account-input"
+          type="text"
+          placeholder="Username"
+          maxlength="30"
+          autocomplete="username"
+          required
+        >
+
+        <input
+          id="signupEmail"
+          class="account-input"
+          type="email"
+          placeholder="Email"
+          autocomplete="email"
+          required
+        >
+
+        <input
+          id="signupPassword"
+          class="account-input"
+          type="password"
+          placeholder="Password"
+          minlength="6"
+          autocomplete="new-password"
+          required
+        >
+
+        <input
+          id="signupPasswordConfirm"
+          class="account-input"
+          type="password"
+          placeholder="Confirm password"
+          minlength="6"
+          autocomplete="new-password"
+          required
+        >
+
+        <button
+          class="account-button primary"
+          type="submit"
+        >
+          CREATE ACCOUNT →
+        </button>
+
+      </form>
+
+
+      <div
+        id="authError"
+        class="account-error"
+      ></div>
+
+
+      <div
+        id="authSuccess"
+        class="account-success"
+      ></div>
+
+
+      <div
+        id="accountSwitch"
+        class="account-switch"
+      >
+        Don't have an account?
+        <button
+          type="button"
+          onclick="showSignup()"
+        >
+          Create one
+        </button>
+      </div>
+
+    </div>
+
+
+    <!-- LOGGED-IN ACCOUNT -->
+
+    <div
+      id="profileCard"
+      class="account-card hidden"
+    >
 
       <div class="account-row">
 
@@ -252,10 +413,26 @@
         </div>
 
         <div
-          id="accountUsername"
+          id="profileUsername"
           class="account-value"
         >
-          NXTLOOK USER
+          —
+        </div>
+
+      </div>
+
+
+      <div class="account-row">
+
+        <div class="account-label">
+          EMAIL
+        </div>
+
+        <div
+          id="profileEmail"
+          class="account-value"
+        >
+          —
         </div>
 
       </div>
@@ -268,8 +445,8 @@
         </div>
 
         <div
-          id="accountPlan"
-          class="account-value green"
+          id="profilePlan"
+          class="account-value"
         >
           FREE
         </div>
@@ -284,7 +461,7 @@
         </div>
 
         <div
-          id="accountSavedLooks"
+          id="profileLooks"
           class="account-value"
         >
           0
@@ -296,14 +473,14 @@
       <div class="account-row">
 
         <div class="account-label">
-          WARDROBE ITEMS
+          WARDROBE
         </div>
 
         <div
-          id="accountWardrobe"
+          id="profileWardrobe"
           class="account-value"
         >
-          0
+          0 ITEMS
         </div>
 
       </div>
@@ -334,145 +511,22 @@
           CREATE A FIT
         </a>
 
-      </div>
 
-    </div>
-
-
-    <!-- STATS -->
-
-    <div class="account-section">
-
-      <p class="eyebrow">
-        YOUR NXTLOOK
-      </p>
-
-      <h2>
-        STYLE
-        <span>STATS.</span>
-      </h2>
-
-      <p>
-        Your activity is stored locally in this browser.
-      </p>
-
-
-      <div class="account-stat-grid">
-
-        <div class="account-stat">
-
-          <strong id="statLooks">
-            0
-          </strong>
-
-          <span>
-            SAVED FITS
-          </span>
-
-        </div>
-
-
-        <div class="account-stat">
-
-          <strong id="statWardrobe">
-            0
-          </strong>
-
-          <span>
-            CLOTHING ITEMS
-          </span>
-
-        </div>
-
-
-        <div class="account-stat">
-
-          <strong id="statPlan">
-            FREE
-          </strong>
-
-          <span>
-            CURRENT PLAN
-          </span>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- QUICK LINKS -->
-
-    <div class="account-section">
-
-      <p class="eyebrow">
-        QUICK ACCESS
-      </p>
-
-      <h2>
-        KEEP
-        <span>STYLING.</span>
-      </h2>
-
-      <div class="account-actions">
-
-        <a
-          href="generator.html"
-          class="account-button primary"
-        >
-          GENERATE A FIT →
-        </a>
-
-        <a
-          href="inspo.html"
+        <button
           class="account-button"
+          onclick="logout()"
         >
-          ASK AI STYLIST
-        </a>
-
-        <a
-          href="shop.html"
-          class="account-button"
-        >
-          SHOP BRANDS
-        </a>
+          LOG OUT
+        </button>
 
       </div>
 
     </div>
-
-
-    <!-- RESET -->
-
-    <div class="danger-zone">
-
-      <h3>
-        RESET LOCAL DATA
-      </h3>
-
-      <p>
-        This removes saved looks, wardrobe items
-        and NXTLOOK settings from this browser.
-        This cannot be undone.
-      </p>
-
-      <button
-        class="danger-button"
-        onclick="resetNXTLOOK()"
-      >
-        RESET MY DATA
-      </button>
-
-    </div>
-
 
   </section>
 
 </main>
 
-
-<!-- FOOTER -->
 
 <footer class="footer">
 
@@ -481,7 +535,10 @@
 
     <div class="footer-brand">
 
-      <a href="index.html" class="logo">
+      <a
+        href="index.html"
+        class="logo"
+      >
         NXT<span>LOOK</span>
       </a>
 
@@ -624,26 +681,33 @@
 </footer>
 
 
+<script src="app.js"></script>
+
+
 <script>
 
-/* =========================
-   LOAD ACCOUNT DATA
-========================= */
+/* =========================================================
+   NXTLOOK ACCOUNT SYSTEM
+   Browser-only account system for the current prototype.
+   ========================================================= */
 
-function getArray(
-  key
-) {
+
+const ACCOUNT_KEY =
+  "nxtlook_users";
+
+const SESSION_KEY =
+  "nxtlook_current_user";
+
+
+function getUsers() {
 
   try {
 
-    const data =
-      JSON.parse(
-        localStorage.getItem(key) || "[]"
-      );
-
-    return Array.isArray(data)
-      ? data
-      : [];
+    return JSON.parse(
+      localStorage.getItem(
+        ACCOUNT_KEY
+      ) || "[]"
+    );
 
   } catch {
 
@@ -654,158 +718,634 @@ function getArray(
 }
 
 
-function getPlan() {
+function saveUsers(users) {
 
-  return (
-    localStorage.getItem(
-      "nxtlook_plan"
-    ) ||
-    localStorage.getItem(
-      "nxtlookPlan"
-    ) ||
-    "FREE"
+  localStorage.setItem(
+    ACCOUNT_KEY,
+    JSON.stringify(users)
   );
 
 }
 
 
-function loadAccount() {
+function getCurrentUser() {
 
-  const savedLooks =
-    getArray(
-      "nxtlook_saved_looks"
-    );
-
-
-  const wardrobe =
-    getArray(
-      "nxtlookWardrobe"
-    );
-
-
-  const plan =
-    getPlan();
-
-
-  /*
-    Username.
-
-    If the user later adds a real
-    account system, this value can
-    come from that system.
-  */
-
-  const username =
+  const email =
     localStorage.getItem(
-      "nxtlook_username"
-    ) ||
-    "NXTLOOK USER";
+      SESSION_KEY
+    );
+
+  if (!email) return null;
 
 
-  document.getElementById(
-    "accountUsername"
-  ).textContent =
-    username;
+  const users =
+    getUsers();
 
 
-  document.getElementById(
-    "accountPlan"
-  ).textContent =
-    plan.toUpperCase();
-
-
-  document.getElementById(
-    "accountSavedLooks"
-  ).textContent =
-    savedLooks.length;
-
-
-  document.getElementById(
-    "accountWardrobe"
-  ).textContent =
-    wardrobe.length;
-
-
-  document.getElementById(
-    "statLooks"
-  ).textContent =
-    savedLooks.length;
-
-
-  document.getElementById(
-    "statWardrobe"
-  ).textContent =
-    wardrobe.length;
-
-
-  document.getElementById(
-    "statPlan"
-  ).textContent =
-    plan.toUpperCase();
+  return users.find(
+    user =>
+      user.email === email
+  ) || null;
 
 }
 
 
-/* =========================
-   RESET
-========================= */
+function setCurrentUser(email) {
 
-function resetNXTLOOK() {
+  localStorage.setItem(
+    SESSION_KEY,
+    email
+  );
 
-  const confirmed =
-    confirm(
-      "Reset all NXTLOOK data from this browser? This will delete your saved looks, wardrobe and account settings."
+}
+
+
+function clearMessages() {
+
+  const error =
+    document.getElementById(
+      "authError"
+    );
+
+  const success =
+    document.getElementById(
+      "authSuccess"
     );
 
 
-  if (!confirmed) {
+  error.style.display =
+    "none";
+
+  success.style.display =
+    "none";
+
+  error.textContent =
+    "";
+
+  success.textContent =
+    "";
+
+}
+
+
+function showError(message) {
+
+  const error =
+    document.getElementById(
+      "authError"
+    );
+
+
+  const success =
+    document.getElementById(
+      "authSuccess"
+    );
+
+
+  success.style.display =
+    "none";
+
+
+  error.textContent =
+    message;
+
+  error.style.display =
+    "block";
+
+}
+
+
+function showSuccess(message) {
+
+  const success =
+    document.getElementById(
+      "authSuccess"
+    );
+
+
+  const error =
+    document.getElementById(
+      "authError"
+    );
+
+
+  error.style.display =
+    "none";
+
+
+  success.textContent =
+    message;
+
+  success.style.display =
+    "block";
+
+}
+
+
+function showLogin() {
+
+  clearMessages();
+
+
+  document
+    .getElementById("loginForm")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("signupForm")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("loginTab")
+    .classList.add("active");
+
+
+  document
+    .getElementById("signupTab")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("accountSwitch")
+    .innerHTML = `
+      Don't have an account?
+      <button
+        type="button"
+        onclick="showSignup()"
+      >
+        Create one
+      </button>
+    `;
+
+}
+
+
+function showSignup() {
+
+  clearMessages();
+
+
+  document
+    .getElementById("loginForm")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("signupForm")
+    .classList.remove("hidden");
+
+
+  document
+    .getElementById("loginTab")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("signupTab")
+    .classList.add("active");
+
+
+  document
+    .getElementById("accountSwitch")
+    .innerHTML = `
+      Already have an account?
+      <button
+        type="button"
+        onclick="showLogin()"
+      >
+        Login
+      </button>
+    `;
+
+}
+
+
+/* =========================================================
+   CREATE ACCOUNT
+   ========================================================= */
+
+document
+  .getElementById("signupForm")
+  .addEventListener(
+    "submit",
+    function(event) {
+
+      event.preventDefault();
+
+      clearMessages();
+
+
+      const username =
+        document
+          .getElementById(
+            "signupUsername"
+          )
+          .value
+          .trim();
+
+
+      const email =
+        document
+          .getElementById(
+            "signupEmail"
+          )
+          .value
+          .trim()
+          .toLowerCase();
+
+
+      const password =
+        document
+          .getElementById(
+            "signupPassword"
+          )
+          .value;
+
+
+      const confirmPassword =
+        document
+          .getElementById(
+            "signupPasswordConfirm"
+          )
+          .value;
+
+
+      if (
+        username.length < 2
+      ) {
+
+        showError(
+          "Username must be at least 2 characters."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        password.length < 6
+      ) {
+
+        showError(
+          "Password must be at least 6 characters."
+        );
+
+        return;
+
+      }
+
+
+      if (
+        password !==
+        confirmPassword
+      ) {
+
+        showError(
+          "Passwords do not match."
+        );
+
+        return;
+
+      }
+
+
+      const users =
+        getUsers();
+
+
+      const existing =
+        users.find(
+          user =>
+            user.email === email
+        );
+
+
+      if (existing) {
+
+        showError(
+          "An account with this email already exists."
+        );
+
+        return;
+
+      }
+
+
+      const usernameTaken =
+        users.find(
+          user =>
+            user.username.toLowerCase() ===
+            username.toLowerCase()
+        );
+
+
+      if (usernameTaken) {
+
+        showError(
+          "That username is already taken."
+        );
+
+        return;
+
+      }
+
+
+      const newUser = {
+
+        id:
+          "user_" +
+          Date.now(),
+
+        username,
+
+        email,
+
+        password,
+
+        plan:
+          "FREE",
+
+        createdAt:
+          new Date().toISOString()
+
+      };
+
+
+      users.push(
+        newUser
+      );
+
+
+      saveUsers(
+        users
+      );
+
+
+      setCurrentUser(
+        email
+      );
+
+
+      showProfile();
+
+
+    }
+  );
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+document
+  .getElementById("loginForm")
+  .addEventListener(
+    "submit",
+    function(event) {
+
+      event.preventDefault();
+
+      clearMessages();
+
+
+      const email =
+        document
+          .getElementById(
+            "loginEmail"
+          )
+          .value
+          .trim()
+          .toLowerCase();
+
+
+      const password =
+        document
+          .getElementById(
+            "loginPassword"
+          )
+          .value;
+
+
+      const users =
+        getUsers();
+
+
+      const user =
+        users.find(
+          account =>
+            account.email === email &&
+            account.password === password
+        );
+
+
+      if (!user) {
+
+        showError(
+          "Incorrect email or password."
+        );
+
+        return;
+
+      }
+
+
+      setCurrentUser(
+        user.email
+      );
+
+
+      showProfile();
+
+    }
+  );
+
+
+/* =========================================================
+   SHOW PROFILE
+   ========================================================= */
+
+function showProfile() {
+
+  const user =
+    getCurrentUser();
+
+
+  if (!user) {
+
+    showAuth();
+
     return;
+
   }
 
 
-  localStorage.removeItem(
-    "nxtlook_saved_looks"
-  );
+  document
+    .getElementById(
+      "authCard"
+    )
+    .classList.add(
+      "hidden"
+    );
 
 
-  localStorage.removeItem(
-    "nxtlookWardrobe"
-  );
+  document
+    .getElementById(
+      "profileCard"
+    )
+    .classList.remove(
+      "hidden"
+    );
 
 
-  localStorage.removeItem(
-    "nxtlook_plan"
-  );
+  document
+    .getElementById(
+      "profileUsername"
+    )
+    .textContent =
+    user.username;
 
 
-  localStorage.removeItem(
-    "nxtlookPlan"
-  );
+  document
+    .getElementById(
+      "profileEmail"
+    )
+    .textContent =
+    user.email;
 
 
-  localStorage.removeItem(
-    "nxtlook_username"
-  );
+  document
+    .getElementById(
+      "profilePlan"
+    )
+    .textContent =
+    user.plan || "FREE";
 
 
-  alert(
-    "NXTLOOK data has been reset."
-  );
+  let savedLooks = [];
 
 
-  loadAccount();
+  try {
+
+    savedLooks =
+      JSON.parse(
+        localStorage.getItem(
+          "nxtlook_saved_looks"
+        ) || "[]"
+      );
+
+  } catch {
+
+    savedLooks = [];
+
+  }
+
+
+  let wardrobe = [];
+
+
+  try {
+
+    wardrobe =
+      JSON.parse(
+        localStorage.getItem(
+          "nxtlookWardrobe"
+        ) || "[]"
+      );
+
+  } catch {
+
+    wardrobe = [];
+
+  }
+
+
+  document
+    .getElementById(
+      "profileLooks"
+    )
+    .textContent =
+    savedLooks.length;
+
+
+  document
+    .getElementById(
+      "profileWardrobe"
+    )
+    .textContent =
+    `${wardrobe.length} ITEMS`;
 
 }
 
 
-/* =========================
-   START
-========================= */
+/* =========================================================
+   SHOW AUTH
+   ========================================================= */
 
-loadAccount();
+function showAuth() {
+
+  document
+    .getElementById(
+      "authCard"
+    )
+    .classList.remove(
+      "hidden"
+    );
+
+
+  document
+    .getElementById(
+      "profileCard"
+    )
+    .classList.add(
+      "hidden"
+    );
+
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logout() {
+
+  localStorage.removeItem(
+    SESSION_KEY
+  );
+
+
+  showAuth();
+
+  showLogin();
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
+const existingUser =
+  getCurrentUser();
+
+
+if (existingUser) {
+
+  showProfile();
+
+} else {
+
+  showAuth();
+
+}
 
 </script>
 
 
 </body>
+
 </html>
+```
