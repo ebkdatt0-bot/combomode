@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +32,7 @@
 
     .account-tab {
       flex: 1;
-      padding: 13px;
+      padding: 14px;
       border: 1px solid #292929;
       background: #151515;
       color: #888;
@@ -49,7 +50,6 @@
     .account-form {
       display: grid;
       gap: 15px;
-      margin-top: 20px;
     }
 
     .account-input {
@@ -69,7 +69,7 @@
     }
 
     .account-button {
-      padding: 14px 20px;
+      padding: 15px 20px;
       border-radius: 9px;
       border: 1px solid #333;
       background: #151515;
@@ -80,65 +80,47 @@
       cursor: pointer;
     }
 
+    .account-button:hover {
+      border-color: #a8ff00;
+      color: #a8ff00;
+    }
+
     .account-button.primary {
       background: #a8ff00;
       color: #050505;
       border-color: #a8ff00;
     }
 
-    .account-row {
-      padding: 20px 0;
-      border-bottom: 1px solid #222;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
+    .account-button.primary:hover {
+      opacity: .85;
+      color: #050505;
     }
 
-    .account-row:last-child {
-      border-bottom: none;
-    }
-
-    .account-label {
-      color: #777;
-      font-size: 11px;
-      letter-spacing: 1px;
-      font-weight: 800;
-    }
-
-    .account-value {
-      color: #fff;
-      font-weight: 700;
-      text-align: right;
-      word-break: break-word;
-    }
-
-    .account-actions {
-      margin-top: 30px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .account-error,
-    .account-success {
-      margin-top: 12px;
+    .account-message {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
       font-size: 13px;
       display: none;
     }
 
     .account-error {
       color: #ff5555;
+      background: rgba(255, 50, 50, .08);
+      border: 1px solid rgba(255, 50, 50, .2);
     }
 
     .account-success {
       color: #a8ff00;
+      background: rgba(168, 255, 0, .06);
+      border: 1px solid rgba(168, 255, 0, .2);
     }
 
     .account-switch {
-      margin-top: 18px;
+      margin-top: 20px;
+      text-align: center;
       color: #777;
       font-size: 13px;
-      text-align: center;
     }
 
     .account-switch button {
@@ -146,21 +128,66 @@
       background: none;
       color: #a8ff00;
       cursor: pointer;
-      font-weight: 800;
+      font-weight: 900;
     }
 
-    .account-note {
-      margin-top: 15px;
-      color: #555;
+    .profile-grid {
+      display: grid;
+      gap: 0;
+    }
+
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .profile-row:last-child {
+      border-bottom: none;
+    }
+
+    .profile-label {
+      color: #777;
       font-size: 11px;
-      line-height: 1.5;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+
+    .profile-value {
+      color: #fff;
+      font-weight: 800;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .profile-plan {
+      color: #a8ff00;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .profile-actions .account-button {
+      display: inline-block;
     }
 
     .hidden {
       display: none !important;
     }
 
-    @media (max-width: 600px) {
+    .account-loading {
+      color: #888;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 650px) {
       .account-page {
         padding: 70px 5%;
       }
@@ -169,21 +196,23 @@
         padding: 22px;
       }
 
-      .account-row {
+      .profile-row {
         flex-direction: column;
+        align-items: flex-start;
       }
 
-      .account-value {
+      .profile-value {
         text-align: left;
       }
 
-      .account-actions {
+      .profile-actions {
         flex-direction: column;
       }
 
-      .account-actions .account-button {
+      .profile-actions .account-button {
         width: 100%;
         text-align: center;
+        box-sizing: border-box;
       }
     }
   </style>
@@ -191,1146 +220,1134 @@
 
 <body>
 
-<!-- NAVBAR -->
+  <!-- NAVBAR -->
 
-<nav class="navbar">
+  <nav class="navbar">
 
-  <a href="index.html" class="logo">
-    NXT<span>LOOK</span>
-  </a>
+    <a href="index.html" class="logo">
+      NXT<span>LOOK</span>
+    </a>
 
-  <div class="nav-links">
+    <div class="nav-links">
 
-    <a href="index.html">Home</a>
-
-    <a href="generator.html">Generator</a>
-
-    <a href="wardrobe.html">Wardrobe</a>
-
-    <a href="inspo.html">AI Stylist</a>
-
-    <a href="plans.html">Plans</a>
-
-    <a href="shop.html">Shop</a>
-
-    <a class="active" href="account.html">Account</a>
-
-  </div>
-
-</nav>
-
-
-<main>
-
-  <section class="account-page">
-
-    <p class="eyebrow">
-      NXTLOOK ACCOUNT
-    </p>
-
-    <h1 id="pageTitle">
-      YOUR
-      <br>
-      <span>ACCOUNT.</span>
-    </h1>
-
-    <p class="hero-text">
-      Create your NXTLOOK account and keep
-      your profile, wardrobe and saved looks together.
-    </p>
-
-
-    <!-- AUTH -->
-
-    <div id="authCard" class="account-card">
-
-      <div class="account-tabs">
-
-        <button
-          id="loginTab"
-          class="account-tab active"
-          type="button"
-        >
-          LOGIN
-        </button>
-
-        <button
-          id="signupTab"
-          class="account-tab"
-          type="button"
-        >
-          CREATE ACCOUNT
-        </button>
-
-      </div>
-
-
-      <!-- LOGIN FORM -->
-
-      <form id="loginForm" class="account-form">
-
-        <input
-          id="loginEmail"
-          class="account-input"
-          type="email"
-          placeholder="Email"
-          autocomplete="email"
-          required
-        >
-
-        <input
-          id="loginPassword"
-          class="account-input"
-          type="password"
-          placeholder="Password"
-          autocomplete="current-password"
-          required
-        >
-
-        <button
-          class="account-button primary"
-          type="submit"
-        >
-          LOGIN →
-        </button>
-
-      </form>
-
-
-      <!-- SIGNUP FORM -->
-
-      <form
-        id="signupForm"
-        class="account-form hidden"
-      >
-
-        <input
-          id="signupUsername"
-          class="account-input"
-          type="text"
-          placeholder="Username"
-          maxlength="30"
-          autocomplete="username"
-          required
-        >
-
-        <input
-          id="signupEmail"
-          class="account-input"
-          type="email"
-          placeholder="Email"
-          autocomplete="email"
-          required
-        >
-
-        <input
-          id="signupPassword"
-          class="account-input"
-          type="password"
-          placeholder="Password"
-          minlength="6"
-          autocomplete="new-password"
-          required
-        >
-
-        <input
-          id="signupPasswordConfirm"
-          class="account-input"
-          type="password"
-          placeholder="Confirm password"
-          minlength="6"
-          autocomplete="new-password"
-          required
-        >
-
-        <button
-          class="account-button primary"
-          type="submit"
-        >
-          CREATE ACCOUNT →
-        </button>
-
-      </form>
-
-
-      <div
-        id="authError"
-        class="account-error"
-      ></div>
-
-      <div
-        id="authSuccess"
-        class="account-success"
-      ></div>
-
-      <div
-        id="accountSwitch"
-        class="account-switch"
-      >
-        Don't have an account?
-        <button id="switchToSignup" type="button">
-          Create one
-        </button>
-      </div>
-
-      <p class="account-note">
-        Prototype accounts are stored locally in this browser.
-      </p>
-
-    </div>
-
-
-    <!-- PROFILE -->
-
-    <div
-      id="profileCard"
-      class="account-card hidden"
-    >
-
-      <div class="account-row">
-
-        <div class="account-label">
-          USERNAME
-        </div>
-
-        <div
-          id="profileUsername"
-          class="account-value"
-        >
-          —
-        </div>
-
-      </div>
-
-
-      <div class="account-row">
-
-        <div class="account-label">
-          EMAIL
-        </div>
-
-        <div
-          id="profileEmail"
-          class="account-value"
-        >
-          —
-        </div>
-
-      </div>
-
-
-      <div class="account-row">
-
-        <div class="account-label">
-          PLAN
-        </div>
-
-        <div
-          id="profilePlan"
-          class="account-value"
-        >
-          FREE
-        </div>
-
-      </div>
-
-
-      <div class="account-row">
-
-        <div class="account-label">
-          SAVED LOOKS
-        </div>
-
-        <div
-          id="profileLooks"
-          class="account-value"
-        >
-          0
-        </div>
-
-      </div>
-
-
-      <div class="account-row">
-
-        <div class="account-label">
-          WARDROBE
-        </div>
-
-        <div
-          id="profileWardrobe"
-          class="account-value"
-        >
-          0 ITEMS
-        </div>
-
-      </div>
-
-
-      <div class="account-actions">
-
-        <a
-          href="wardrobe.html"
-          class="account-button primary"
-        >
-          OPEN WARDROBE →
-        </a>
-
-        <a
-          href="plans.html"
-          class="account-button"
-        >
-          VIEW PLANS
-        </a>
-
-        <a
-          href="generator.html"
-          class="account-button"
-        >
-          CREATE A FIT
-        </a>
-
-        <button
-          id="logoutButton"
-          class="account-button"
-          type="button"
-        >
-          LOG OUT
-        </button>
-
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer class="footer">
-
-  <div class="footer-grid">
-
-    <div class="footer-brand">
-
-      <a href="index.html" class="logo">
-        NXT<span>LOOK</span>
-      </a>
-
-      <p>
-        Your next look starts here.
-        AI styling built around your vibe,
-        wardrobe and proportions.
-      </p>
-
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>PRODUCT</h4>
+      <a href="index.html">Home</a>
 
       <a href="generator.html">Generator</a>
+
       <a href="wardrobe.html">Wardrobe</a>
+
       <a href="inspo.html">AI Stylist</a>
-      <a href="shop.html">Shop</a>
+
       <a href="plans.html">Plans</a>
 
-    </div>
+      <a href="shop.html">Shop</a>
 
-
-    <div class="footer-column">
-
-      <h4>DISCOVER</h4>
-
-      <a href="inspo.html">Inspo</a>
-      <a href="faq.html">FAQ</a>
-      <a href="account.html">Account</a>
+      <a class="active" href="account.html">Account</a>
 
     </div>
 
-
-    <div class="footer-column">
-
-      <h4>ACCOUNT</h4>
-
-      <a href="account.html">My Account</a>
-      <a href="plans.html">Subscription</a>
-      <a href="wardrobe.html">Saved Wardrobe</a>
-
-    </div>
+  </nav>
 
 
-    <div class="footer-column">
+  <main>
 
-      <h4>SOCIAL</h4>
+    <section class="account-page">
 
-      <a
-        href="https://www.instagram.com/15k_roy/"
-        target="_blank"
-        rel="noopener noreferrer"
+      <p class="eyebrow">
+        NXTLOOK ACCOUNT
+      </p>
+
+      <h1 id="pageTitle">
+        YOUR
+        <br>
+        <span>ACCOUNT.</span>
+      </h1>
+
+      <p class="hero-text">
+        Create your NXTLOOK account and keep
+        your profile, wardrobe and saved looks together.
+      </p>
+
+
+      <!-- =========================
+           AUTH CARD
+      ========================== -->
+
+      <div id="authCard" class="account-card">
+
+        <div class="account-tabs">
+
+          <button
+            id="loginTab"
+            class="account-tab active"
+            type="button"
+          >
+            LOGIN
+          </button>
+
+          <button
+            id="signupTab"
+            class="account-tab"
+            type="button"
+          >
+            CREATE ACCOUNT
+          </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <form id="loginForm" class="account-form">
+
+          <input
+            id="loginEmail"
+            class="account-input"
+            type="email"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          >
+
+          <input
+            id="loginPassword"
+            class="account-input"
+            type="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+          >
+
+          <button
+            class="account-button primary"
+            type="submit"
+          >
+            LOGIN →
+          </button>
+
+        </form>
+
+
+        <!-- SIGN UP -->
+
+        <form
+          id="signupForm"
+          class="account-form hidden"
+        >
+
+          <input
+            id="signupUsername"
+            class="account-input"
+            type="text"
+            placeholder="Username"
+            maxlength="30"
+            autocomplete="username"
+            required
+          >
+
+          <input
+            id="signupEmail"
+            class="account-input"
+            type="email"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          >
+
+          <input
+            id="signupPassword"
+            class="account-input"
+            type="password"
+            placeholder="Password"
+            minlength="6"
+            autocomplete="new-password"
+            required
+          >
+
+          <input
+            id="signupConfirm"
+            class="account-input"
+            type="password"
+            placeholder="Confirm password"
+            minlength="6"
+            autocomplete="new-password"
+            required
+          >
+
+          <button
+            class="account-button primary"
+            type="submit"
+          >
+            CREATE ACCOUNT →
+          </button>
+
+        </form>
+
+
+        <div
+          id="accountError"
+          class="account-message account-error"
+        ></div>
+
+        <div
+          id="accountSuccess"
+          class="account-message account-success"
+        ></div>
+
+
+        <div id="accountSwitch" class="account-switch">
+          Don't have an account?
+          <button type="button" id="switchToSignup">
+            Create one
+          </button>
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           PROFILE CARD
+      ========================== -->
+
+      <div
+        id="profileCard"
+        class="account-card hidden"
       >
-        Instagram — @15k_roy ↗
-      </a>
+
+        <h3>
+          WELCOME BACK.
+        </h3>
+
+        <p>
+          Your NXTLOOK profile and saved data.
+        </p>
+
+
+        <div class="profile-grid">
+
+          <div class="profile-row">
+
+            <div class="profile-label">
+              USERNAME
+            </div>
+
+            <div
+              id="profileUsername"
+              class="profile-value"
+            >
+              —
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <div class="profile-label">
+              EMAIL
+            </div>
+
+            <div
+              id="profileEmail"
+              class="profile-value"
+            >
+              —
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <div class="profile-label">
+              PLAN
+            </div>
+
+            <div
+              id="profilePlan"
+              class="profile-value profile-plan"
+            >
+              FREE
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <div class="profile-label">
+              SAVED LOOKS
+            </div>
+
+            <div
+              id="profileLooks"
+              class="profile-value"
+            >
+              0
+            </div>
+
+          </div>
+
+
+          <div class="profile-row">
+
+            <div class="profile-label">
+              WARDROBE
+            </div>
+
+            <div
+              id="profileWardrobe"
+              class="profile-value"
+            >
+              0 ITEMS
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="profile-actions">
+
+          <a
+            href="generator.html"
+            class="account-button primary"
+          >
+            CREATE A FIT →
+          </a>
+
+          <a
+            href="wardrobe.html"
+            class="account-button"
+          >
+            OPEN WARDROBE
+          </a>
+
+          <a
+            href="plans.html"
+            class="account-button"
+          >
+            VIEW PLANS
+          </a>
+
+          <button
+            id="logoutButton"
+            class="account-button"
+            type="button"
+          >
+            LOG OUT
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+
+        <a href="index.html" class="logo">
+          NXT<span>LOOK</span>
+        </a>
+
+        <p>
+          Your next look starts here.
+          AI styling built around your vibe,
+          wardrobe and proportions.
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>PRODUCT</h4>
+
+        <a href="generator.html">Generator</a>
+        <a href="wardrobe.html">Wardrobe</a>
+        <a href="inspo.html">AI Stylist</a>
+        <a href="shop.html">Shop</a>
+        <a href="plans.html">Plans</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>DISCOVER</h4>
+
+        <a href="inspo.html">Inspo</a>
+        <a href="faq.html">FAQ</a>
+        <a href="account.html">Account</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>ACCOUNT</h4>
+
+        <a href="account.html">My Account</a>
+        <a href="plans.html">Subscription</a>
+        <a href="wardrobe.html">Saved Wardrobe</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>SOCIAL</h4>
+
+        <a
+          href="https://www.instagram.com/15k_roy/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram — @15k_roy ↗
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>LEGAL</h4>
+
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="mailto:hello@nxtlook.com">Contact</a>
+
+      </div>
 
     </div>
 
 
-    <div class="footer-column">
+    <div class="footer-bottom">
 
-      <h4>LEGAL</h4>
+      <span>
+        © 2026 NXTLOOK. All rights reserved.
+      </span>
 
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="refunds.html">Refunds</a>
-
-      <a href="mailto:hello@nxtlook.com">
-        Contact
-      </a>
+      <span>
+        BUILT FOR BETTER FITS.
+      </span>
 
     </div>
 
-  </div>
+  </footer>
 
 
-  <div class="footer-bottom">
+  <!--
+    IMPORTANT:
+    Do NOT include your old account JavaScript AND this script.
+    This page handles the account system itself.
+  -->
 
-    <span>
-      © 2026 NXTLOOK. All rights reserved.
-    </span>
+  <script>
 
-    <span>
-      BUILT FOR BETTER FITS.
-    </span>
+    document.addEventListener("DOMContentLoaded", function () {
 
-  </div>
+      /* =========================
+         STORAGE KEYS
+      ========================== */
 
-</footer>
-
-
-<!-- SHARED APP -->
-
-<script src="app.js"></script>
-
-
-<!-- ACCOUNT SYSTEM -->
-
-<script>
-
-(function () {
-
-  "use strict";
+      const USERS_KEY = "nxtlook_users";
+      const SESSION_KEY = "nxtlook_current_user";
+      const LOOKS_KEY = "nxtlook_saved_looks";
+      const WARDROBE_KEY = "nxtlookWardrobe";
 
 
-  const ACCOUNT_KEY =
-    "nxtlook_users";
+      /* =========================
+         ELEMENTS
+      ========================== */
 
-  const SESSION_KEY =
-    "nxtlook_current_user";
+      const authCard =
+        document.getElementById("authCard");
 
+      const profileCard =
+        document.getElementById("profileCard");
 
-  const authCard =
-    document.getElementById("authCard");
+      const loginForm =
+        document.getElementById("loginForm");
 
-  const profileCard =
-    document.getElementById("profileCard");
+      const signupForm =
+        document.getElementById("signupForm");
 
-  const loginForm =
-    document.getElementById("loginForm");
+      const loginTab =
+        document.getElementById("loginTab");
 
-  const signupForm =
-    document.getElementById("signupForm");
+      const signupTab =
+        document.getElementById("signupTab");
 
-  const loginTab =
-    document.getElementById("loginTab");
+      const accountError =
+        document.getElementById("accountError");
 
-  const signupTab =
-    document.getElementById("signupTab");
+      const accountSuccess =
+        document.getElementById("accountSuccess");
 
-  const accountSwitch =
-    document.getElementById("accountSwitch");
+      const accountSwitch =
+        document.getElementById("accountSwitch");
 
-  const switchToSignup =
-    document.getElementById("switchToSignup");
-
-  const logoutButton =
-    document.getElementById("logoutButton");
-
-  const authError =
-    document.getElementById("authError");
-
-  const authSuccess =
-    document.getElementById("authSuccess");
+      const logoutButton =
+        document.getElementById("logoutButton");
 
 
-  /* =========================================================
-     STORAGE
-     ========================================================= */
+      /* =========================
+         STORAGE HELPERS
+      ========================== */
 
-  function getUsers() {
+      function getUsers() {
 
-    try {
+        try {
 
-      const users =
-        JSON.parse(
-          localStorage.getItem(
-            ACCOUNT_KEY
-          ) || "[]"
-        );
+          const data =
+            localStorage.getItem(USERS_KEY);
 
-      return Array.isArray(users)
-        ? users
-        : [];
+          if (!data) {
+            return [];
+          }
 
-    } catch {
+          const users =
+            JSON.parse(data);
 
-      return [];
+          return Array.isArray(users)
+            ? users
+            : [];
 
-    }
+        } catch (error) {
 
-  }
+          console.error(
+            "NXTLOOK users storage error:",
+            error
+          );
 
+          return [];
 
-  function saveUsers(users) {
+        }
 
-    localStorage.setItem(
-      ACCOUNT_KEY,
-      JSON.stringify(users)
-    );
-
-  }
-
-
-  function getCurrentEmail() {
-
-    return localStorage.getItem(
-      SESSION_KEY
-    );
-
-  }
-
-
-  function getCurrentUser() {
-
-    const email =
-      getCurrentEmail();
-
-    if (!email) {
-      return null;
-    }
-
-    const users =
-      getUsers();
-
-    return users.find(
-      function (user) {
-        return (
-          user.email === email
-        );
       }
-    ) || null;
-
-  }
 
 
-  function setCurrentUser(email) {
+      function saveUsers(users) {
 
-    localStorage.setItem(
-      SESSION_KEY,
-      email
-    );
+        localStorage.setItem(
+          USERS_KEY,
+          JSON.stringify(users)
+        );
 
-  }
-
-
-  function clearCurrentUser() {
-
-    localStorage.removeItem(
-      SESSION_KEY
-    );
-
-  }
+      }
 
 
-  /* =========================================================
-     MESSAGES
-     ========================================================= */
+      function getCurrentEmail() {
 
-  function clearMessages() {
+        return localStorage.getItem(
+          SESSION_KEY
+        );
 
-    authError.textContent = "";
-    authSuccess.textContent = "";
-
-    authError.style.display = "none";
-    authSuccess.style.display = "none";
-
-  }
+      }
 
 
-  function showError(message) {
+      function getCurrentUser() {
 
-    authSuccess.style.display =
-      "none";
+        const email =
+          getCurrentEmail();
 
-    authSuccess.textContent =
-      "";
+        if (!email) {
+          return null;
+        }
 
-    authError.textContent =
-      message;
+        const users =
+          getUsers();
 
-    authError.style.display =
-      "block";
+        return users.find(function (user) {
 
-  }
+          return (
+            String(user.email)
+              .toLowerCase() ===
+            String(email)
+              .toLowerCase()
+          );
 
+        }) || null;
 
-  function showSuccess(message) {
-
-    authError.style.display =
-      "none";
-
-    authError.textContent =
-      "";
-
-    authSuccess.textContent =
-      message;
-
-    authSuccess.style.display =
-      "block";
-
-  }
+      }
 
 
-  /* =========================================================
-     AUTH / SIGNUP TABS
-     ========================================================= */
+      function setCurrentUser(email) {
 
-  function showLogin() {
+        localStorage.setItem(
+          SESSION_KEY,
+          email
+        );
 
-    clearMessages();
-
-    loginForm.classList.remove(
-      "hidden"
-    );
-
-    signupForm.classList.add(
-      "hidden"
-    );
-
-    loginTab.classList.add(
-      "active"
-    );
-
-    signupTab.classList.remove(
-      "active"
-    );
-
-    accountSwitch.innerHTML = `
-      Don't have an account?
-      <button id="switchToSignup" type="button">
-        Create one
-      </button>
-    `;
-
-    document
-      .getElementById("switchToSignup")
-      .addEventListener(
-        "click",
-        showSignup
-      );
-
-  }
+      }
 
 
-  function showSignup() {
+      function clearCurrentUser() {
 
-    clearMessages();
+        localStorage.removeItem(
+          SESSION_KEY
+        );
 
-    loginForm.classList.add(
-      "hidden"
-    );
+      }
 
-    signupForm.classList.remove(
-      "hidden"
-    );
 
-    loginTab.classList.remove(
-      "active"
-    );
+      /* =========================
+         DATA HELPERS
+      ========================== */
 
-    signupTab.classList.add(
-      "active"
-    );
+      function getArrayFromStorage(key) {
 
-    accountSwitch.innerHTML = `
-      Already have an account?
-      <button id="switchToLogin" type="button">
-        Login
-      </button>
-    `;
+        try {
 
-    document
-      .getElementById("switchToLogin")
-      .addEventListener(
+          const data =
+            localStorage.getItem(key);
+
+          if (!data) {
+            return [];
+          }
+
+          const parsed =
+            JSON.parse(data);
+
+          return Array.isArray(parsed)
+            ? parsed
+            : [];
+
+        } catch {
+
+          return [];
+
+        }
+
+      }
+
+
+      /* =========================
+         MESSAGES
+      ========================== */
+
+      function clearMessages() {
+
+        accountError.style.display =
+          "none";
+
+        accountSuccess.style.display =
+          "none";
+
+        accountError.textContent =
+          "";
+
+        accountSuccess.textContent =
+          "";
+
+      }
+
+
+      function showError(message) {
+
+        accountSuccess.style.display =
+          "none";
+
+        accountError.textContent =
+          message;
+
+        accountError.style.display =
+          "block";
+
+      }
+
+
+      function showSuccess(message) {
+
+        accountError.style.display =
+          "none";
+
+        accountSuccess.textContent =
+          message;
+
+        accountSuccess.style.display =
+          "block";
+
+      }
+
+
+      /* =========================
+         SWITCH LOGIN / SIGNUP
+      ========================== */
+
+      function showLogin() {
+
+        clearMessages();
+
+        loginForm.classList.remove(
+          "hidden"
+        );
+
+        signupForm.classList.add(
+          "hidden"
+        );
+
+        loginTab.classList.add(
+          "active"
+        );
+
+        signupTab.classList.remove(
+          "active"
+        );
+
+        accountSwitch.innerHTML = `
+          Don't have an account?
+          <button type="button" id="switchToSignup">
+            Create one
+          </button>
+        `;
+
+        document
+          .getElementById("switchToSignup")
+          .addEventListener(
+            "click",
+            showSignup
+          );
+
+      }
+
+
+      function showSignup() {
+
+        clearMessages();
+
+        loginForm.classList.add(
+          "hidden"
+        );
+
+        signupForm.classList.remove(
+          "hidden"
+        );
+
+        loginTab.classList.remove(
+          "active"
+        );
+
+        signupTab.classList.add(
+          "active"
+        );
+
+        accountSwitch.innerHTML = `
+          Already have an account?
+          <button type="button" id="switchToLogin">
+            Login
+          </button>
+        `;
+
+        document
+          .getElementById("switchToLogin")
+          .addEventListener(
+            "click",
+            showLogin
+          );
+
+      }
+
+
+      loginTab.addEventListener(
         "click",
         showLogin
       );
 
-  }
+      signupTab.addEventListener(
+        "click",
+        showSignup
+      );
 
 
-  loginTab.addEventListener(
-    "click",
-    showLogin
-  );
+      /* =========================
+         CREATE ACCOUNT
+      ========================== */
 
-  signupTab.addEventListener(
-    "click",
-    showSignup
-  );
+      signupForm.addEventListener(
+        "submit",
+        function (event) {
 
-  switchToSignup.addEventListener(
-    "click",
-    showSignup
-  );
+          event.preventDefault();
 
+          clearMessages();
 
-  /* =========================================================
-     CREATE ACCOUNT
-     ========================================================= */
+          const username =
+            document
+              .getElementById("signupUsername")
+              .value
+              .trim();
 
-  signupForm.addEventListener(
-    "submit",
-    function (event) {
+          const email =
+            document
+              .getElementById("signupEmail")
+              .value
+              .trim()
+              .toLowerCase();
 
-      event.preventDefault();
+          const password =
+            document
+              .getElementById("signupPassword")
+              .value;
 
-      clearMessages();
-
-
-      const username =
-        document
-          .getElementById(
-            "signupUsername"
-          )
-          .value
-          .trim();
+          const confirm =
+            document
+              .getElementById("signupConfirm")
+              .value;
 
 
-      const email =
-        document
-          .getElementById(
-            "signupEmail"
-          )
-          .value
-          .trim()
-          .toLowerCase();
+          if (username.length < 2) {
 
-
-      const password =
-        document
-          .getElementById(
-            "signupPassword"
-          )
-          .value;
-
-
-      const confirmPassword =
-        document
-          .getElementById(
-            "signupPasswordConfirm"
-          )
-          .value;
-
-
-      if (username.length < 2) {
-
-        showError(
-          "Username must be at least 2 characters."
-        );
-
-        return;
-
-      }
-
-
-      if (password.length < 6) {
-
-        showError(
-          "Password must be at least 6 characters."
-        );
-
-        return;
-
-      }
-
-
-      if (password !== confirmPassword) {
-
-        showError(
-          "Passwords do not match."
-        );
-
-        return;
-
-      }
-
-
-      const users =
-        getUsers();
-
-
-      const emailExists =
-        users.some(
-          function (user) {
-            return (
-              user.email === email
-            );
-          }
-        );
-
-
-      if (emailExists) {
-
-        showError(
-          "An account with this email already exists."
-        );
-
-        return;
-
-      }
-
-
-      const usernameExists =
-        users.some(
-          function (user) {
-
-            return (
-              String(
-                user.username || ""
-              ).toLowerCase() ===
-              username.toLowerCase()
+            showError(
+              "Username must be at least 2 characters."
             );
 
+            return;
+
           }
-        );
 
 
-      if (usernameExists) {
+          if (password.length < 6) {
 
-        showError(
-          "That username is already taken."
-        );
-
-        return;
-
-      }
-
-
-      const newUser = {
-
-        id:
-          "user_" +
-          Date.now(),
-
-        username:
-          username,
-
-        email:
-          email,
-
-        password:
-          password,
-
-        plan:
-          "FREE",
-
-        createdAt:
-          new Date().toISOString()
-
-      };
-
-
-      users.push(
-        newUser
-      );
-
-
-      saveUsers(
-        users
-      );
-
-
-      setCurrentUser(
-        email
-      );
-
-
-      signupForm.reset();
-
-      showProfile();
-
-      showSuccess(
-        "Account created successfully."
-      );
-
-    }
-  );
-
-
-  /* =========================================================
-     LOGIN
-     ========================================================= */
-
-  loginForm.addEventListener(
-    "submit",
-    function (event) {
-
-      event.preventDefault();
-
-      clearMessages();
-
-
-      const email =
-        document
-          .getElementById(
-            "loginEmail"
-          )
-          .value
-          .trim()
-          .toLowerCase();
-
-
-      const password =
-        document
-          .getElementById(
-            "loginPassword"
-          )
-          .value;
-
-
-      const users =
-        getUsers();
-
-
-      const user =
-        users.find(
-          function (account) {
-
-            return (
-              account.email === email &&
-              account.password === password
+            showError(
+              "Password must be at least 6 characters."
             );
 
+            return;
+
           }
+
+
+          if (password !== confirm) {
+
+            showError(
+              "Passwords do not match."
+            );
+
+            return;
+
+          }
+
+
+          const users =
+            getUsers();
+
+
+          const emailExists =
+            users.some(function (user) {
+
+              return (
+                String(user.email)
+                  .toLowerCase() ===
+                email
+              );
+
+            });
+
+
+          if (emailExists) {
+
+            showError(
+              "An account with this email already exists."
+            );
+
+            return;
+
+          }
+
+
+          const usernameExists =
+            users.some(function (user) {
+
+              return (
+                String(user.username)
+                  .toLowerCase() ===
+                username.toLowerCase()
+              );
+
+            });
+
+
+          if (usernameExists) {
+
+            showError(
+              "That username is already taken."
+            );
+
+            return;
+
+          }
+
+
+          const newUser = {
+
+            id:
+              "user_" +
+              Date.now(),
+
+            username:
+              username,
+
+            email:
+              email,
+
+            password:
+              password,
+
+            plan:
+              "FREE",
+
+            createdAt:
+              new Date().toISOString()
+
+          };
+
+
+          users.push(
+            newUser
+          );
+
+
+          saveUsers(
+            users
+          );
+
+
+          setCurrentUser(
+            email
+          );
+
+
+          signupForm.reset();
+
+          showProfile();
+
+        }
+      );
+
+
+      /* =========================
+         LOGIN
+      ========================== */
+
+      loginForm.addEventListener(
+        "submit",
+        function (event) {
+
+          event.preventDefault();
+
+          clearMessages();
+
+          const email =
+            document
+              .getElementById("loginEmail")
+              .value
+              .trim()
+              .toLowerCase();
+
+          const password =
+            document
+              .getElementById("loginPassword")
+              .value;
+
+
+          const users =
+            getUsers();
+
+
+          const user =
+            users.find(function (account) {
+
+              return (
+                String(account.email)
+                  .toLowerCase() === email &&
+                account.password === password
+              );
+
+            });
+
+
+          if (!user) {
+
+            showError(
+              "Incorrect email or password."
+            );
+
+            return;
+
+          }
+
+
+          setCurrentUser(
+            user.email
+          );
+
+
+          loginForm.reset();
+
+          showProfile();
+
+        }
+      );
+
+
+      /* =========================
+         SHOW PROFILE
+      ========================== */
+
+      function showProfile() {
+
+        const user =
+          getCurrentUser();
+
+
+        if (!user) {
+
+          showAuth();
+
+          return;
+
+        }
+
+
+        authCard.classList.add(
+          "hidden"
+        );
+
+        profileCard.classList.remove(
+          "hidden"
         );
 
 
-      if (!user) {
+        document
+          .getElementById("profileUsername")
+          .textContent =
+          user.username || "—";
 
-        showError(
-          "Incorrect email or password."
-        );
 
-        return;
+        document
+          .getElementById("profileEmail")
+          .textContent =
+          user.email || "—";
+
+
+        document
+          .getElementById("profilePlan")
+          .textContent =
+          user.plan || "FREE";
+
+
+        /*
+          Saved looks currently use the same
+          localStorage system as generator.html.
+        */
+
+        const savedLooks =
+          getArrayFromStorage(
+            LOOKS_KEY
+          );
+
+
+        const wardrobe =
+          getArrayFromStorage(
+            WARDROBE_KEY
+          );
+
+
+        document
+          .getElementById("profileLooks")
+          .textContent =
+          savedLooks.length;
+
+
+        document
+          .getElementById("profileWardrobe")
+          .textContent =
+          wardrobe.length +
+          (
+            wardrobe.length === 1
+              ? " ITEM"
+              : " ITEMS"
+          );
 
       }
 
 
-      setCurrentUser(
-        user.email
+      /* =========================
+         SHOW LOGIN CARD
+      ========================== */
+
+      function showAuth() {
+
+        profileCard.classList.add(
+          "hidden"
+        );
+
+        authCard.classList.remove(
+          "hidden"
+        );
+
+      }
+
+
+      /* =========================
+         LOGOUT
+      ========================== */
+
+      logoutButton.addEventListener(
+        "click",
+        function () {
+
+          clearCurrentUser();
+
+          showAuth();
+
+          showLogin();
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+        }
       );
 
 
-      loginForm.reset();
+      /* =========================
+         INITIALIZE
+      ========================== */
 
-      showProfile();
+      const currentUser =
+        getCurrentUser();
 
-    }
-  );
 
+      if (currentUser) {
 
-  /* =========================================================
-     PROFILE
-     ========================================================= */
+        showProfile();
 
-  function showProfile() {
+      } else {
 
-    const user =
-      getCurrentUser();
+        showAuth();
 
+        showLogin();
 
-    if (!user) {
+      }
 
-      showAuth();
+    });
 
-      return;
-
-    }
-
-
-    authCard.classList.add(
-      "hidden"
-    );
-
-    profileCard.classList.remove(
-      "hidden"
-    );
-
-
-    document
-      .getElementById(
-        "profileUsername"
-      )
-      .textContent =
-      user.username || "—";
-
-
-    document
-      .getElementById(
-        "profileEmail"
-      )
-      .textContent =
-      user.email || "—";
-
-
-    document
-      .getElementById(
-        "profilePlan"
-      )
-      .textContent =
-      user.plan || "FREE";
-
-
-    let savedLooks = [];
-
-    try {
-
-      const data =
-        JSON.parse(
-          localStorage.getItem(
-            "nxtlook_saved_looks"
-          ) || "[]"
-        );
-
-      savedLooks =
-        Array.isArray(data)
-          ? data
-          : [];
-
-    } catch {
-
-      savedLooks = [];
-
-    }
-
-
-    let wardrobe = [];
-
-    try {
-
-      const data =
-        JSON.parse(
-          localStorage.getItem(
-            "nxtlookWardrobe"
-          ) || "[]"
-        );
-
-      wardrobe =
-        Array.isArray(data)
-          ? data
-          : [];
-
-    } catch {
-
-      wardrobe = [];
-
-    }
-
-
-    document
-      .getElementById(
-        "profileLooks"
-      )
-      .textContent =
-      savedLooks.length;
-
-
-    document
-      .getElementById(
-        "profileWardrobe"
-      )
-      .textContent =
-      wardrobe.length +
-      " ITEMS";
-
-  }
-
-
-  /* =========================================================
-     AUTH VIEW
-     ========================================================= */
-
-  function showAuth() {
-
-    profileCard.classList.add(
-      "hidden"
-    );
-
-    authCard.classList.remove(
-      "hidden"
-    );
-
-  }
-
-
-  /* =========================================================
-     LOGOUT
-     ========================================================= */
-
-  logoutButton.addEventListener(
-    "click",
-    function () {
-
-      clearCurrentUser();
-
-      showAuth();
-
-      showLogin();
-
-      showSuccess(
-        "You have been logged out."
-      );
-
-    }
-  );
-
-
-  /* =========================================================
-     INITIALIZE
-     ========================================================= */
-
-  const currentUser =
-    getCurrentUser();
-
-
-  if (currentUser) {
-
-    showProfile();
-
-  } else {
-
-    showAuth();
-
-    showLogin();
-
-  }
-
-})();
-
-</script>
+  </script>
 
 </body>
+
 </html>
