@@ -2,174 +2,157 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Shop — ComboMODE</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<nav>
-  <a class="logo" href="index.html">Combo<span>MODE</span></a>
+<nav class="navbar">
+<a href="index.html" class="logo">Combo<span>MODE</span></a>
 
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="generator.html">Generator</a>
-    <a href="wardrobe.html">Wardrobe</a>
-    <a href="inspo.html">AI Stylist</a>
-    <a href="plans.html">Plans</a>
-    <a class="active" href="shop.html">Shop</a>
-    <a href="account.html">Account</a>
-  </div>
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="generator.html">Generator</a>
+<a href="wardrobe.html">Wardrobe</a>
+<a href="inspo.html">AI Stylist</a>
+<a href="plans.html">Plans</a>
+<a class="active" href="shop.html">Shop</a>
+<a href="account.html">Account</a>
+</div>
 </nav>
 
 <main>
 
-<section class="page-head">
-  <h1>SHOP.</h1>
-  <p>Built into ComboMODE as its own page.</p>
-</section>
+<section class="page">
 
-<section class="section section-anchor" id="shop">
+<p class="eyebrow">COMBOMODE SHOP</p>
 
-  <h2>THE COMBOMODE SHOP.</h2>
+<h1>
+SHOP THE
+<br>
+<span>MODE.</span>
+</h1>
 
-  <p>
-    Style references and essentials.
-    Prices are placeholders until real products are connected.
-  </p>
+<p class="hero-text">
+Pieces that fit the ComboMODE aesthetic.
+</p>
 
-  <div class="shop-grid">
+<div class="product-grid">
 
-    <div class="shop-card">
-      <h3>STYLE ESSENTIALS</h3>
+<div class="product">
+<div class="product-image">👕</div>
+<div class="product-body">
+<span class="tag">STREET</span>
+<h3>Heavyweight Tee</h3>
+<p>Oversized everyday essential.</p>
+<div class="price">EGP 499</div>
+<button class="btn primary" onclick="addCart('Heavyweight Tee')">
+ADD →
+</button>
+</div>
+</div>
 
-      <p class="muted">
-        Curated basics for building stronger outfits.
-      </p>
+<div class="product">
+<div class="product-image">👖</div>
+<div class="product-body">
+<span class="tag">BAGGY</span>
+<h3>Wide Denim</h3>
+<p>Relaxed streetwear denim.</p>
+<div class="price">EGP 899</div>
+<button class="btn primary" onclick="addCart('Wide Denim')">
+ADD →
+</button>
+</div>
+</div>
 
-      <div class="shop-price">
-        From $15
-      </div>
+<div class="product">
+<div class="product-image">🧥</div>
+<div class="product-body">
+<span class="tag">LAYER</span>
+<h3>Utility Jacket</h3>
+<p>Easy layering piece.</p>
+<div class="price">EGP 1,199</div>
+<button class="btn primary" onclick="addCart('Utility Jacket')">
+ADD →
+</button>
+</div>
+</div>
 
-      <a class="mini-btn" href="plans.html">
-        VIEW PICKS →
-      </a>
-    </div>
+</div>
 
-    <div class="shop-card">
-
-      <h3>STREETWEAR</h3>
-
-      <p class="muted">
-        Oversized tees, cargos, denim and layers.
-      </p>
-
-      <div class="shop-price">
-        From $25
-      </div>
-
-      <a class="mini-btn" href="plans.html">
-        VIEW PICKS →
-      </a>
-
-    </div>
-
-    <div class="shop-card">
-
-      <h3>ACCESSORIES</h3>
-
-      <p class="muted">
-        Bags, caps, chains and finishing pieces.
-      </p>
-
-      <div class="shop-price">
-        From $10
-      </div>
-
-      <a class="mini-btn" href="plans.html">
-        VIEW PICKS →
-      </a>
-
-    </div>
-
-  </div>
-
-  <p class="legal-note">
-    No purchase is processed by these demo cards yet.
-    Connect a real catalog/payment provider before accepting orders.
-  </p>
+<div class="panel">
+<h3>CART</h3>
+<div id="cart"></div>
+</div>
 
 </section>
 
 </main>
 
-<footer>
-  <div class="footer-wrap">
-    <div class="footer-grid">
-
-      <div class="footer-brand">
-        <a class="logo" href="index.html">
-          Combo<span>MODE</span>
-        </a>
-        <p>
-          Your next fit starts here.
-          AI styling built around your vibe,
-          your wardrobe and your proportions.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h4>PRODUCT</h4>
-        <a href="generator.html">Generator</a>
-        <a href="wardrobe.html">Wardrobe</a>
-        <a href="shop.html">Shop</a>
-        <a href="plans.html">Plans</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>DISCOVER</h4>
-        <a href="inspo.html">AI Stylist</a>
-        <a href="faq.html">FAQ</a>
-        <a href="account.html">Account</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>ACCOUNT</h4>
-        <a href="account.html">My Account</a>
-        <a href="plans.html">Subscription</a>
-        <a href="wardrobe.html">Saved Wardrobe</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>SOCIAL</h4>
-        <a
-          href="https://www.instagram.com/15k_roy/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Instagram — @15k_roy ↗
-        </a>
-      </div>
-
-      <div class="footer-col">
-        <h4>LEGAL</h4>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="refunds.html">Refunds</a>
-        <a href="mailto:hello@nxtlook.com">Contact</a>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      <span>© 2026 ComboMODE. All rights reserved.</span>
-      <span>BUILT FOR BETTER FITS.</span>
-    </div>
-  </div>
-</footer>
+<footer class="footer" data-footer></footer>
 
 <script src="app.js"></script>
+
+<script>
+
+let cart =
+  JSON.parse(localStorage.getItem("combomode_cart") || "[]");
+
+function addCart(name) {
+
+  cart.push(name);
+
+  localStorage.setItem(
+    "combomode_cart",
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+}
+
+function renderCart() {
+
+  const box =
+    document.getElementById("cart");
+
+  if (!cart.length) {
+    box.innerHTML =
+      `<p class="muted">Your cart is empty.</p>`;
+    return;
+  }
+
+  box.innerHTML =
+    cart.map(
+      (item,index) =>
+      `<div class="result-item">
+        <strong>ITEM</strong>
+        <p>${escapeHTML(item)}</p>
+        <button
+          class="btn secondary"
+          onclick="removeCart(${index})">
+          REMOVE
+        </button>
+      </div>`
+    ).join("");
+}
+
+function removeCart(index) {
+
+  cart.splice(index,1);
+
+  localStorage.setItem(
+    "combomode_cart",
+    JSON.stringify(cart)
+  );
+
+  renderCart();
+}
+
+renderCart();
+
+</script>
 
 </body>
 </html>
