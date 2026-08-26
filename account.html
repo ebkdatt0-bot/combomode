@@ -1,606 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account — NXTLOOK</title>
-
-  <link rel="stylesheet" href="styles.css">
-
-  <style>
-    .account-page {
-      max-width: 1000px;
-      margin: auto;
-      padding: 90px 7%;
-    }
-
-    .account-card {
-      margin-top: 45px;
-      padding: 35px;
-      background: #0d0d0d;
-      border: 1px solid #292929;
-      border-radius: 20px;
-    }
-
-    .account-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 25px;
-    }
-
-    .account-tab {
-      flex: 1;
-      padding: 14px;
-      border: 1px solid #292929;
-      background: #151515;
-      color: #888;
-      border-radius: 9px;
-      cursor: pointer;
-      font-weight: 900;
-    }
-
-    .account-tab.active {
-      background: #a8ff00;
-      color: #050505;
-      border-color: #a8ff00;
-    }
-
-    .account-form {
-      display: grid;
-      gap: 15px;
-    }
-
-    .account-input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 16px;
-      background: #050505;
-      color: #fff;
-      border: 1px solid #292929;
-      border-radius: 9px;
-      outline: none;
-      font-size: 14px;
-    }
-
-    .account-input:focus {
-      border-color: #a8ff00;
-    }
-
-    .account-button {
-      padding: 15px 20px;
-      border-radius: 9px;
-      border: 1px solid #333;
-      background: #151515;
-      color: #fff;
-      font-weight: 900;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-    }
-
-    .account-button:hover {
-      border-color: #a8ff00;
-      color: #a8ff00;
-    }
-
-    .account-button.primary {
-      background: #a8ff00;
-      color: #050505;
-      border-color: #a8ff00;
-    }
-
-    .account-button.primary:hover {
-      opacity: .85;
-      color: #050505;
-    }
-
-    .account-switch {
-      margin-top: 18px;
-      text-align: center;
-      color: #777;
-      font-size: 13px;
-    }
-
-    .account-switch button {
-      border: none;
-      background: none;
-      color: #a8ff00;
-      cursor: pointer;
-      font-weight: 900;
-    }
-
-    .account-message {
-      display: none;
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .account-error {
-      color: #ff5555;
-      border: 1px solid rgba(255, 85, 85, .25);
-      background: rgba(255, 85, 85, .05);
-    }
-
-    .account-success {
-      color: #a8ff00;
-      border: 1px solid rgba(168, 255, 0, .25);
-      background: rgba(168, 255, 0, .05);
-    }
-
-    .profile-grid {
-      display: grid;
-      gap: 0;
-    }
-
-    .profile-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 20px 0;
-      border-bottom: 1px solid #222;
-    }
-
-    .profile-row:last-child {
-      border-bottom: none;
-    }
-
-    .profile-label {
-      color: #777;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-    }
-
-    .profile-value {
-      color: #fff;
-      font-weight: 800;
-      text-align: right;
-    }
-
-    .profile-plan {
-      color: #a8ff00;
-    }
-
-    .profile-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .profile-actions .account-button {
-      flex: 1;
-      min-width: 150px;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .logged-in-badge {
-      display: inline-flex;
-      padding: 7px 10px;
-      margin-bottom: 20px;
-      border: 1px solid #292929;
-      border-radius: 999px;
-      color: #a8ff00;
-      background: #0d0d0d;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-    }
-
-    @media (max-width: 650px) {
-      .account-page {
-        padding: 70px 5%;
-      }
-
-      .account-card {
-        padding: 22px;
-      }
-
-      .profile-row {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .profile-value {
-        text-align: left;
-      }
-
-      .profile-actions {
-        flex-direction: column;
-      }
-
-      .profile-actions .account-button {
-        width: 100%;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Generator — ComboMODE</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
+<nav>
+  <a class="logo" href="index.html">Combo<span>MODE</span></a>
 
-  <nav class="navbar">
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a class="active" href="generator.html">Generator</a>
+    <a href="wardrobe.html">Wardrobe</a>
+    <a href="inspo.html">AI Stylist</a>
+    <a href="plans.html">Plans</a>
+    <a href="shop.html">Shop</a>
+    <a href="account.html">Account</a>
+  </div>
+</nav>
 
-    <a href="index.html" class="logo">
-      NXT<span>LOOK</span>
-    </a>
+<main>
 
-    <div class="nav-links">
+<section class="page-head">
+  <h1>GENERATOR.</h1>
+  <p>Built into ComboMODE as its own page.</p>
+</section>
 
-      <a href="index.html">Home</a>
+<section class="section" id="generator">
 
-      <a href="generator.html">Generator</a>
+  <h2>Build your fit.</h2>
 
-      <a href="wardrobe.html">Wardrobe</a>
+  <p>
+    Give ComboMODE the constraints.
+    The AI makes the styling decisions.
+  </p>
 
-      <a href="inspo.html">AI Stylist</a>
+  <div class="generator">
 
-      <a href="plans.html">Plans</a>
+    <div class="grid">
 
-      <a href="shop.html">Shop</a>
+      <div class="field">
+        <label>Style</label>
 
-      <a href="account.html" class="active">Account</a>
+        <select id="style">
+          <option>Streetwear</option>
+          <option>Dark Streetwear</option>
+          <option>Clean</option>
+          <option>Y2K</option>
+          <option>Vintage</option>
+          <option>Old Money</option>
+          <option>Sporty</option>
+          <option>Grunge</option>
+          <option>Techwear</option>
+          <option>Archive-inspired</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Occasion</label>
+
+        <select id="occasion">
+          <option>Going out</option>
+          <option>School</option>
+          <option>Casual</option>
+          <option>Party</option>
+          <option>Date</option>
+          <option>Church</option>
+          <option>Photoshoot</option>
+          <option>Event</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Main color</label>
+
+        <select id="color">
+          <option>Black</option>
+          <option>White</option>
+          <option>Grey</option>
+          <option>Navy</option>
+          <option>Brown</option>
+          <option>Red</option>
+          <option>Blue</option>
+          <option>Pink</option>
+          <option>Purple</option>
+          <option>Lime</option>
+          <option>Cream</option>
+          <option>Olive</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Silhouette</label>
+
+        <select id="silhouette">
+          <option>Oversized</option>
+          <option>Baggy</option>
+          <option>Relaxed</option>
+          <option>Slim</option>
+          <option>Fitted</option>
+          <option>Layered</option>
+          <option>Wide-leg</option>
+          <option>Balanced</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Bottom</label>
+
+        <select id="bottom">
+          <option>Wide-leg jeans</option>
+          <option>Stacked jeans</option>
+          <option>Cargo pants</option>
+          <option>Baggy trousers</option>
+          <option>Flared pants</option>
+          <option>Shorts</option>
+          <option>Chinos</option>
+          <option>Open choice</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Shoes</label>
+
+        <select id="shoes">
+          <option>Sneakers</option>
+          <option>High-top sneakers</option>
+          <option>Classic shoes</option>
+          <option>Boots</option>
+          <option>Skate shoes</option>
+          <option>Open choice</option>
+        </select>
+      </div>
 
     </div>
 
-  </nav>
+    <button
+      class="generate"
+      id="generateBtn"
+      onclick="generateFit()"
+    >
+      GENERATE MY LOOK →
+    </button>
 
+    <p class="hint">
+      ComboMODE will treat these as constraints,
+      not blindly copy them.
+    </p>
 
-  <main>
+    <div class="result" id="result">
 
-    <section class="account-page">
+      <h3 id="resultTitle"></h3>
 
-      <p class="eyebrow">NXTLOOK ACCOUNT</p>
+      <div id="resultText"></div>
 
-      <h1 id="accountTitle">
-        YOUR
-        <br>
-        <span>ACCOUNT.</span>
-      </h1>
-
-      <p class="hero-text">
-        Keep your NXTLOOK profile, wardrobe,
-        saved looks and plan together.
-      </p>
-
-
-      <!-- AUTH -->
-
-      <div id="authCard" class="account-card">
-
-        <div class="account-tabs">
-
-          <button
-            id="loginTab"
-            class="account-tab active"
-            type="button"
-          >
-            LOGIN
-          </button>
-
-          <button
-            id="signupTab"
-            class="account-tab"
-            type="button"
-          >
-            CREATE ACCOUNT
-          </button>
-
-        </div>
-
-
-        <!-- LOGIN FORM -->
-
-        <form id="loginForm" class="account-form">
-
-          <input
-            id="loginEmail"
-            class="account-input"
-            type="email"
-            placeholder="Email"
-            autocomplete="email"
-            required
-          >
-
-          <input
-            id="loginPassword"
-            class="account-input"
-            type="password"
-            placeholder="Password"
-            autocomplete="current-password"
-            required
-          >
-
-          <button
-            class="account-button primary"
-            type="submit"
-          >
-            LOGIN →
-          </button>
-
-        </form>
-
-
-        <!-- SIGNUP FORM -->
-
-        <form
-          id="signupForm"
-          class="account-form hidden"
-        >
-
-          <input
-            id="signupUsername"
-            class="account-input"
-            type="text"
-            placeholder="Username"
-            maxlength="30"
-            autocomplete="username"
-            required
-          >
-
-          <input
-            id="signupEmail"
-            class="account-input"
-            type="email"
-            placeholder="Email"
-            autocomplete="email"
-            required
-          >
-
-          <input
-            id="signupPassword"
-            class="account-input"
-            type="password"
-            placeholder="Password"
-            minlength="6"
-            autocomplete="new-password"
-            required
-          >
-
-          <input
-            id="signupConfirm"
-            class="account-input"
-            type="password"
-            placeholder="Confirm password"
-            minlength="6"
-            autocomplete="new-password"
-            required
-          >
-
-          <button
-            class="account-button primary"
-            type="submit"
-          >
-            CREATE ACCOUNT →
-          </button>
-
-        </form>
-
-
-        <div
-          id="accountError"
-          class="account-message account-error"
-        ></div>
-
-        <div
-          id="accountSuccess"
-          class="account-message account-success"
-        ></div>
-
-
-        <div id="accountSwitch" class="account-switch">
-          Don't have an account?
-          <button id="switchToSignup" type="button">
-            Create one
-          </button>
-        </div>
-
-      </div>
-
-
-      <!-- PROFILE -->
-
-      <div
-        id="profileCard"
-        class="account-card hidden"
+      <button
+        class="generate"
+        onclick="generateFit()"
       >
+        ↻ REGENERATE
+      </button>
 
-        <div class="logged-in-badge">
-          ● LOGGED IN
-        </div>
+    </div>
 
+  </div>
 
-        <div class="profile-grid">
+</section>
 
-          <div class="profile-row">
+</main>
 
-            <div class="profile-label">
-              USERNAME
-            </div>
-
-            <div
-              id="profileUsername"
-              class="profile-value"
-            >
-              —
-            </div>
-
-          </div>
-
-
-          <div class="profile-row">
-
-            <div class="profile-label">
-              EMAIL
-            </div>
-
-            <div
-              id="profileEmail"
-              class="profile-value"
-            >
-              —
-            </div>
-
-          </div>
-
-
-          <div class="profile-row">
-
-            <div class="profile-label">
-              PLAN
-            </div>
-
-            <div
-              id="profilePlan"
-              class="profile-value profile-plan"
-            >
-              FREE
-            </div>
-
-          </div>
-
-
-          <div class="profile-row">
-
-            <div class="profile-label">
-              SAVED LOOKS
-            </div>
-
-            <div
-              id="profileLooks"
-              class="profile-value"
-            >
-              0
-            </div>
-
-          </div>
-
-
-          <div class="profile-row">
-
-            <div class="profile-label">
-              WARDROBE
-            </div>
-
-            <div
-              id="profileWardrobe"
-              class="profile-value"
-            >
-              0 ITEMS
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="profile-actions">
-
-          <a
-            href="generator.html"
-            class="account-button primary"
-          >
-            CREATE A FIT →
-          </a>
-
-          <a
-            href="wardrobe.html"
-            class="account-button"
-          >
-            WARDROBE
-          </a>
-
-          <a
-            href="plans.html"
-            class="account-button"
-          >
-            VIEW PLANS
-          </a>
-
-          <button
-            id="logoutButton"
-            class="account-button"
-            type="button"
-          >
-            LOG OUT
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-
-  <footer class="footer">
+<footer>
+  <div class="footer-wrap">
 
     <div class="footer-grid">
 
       <div class="footer-brand">
-
-        <a href="index.html" class="logo">
-          NXT<span>LOOK</span>
+        <a class="logo" href="index.html">
+          Combo<span>MODE</span>
         </a>
-
         <p>
-          Your next look starts here.
+          Your next fit starts here.
           AI styling built around your vibe,
-          wardrobe and proportions.
+          your wardrobe and your proportions.
         </p>
-
       </div>
 
-
-      <div class="footer-column">
-
+      <div class="footer-col">
         <h4>PRODUCT</h4>
-
         <a href="generator.html">Generator</a>
         <a href="wardrobe.html">Wardrobe</a>
-        <a href="inspo.html">AI Stylist</a>
         <a href="shop.html">Shop</a>
         <a href="plans.html">Plans</a>
-
       </div>
 
-
-      <div class="footer-column">
-
+      <div class="footer-col">
         <h4>DISCOVER</h4>
-
-        <a href="inspo.html">Inspo</a>
+        <a href="inspo.html">AI Stylist</a>
         <a href="faq.html">FAQ</a>
         <a href="account.html">Account</a>
-
       </div>
 
-
-      <div class="footer-column">
-
+      <div class="footer-col">
         <h4>ACCOUNT</h4>
-
         <a href="account.html">My Account</a>
         <a href="plans.html">Subscription</a>
         <a href="wardrobe.html">Saved Wardrobe</a>
-
       </div>
 
-
-      <div class="footer-column">
-
+      <div class="footer-col">
         <h4>SOCIAL</h4>
-
         <a
           href="https://www.instagram.com/15k_roy/"
           target="_blank"
@@ -608,865 +220,27 @@
         >
           Instagram — @15k_roy ↗
         </a>
-
       </div>
 
-
-      <div class="footer-column">
-
+      <div class="footer-col">
         <h4>LEGAL</h4>
-
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
         <a href="refunds.html">Refunds</a>
-
-        <a href="mailto:hello@nxtlook.com">
-          Contact
-        </a>
-
+        <a href="mailto:hello@nxtlook.com">Contact</a>
       </div>
 
     </div>
 
-
     <div class="footer-bottom">
-
-      <span>
-        © 2026 NXTLOOK. All rights reserved.
-      </span>
-
-      <span>
-        BUILT FOR BETTER FITS.
-      </span>
-
+      <span>© 2026 ComboMODE. All rights reserved.</span>
+      <span>BUILT FOR BETTER FITS.</span>
     </div>
 
-  </footer>
+  </div>
+</footer>
 
-
-  <!-- APP.JS FIRST -->
-
-  <script src="app.js"></script>
-
-
-  <script>
-    /*
-      =========================================================
-      NXTLOOK ACCOUNT
-      Works with the existing app.js storage system.
-      =========================================================
-    */
-
-    const ACCOUNT_KEY = "nxtlook_account";
-    const SESSION_KEY = "nxtlook_current_user";
-
-
-    /*
-      ---------------------------------------------------------
-      STORAGE
-      ---------------------------------------------------------
-    */
-
-    function accountStorageGet(key, fallback) {
-
-      try {
-
-        if (
-          window.NXTLOOK_STORAGE &&
-          typeof window.NXTLOOK_STORAGE.get === "function"
-        ) {
-          return window.NXTLOOK_STORAGE.get(
-            key,
-            fallback
-          );
-        }
-
-        const value =
-          localStorage.getItem(key);
-
-        return value
-          ? JSON.parse(value)
-          : fallback;
-
-      } catch (error) {
-
-        console.error(
-          "NXTLOOK Account Storage Error:",
-          error
-        );
-
-        return fallback;
-
-      }
-
-    }
-
-
-    function accountStorageSet(key, value) {
-
-      try {
-
-        if (
-          window.NXTLOOK_STORAGE &&
-          typeof window.NXTLOOK_STORAGE.set === "function"
-        ) {
-          return window.NXTLOOK_STORAGE.set(
-            key,
-            value
-          );
-        }
-
-        localStorage.setItem(
-          key,
-          JSON.stringify(value)
-        );
-
-        return true;
-
-      } catch (error) {
-
-        console.error(
-          "NXTLOOK Account Storage Error:",
-          error
-        );
-
-        return false;
-
-      }
-
-    }
-
-
-    /*
-      ---------------------------------------------------------
-      CURRENT USER
-      ---------------------------------------------------------
-    */
-
-    function getNXTLOOKCurrentUser() {
-
-      const email =
-        localStorage.getItem(
-          SESSION_KEY
-        );
-
-      if (!email) {
-        return null;
-      }
-
-
-      const account =
-        accountStorageGet(
-          ACCOUNT_KEY,
-          null
-        );
-
-
-      if (!account) {
-        return null;
-      }
-
-
-      if (
-        account.email &&
-        account.email.toLowerCase() ===
-        email.toLowerCase()
-      ) {
-        return account;
-      }
-
-
-      return null;
-
-    }
-
-
-    /*
-      Keep compatibility with app.js.
-    */
-
-    window.getNXTLOOKCurrentUser =
-      getNXTLOOKCurrentUser;
-
-
-    /*
-      ---------------------------------------------------------
-      UI
-      ---------------------------------------------------------
-    */
-
-    const authCard =
-      document.getElementById(
-        "authCard"
-      );
-
-    const profileCard =
-      document.getElementById(
-        "profileCard"
-      );
-
-    const loginForm =
-      document.getElementById(
-        "loginForm"
-      );
-
-    const signupForm =
-      document.getElementById(
-        "signupForm"
-      );
-
-    const loginTab =
-      document.getElementById(
-        "loginTab"
-      );
-
-    const signupTab =
-      document.getElementById(
-        "signupTab"
-      );
-
-    const accountSwitch =
-      document.getElementById(
-        "accountSwitch"
-      );
-
-    const accountError =
-      document.getElementById(
-        "accountError"
-      );
-
-    const accountSuccess =
-      document.getElementById(
-        "accountSuccess"
-      );
-
-
-    /*
-      ---------------------------------------------------------
-      MESSAGES
-      ---------------------------------------------------------
-    */
-
-    function clearMessages() {
-
-      accountError.style.display =
-        "none";
-
-      accountSuccess.style.display =
-        "none";
-
-      accountError.textContent =
-        "";
-
-      accountSuccess.textContent =
-        "";
-
-    }
-
-
-    function showError(message) {
-
-      accountSuccess.style.display =
-        "none";
-
-      accountError.textContent =
-        message;
-
-      accountError.style.display =
-        "block";
-
-    }
-
-
-    function showSuccess(message) {
-
-      accountError.style.display =
-        "none";
-
-      accountSuccess.textContent =
-        message;
-
-      accountSuccess.style.display =
-        "block";
-
-    }
-
-
-    /*
-      ---------------------------------------------------------
-      LOGIN TAB
-      ---------------------------------------------------------
-    */
-
-    function showLogin() {
-
-      clearMessages();
-
-
-      loginForm.classList.remove(
-        "hidden"
-      );
-
-      signupForm.classList.add(
-        "hidden"
-      );
-
-
-      loginTab.classList.add(
-        "active"
-      );
-
-      signupTab.classList.remove(
-        "active"
-      );
-
-
-      accountSwitch.innerHTML = `
-        Don't have an account?
-        <button
-          id="switchToSignup"
-          type="button"
-        >
-          Create one
-        </button>
-      `;
-
-
-      document
-        .getElementById(
-          "switchToSignup"
-        )
-        .addEventListener(
-          "click",
-          showSignup
-        );
-
-    }
-
-
-    /*
-      ---------------------------------------------------------
-      SIGNUP TAB
-      ---------------------------------------------------------
-    */
-
-    function showSignup() {
-
-      clearMessages();
-
-
-      loginForm.classList.add(
-        "hidden"
-      );
-
-      signupForm.classList.remove(
-        "hidden"
-      );
-
-
-      loginTab.classList.remove(
-        "active"
-      );
-
-      signupTab.classList.add(
-        "active"
-      );
-
-
-      accountSwitch.innerHTML = `
-        Already have an account?
-        <button
-          id="switchToLogin"
-          type="button"
-        >
-          Login
-        </button>
-      `;
-
-
-      document
-        .getElementById(
-          "switchToLogin"
-        )
-        .addEventListener(
-          "click",
-          showLogin
-        );
-
-    }
-
-
-    loginTab.addEventListener(
-      "click",
-      showLogin
-    );
-
-
-    signupTab.addEventListener(
-      "click",
-      showSignup
-    );
-
-
-    /*
-      ---------------------------------------------------------
-      CREATE ACCOUNT
-      ---------------------------------------------------------
-    */
-
-    signupForm.addEventListener(
-      "submit",
-      function(event) {
-
-        event.preventDefault();
-
-        clearMessages();
-
-
-        const username =
-          document
-            .getElementById(
-              "signupUsername"
-            )
-            .value
-            .trim();
-
-
-        const email =
-          document
-            .getElementById(
-              "signupEmail"
-            )
-            .value
-            .trim()
-            .toLowerCase();
-
-
-        const password =
-          document
-            .getElementById(
-              "signupPassword"
-            )
-            .value;
-
-
-        const confirmPassword =
-          document
-            .getElementById(
-              "signupConfirm"
-            )
-            .value;
-
-
-        if (
-          username.length < 2
-        ) {
-
-          showError(
-            "Username must be at least 2 characters."
-          );
-
-          return;
-
-        }
-
-
-        if (
-          !email.includes("@")
-        ) {
-
-          showError(
-            "Enter a valid email address."
-          );
-
-          return;
-
-        }
-
-
-        if (
-          password.length < 6
-        ) {
-
-          showError(
-            "Password must be at least 6 characters."
-          );
-
-          return;
-
-        }
-
-
-        if (
-          password !==
-          confirmPassword
-        ) {
-
-          showError(
-            "Passwords do not match."
-          );
-
-          return;
-
-        }
-
-
-        const existing =
-          accountStorageGet(
-            ACCOUNT_KEY,
-            null
-          );
-
-
-        if (existing) {
-
-          if (
-            existing.email &&
-            existing.email.toLowerCase() ===
-            email
-          ) {
-
-            showError(
-              "An account with this email already exists. Login instead."
-            );
-
-            return;
-
-          }
-
-
-          if (
-            existing.username &&
-            existing.username.toLowerCase() ===
-            username.toLowerCase()
-          ) {
-
-            showError(
-              "That username is already being used."
-            );
-
-            return;
-
-          }
-
-
-          showError(
-            "This prototype currently supports one local account. Log out first or use the existing account."
-          );
-
-          return;
-
-        }
-
-
-        const account = {
-
-          id:
-            "user_" +
-            Date.now(),
-
-          username,
-
-          email,
-
-          password,
-
-          plan:
-            "FREE",
-
-          createdAt:
-            new Date().toISOString()
-
-        };
-
-
-        const saved =
-          accountStorageSet(
-            ACCOUNT_KEY,
-            account
-          );
-
-
-        if (!saved) {
-
-          showError(
-            "Unable to save your account in this browser."
-          );
-
-          return;
-
-        }
-
-
-        localStorage.setItem(
-          SESSION_KEY,
-          email
-        );
-
-
-        showProfile();
-
-      }
-    );
-
-
-    /*
-      ---------------------------------------------------------
-      LOGIN
-      ---------------------------------------------------------
-    */
-
-    loginForm.addEventListener(
-      "submit",
-      function(event) {
-
-        event.preventDefault();
-
-        clearMessages();
-
-
-        const email =
-          document
-            .getElementById(
-              "loginEmail"
-            )
-            .value
-            .trim()
-            .toLowerCase();
-
-
-        const password =
-          document
-            .getElementById(
-              "loginPassword"
-            )
-            .value;
-
-
-        const account =
-          accountStorageGet(
-            ACCOUNT_KEY,
-            null
-          );
-
-
-        if (!account) {
-
-          showError(
-            "No NXTLOOK account exists in this browser yet."
-          );
-
-          return;
-
-        }
-
-
-        if (
-          !account.email ||
-          account.email.toLowerCase() !==
-          email
-        ) {
-
-          showError(
-            "Incorrect email or password."
-          );
-
-          return;
-
-        }
-
-
-        if (
-          account.password !==
-          password
-        ) {
-
-          showError(
-            "Incorrect email or password."
-          );
-
-          return;
-
-        }
-
-
-        localStorage.setItem(
-          SESSION_KEY,
-          account.email
-        );
-
-
-        showProfile();
-
-      }
-    );
-
-
-    /*
-      ---------------------------------------------------------
-      PROFILE
-      ---------------------------------------------------------
-    */
-
-    function showProfile() {
-
-      const account =
-        getNXTLOOKCurrentUser();
-
-
-      if (!account) {
-
-        showAuth();
-
-        return;
-
-      }
-
-
-      authCard.classList.add(
-        "hidden"
-      );
-
-      profileCard.classList.remove(
-        "hidden"
-      );
-
-
-      document
-        .getElementById(
-          "profileUsername"
-        )
-        .textContent =
-        account.username || "NXTLOOK USER";
-
-
-      document
-        .getElementById(
-          "profileEmail"
-        )
-        .textContent =
-        account.email || "—";
-
-
-      document
-        .getElementById(
-          "profilePlan"
-        )
-        .textContent =
-        account.plan || "FREE";
-
-
-      const savedLooks =
-        accountStorageGet(
-          "nxtlook_saved_looks",
-          []
-        );
-
-
-      const wardrobe =
-        accountStorageGet(
-          "nxtlook_wardrobe",
-          []
-        );
-
-
-      document
-        .getElementById(
-          "profileLooks"
-        )
-        .textContent =
-        Array.isArray(savedLooks)
-          ? savedLooks.length
-          : 0;
-
-
-      document
-        .getElementById(
-          "profileWardrobe"
-        )
-        .textContent =
-        (
-          Array.isArray(wardrobe)
-            ? wardrobe.length
-            : 0
-        ) +
-        " ITEMS";
-
-    }
-
-
-    /*
-      ---------------------------------------------------------
-      AUTH VIEW
-      ---------------------------------------------------------
-    */
-
-    function showAuth() {
-
-      profileCard.classList.add(
-        "hidden"
-      );
-
-      authCard.classList.remove(
-        "hidden"
-      );
-
-    }
-
-
-    /*
-      ---------------------------------------------------------
-      LOGOUT
-      ---------------------------------------------------------
-    */
-
-    function logout() {
-
-      localStorage.removeItem(
-        SESSION_KEY
-      );
-
-
-      showAuth();
-
-      showLogin();
-
-    }
-
-
-    document
-      .getElementById(
-        "logoutButton"
-      )
-      .addEventListener(
-        "click",
-        logout
-      );
-
-
-    /*
-      ---------------------------------------------------------
-      INITIALIZE
-      ---------------------------------------------------------
-    */
-
-    const currentUser =
-      getNXTLOOKCurrentUser();
-
-
-    if (currentUser) {
-
-      showProfile();
-
-    } else {
-
-      showAuth();
-
-      showLogin();
-
-    }
-
-  </script>
+<script src="app.js"></script>
 
 </body>
 </html>
