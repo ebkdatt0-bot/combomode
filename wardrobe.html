@@ -2,13 +2,19 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Wardrobe — NXTLOOK</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
 
   <style>
 
@@ -18,238 +24,287 @@
       padding: 90px 7%;
     }
 
-    .wardrobe-upload {
-      margin-top: 40px;
-      padding: 35px;
-      border: 1px solid #292929;
-      border-radius: 20px;
+    .wardrobe-header {
+      max-width: 760px;
+    }
+
+    .wardrobe-toolbar {
+      margin-top: 45px;
+      padding: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+
       background: #0d0d0d;
+      border: 1px solid #292929;
+      border-radius: 16px;
     }
 
-    .upload-box {
-      padding: 45px 25px;
-      text-align: center;
-      border: 1px dashed #444;
-      border-radius: 15px;
+    .wardrobe-count {
+      color: #888;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
 
-    .upload-box input {
-      display: none;
+    .wardrobe-count span {
+      color: #a8ff00;
     }
 
-    .upload-label {
-      display: inline-block;
-      padding: 15px 22px;
-      background: #a8ff00;
-      color: #050505;
+    .wardrobe-button {
+      padding: 13px 18px;
+      border: 1px solid #333;
       border-radius: 9px;
+      background: #151515;
+      color: #fff;
+      font-size: 12px;
       font-weight: 900;
       cursor: pointer;
     }
 
-    .wardrobe-grid {
-      margin-top: 35px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+    .wardrobe-button:hover {
+      border-color: #a8ff00;
+      color: #a8ff00;
     }
 
-    .wardrobe-item {
-      position: relative;
-      overflow: hidden;
-      min-height: 240px;
-      background: #0d0d0d;
-      border: 1px solid #292929;
-      border-radius: 15px;
-    }
-
-    .wardrobe-item img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .wardrobe-remove {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 32px;
-      height: 32px;
-      border: none;
-      border-radius: 50%;
-      background: #050505;
-      color: #fff;
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    .empty-wardrobe {
-      grid-column: 1 / -1;
-      padding: 60px 20px;
-      text-align: center;
-      border: 1px solid #292929;
-      border-radius: 15px;
-      color: #666;
-    }
-
-    .wardrobe-actions {
-      margin-top: 30px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .wardrobe-action {
-      padding: 13px 18px;
-      border-radius: 9px;
-      border: 1px solid #292929;
-      background: #151515;
-      color: #fff;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .wardrobe-action.primary {
+    .wardrobe-button.primary {
       background: #a8ff00;
       color: #050505;
       border-color: #a8ff00;
     }
 
-    /* SAVED LOOKS */
-
-    .saved-section {
-      margin-top: 70px;
+    .wardrobe-button.primary:hover {
+      opacity: .85;
+      color: #050505;
     }
 
-    .saved-section-header {
-      margin-bottom: 25px;
+    .wardrobe-form {
+      margin-top: 20px;
+      padding: 25px;
+
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      border-radius: 16px;
     }
 
-    .saved-section-header h2 {
-      margin-bottom: 8px;
-    }
-
-    .saved-section-header p {
-      color: #777;
-    }
-
-    .saved-looks {
+    .wardrobe-form-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 18px;
     }
 
-    .saved-look {
-      padding: 25px;
+    .wardrobe-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .wardrobe-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .wardrobe-field label {
+      color: #888;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+
+    .wardrobe-field input,
+    .wardrobe-field select {
+      width: 100%;
+      padding: 14px;
+
+      background: #050505;
+      color: #fff;
+
+      border: 1px solid #292929;
+      border-radius: 9px;
+
+      outline: none;
+    }
+
+    .wardrobe-field input:focus,
+    .wardrobe-field select:focus {
+      border-color: #a8ff00;
+    }
+
+    .wardrobe-form-actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .wardrobe-grid {
+      margin-top: 25px;
+
+      display: grid;
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .wardrobe-card {
+      overflow: hidden;
+
       background: #0d0d0d;
       border: 1px solid #292929;
-      border-radius: 18px;
-      transition: .2s ease;
+      border-radius: 16px;
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease;
     }
 
-    .saved-look:hover {
+    .wardrobe-card:hover {
       transform: translateY(-4px);
-      border-color: #555;
+      border-color: #444;
     }
 
-    .saved-look-title {
+    .wardrobe-image {
+      height: 230px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #191919,
+          #080808
+        );
+
+      overflow: hidden;
     }
 
-    .saved-look-title h3 {
-      margin: 0;
-      color: #a8ff00;
-      font-size: 15px;
-      letter-spacing: 1px;
-    }
-
-    .saved-date {
-      color: #555;
-      font-size: 10px;
-    }
-
-    .saved-item {
-      padding: 11px 0;
-      border-bottom: 1px solid #1e1e1e;
-    }
-
-    .saved-item:last-child {
-      border-bottom: none;
-    }
-
-    .saved-item strong {
+    .wardrobe-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      color: #777;
+    }
+
+    .wardrobe-placeholder {
+      color: #333;
+      font-size: 48px;
+      font-weight: 900;
+    }
+
+    .wardrobe-card-content {
+      padding: 18px;
+    }
+
+    .wardrobe-category {
+      color: #a8ff00;
       font-size: 9px;
+      font-weight: 900;
       letter-spacing: 1.5px;
-      margin-bottom: 5px;
     }
 
-    .saved-item span {
-      color: #ddd;
-      font-size: 13px;
-      line-height: 1.4;
+    .wardrobe-card h3 {
+      margin-top: 7px;
+      margin-bottom: 6px;
+      font-size: 17px;
     }
 
-    .saved-look-actions {
+    .wardrobe-meta {
+      color: #666;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .wardrobe-card-actions {
+      margin-top: 15px;
       display: flex;
       gap: 8px;
-      margin-top: 20px;
     }
 
-    .saved-look-button {
+    .wardrobe-delete {
       flex: 1;
       padding: 10px;
-      border-radius: 8px;
+
       border: 1px solid #292929;
-      background: #151515;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 800;
+      border-radius: 8px;
+
+      background: #111;
+      color: #777;
+
+      font-size: 10px;
+      font-weight: 900;
+
       cursor: pointer;
     }
 
-    .saved-look-button:hover {
-      border-color: #a8ff00;
-      color: #a8ff00;
+    .wardrobe-delete:hover {
+      color: #ff5555;
+      border-color: #ff5555;
     }
 
-    .saved-look-button.delete:hover {
-      border-color: #ff4444;
-      color: #ff4444;
-    }
+    .wardrobe-empty {
+      margin-top: 25px;
+      padding: 70px 25px;
 
-    .empty-saved {
-      grid-column: 1 / -1;
-      padding: 50px 20px;
       text-align: center;
+
+      background: #0d0d0d;
       border: 1px solid #292929;
-      border-radius: 15px;
-      color: #666;
+      border-radius: 18px;
     }
 
-    @media (max-width: 900px) {
+    .wardrobe-empty h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
 
-      .saved-looks {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .wardrobe-empty p {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .wardrobe-message {
+      margin-top: 15px;
+      color: #a8ff00;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 950px) {
 
       .wardrobe-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
       }
 
     }
 
-    @media (max-width: 550px) {
+    @media (max-width: 650px) {
 
-      .saved-looks,
+      .wardrobe-page {
+        padding: 70px 5%;
+      }
+
+      .wardrobe-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wardrobe-field.full {
+        grid-column: auto;
+      }
+
       .wardrobe-grid {
         grid-template-columns: 1fr;
+      }
+
+      .wardrobe-image {
+        height: 260px;
       }
 
     }
@@ -262,21 +317,34 @@
 <body>
 
 
-<!-- NAVBAR -->
+<!-- =======================================================
+     NAVBAR
+     ======================================================= -->
 
 <nav class="navbar">
 
-  <a href="index.html" class="logo">
+  <a
+    href="index.html"
+    class="logo"
+  >
     NXT<span>LOOK</span>
   </a>
 
+
   <div class="nav-links">
 
-    <a href="index.html">Home</a>
+    <a href="index.html">
+      Home
+    </a>
 
-    <a href="generator.html">Generator</a>
+    <a href="generator.html">
+      Generator
+    </a>
 
-    <a class="active" href="wardrobe.html">
+    <a
+      class="active"
+      href="wardrobe.html"
+    >
       Wardrobe
     </a>
 
@@ -301,114 +369,247 @@
 </nav>
 
 
+<!-- =======================================================
+     MAIN
+     ======================================================= -->
+
 <main>
 
   <section class="wardrobe-page">
 
-    <p class="eyebrow">
-      YOUR CLOSET
-    </p>
 
-    <h1>
-      MY
-      <br>
-      <span>WARDROBE.</span>
-    </h1>
+    <div class="wardrobe-header">
 
-    <p class="hero-text">
-      Add pieces you already own and save
-      your favorite NXTLOOK fits.
-    </p>
+      <p class="eyebrow">
+        NXTLOOK WARDROBE
+      </p>
 
+      <h1>
+        YOUR
+        <br>
+        <span>WARDROBE.</span>
+      </h1>
 
-    <!-- CLOTHING -->
-
-    <div class="wardrobe-upload">
-
-      <div class="upload-box">
-
-        <h3>
-          ADD CLOTHING
-        </h3>
-
-        <p style="margin-bottom:22px;">
-          Upload photos of your clothes.
-          They'll stay saved in this browser.
-        </p>
-
-        <label
-          class="upload-label"
-          for="wardrobeInput"
-        >
-          + ADD CLOTHES
-        </label>
-
-        <input
-          id="wardrobeInput"
-          type="file"
-          accept="image/*"
-          multiple
-        >
-
-      </div>
-
-
-      <div class="wardrobe-actions">
-
-        <button
-          class="wardrobe-action primary"
-          onclick="styleWardrobe()"
-        >
-          STYLE MY WARDROBE →
-        </button>
-
-        <button
-          class="wardrobe-action"
-          onclick="clearWardrobe()"
-        >
-          CLEAR WARDROBE
-        </button>
-
-      </div>
-
-
-      <div
-        id="wardrobeGrid"
-        class="wardrobe-grid"
-      ></div>
+      <p class="hero-text">
+        Save the pieces you already own and use
+        them when building your next fit.
+      </p>
 
     </div>
 
 
-    <!-- SAVED LOOKS -->
+    <!-- ===================================================
+         TOOLBAR
+         =================================================== -->
 
-    <section class="saved-section">
+    <div class="wardrobe-toolbar">
 
-      <div class="saved-section-header">
+      <div class="wardrobe-count">
 
-        <p class="eyebrow">
-          YOUR FITS
-        </p>
+        <span id="wardrobeCount">
+          0
+        </span>
 
-        <h2>
-          SAVED
-          <span>LOOKS.</span>
-        </h2>
-
-        <p>
-          Every outfit you save from the Generator
-          appears here.
-        </p>
+        ITEMS IN YOUR WARDROBE
 
       </div>
 
 
-      <div
-        id="savedLooks"
-        class="saved-looks"
-      ></div>
+      <button
+        id="addItemButton"
+        class="wardrobe-button primary"
+        type="button"
+      >
+        + ADD ITEM
+      </button>
 
-    </section>
+    </div>
+
+
+    <!-- ===================================================
+         ADD ITEM FORM
+         =================================================== -->
+
+    <div
+      id="wardrobeForm"
+      class="wardrobe-form hidden"
+    >
+
+      <form id="addWardrobeForm">
+
+        <div class="wardrobe-form-grid">
+
+
+          <div class="wardrobe-field">
+
+            <label for="itemName">
+              ITEM NAME
+            </label>
+
+            <input
+              id="itemName"
+              type="text"
+              placeholder="Black oversized tee"
+              maxlength="80"
+              required
+            >
+
+          </div>
+
+
+          <div class="wardrobe-field">
+
+            <label for="itemCategory">
+              CATEGORY
+            </label>
+
+            <select
+              id="itemCategory"
+              required
+            >
+
+              <option value="Top">
+                Top
+              </option>
+
+              <option value="Bottom">
+                Bottom
+              </option>
+
+              <option value="Shoes">
+                Shoes
+              </option>
+
+              <option value="Layer">
+                Layer
+              </option>
+
+              <option value="Accessory">
+                Accessory
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="wardrobe-field">
+
+            <label for="itemBrand">
+              BRAND
+            </label>
+
+            <input
+              id="itemBrand"
+              type="text"
+              placeholder="Nike"
+              maxlength="50"
+            >
+
+          </div>
+
+
+          <div class="wardrobe-field">
+
+            <label for="itemColor">
+              COLOR
+            </label>
+
+            <input
+              id="itemColor"
+              type="text"
+              placeholder="Black"
+              maxlength="30"
+            >
+
+          </div>
+
+
+          <div class="wardrobe-field full">
+
+            <label for="itemImage">
+              IMAGE URL — OPTIONAL
+            </label>
+
+            <input
+              id="itemImage"
+              type="url"
+              placeholder="https://example.com/item.jpg"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="wardrobe-form-actions">
+
+          <button
+            class="wardrobe-button primary"
+            type="submit"
+          >
+            SAVE ITEM
+          </button>
+
+          <button
+            id="cancelItemButton"
+            class="wardrobe-button"
+            type="button"
+          >
+            CANCEL
+          </button>
+
+        </div>
+
+
+        <div
+          id="wardrobeMessage"
+          class="wardrobe-message"
+        ></div>
+
+      </form>
+
+    </div>
+
+
+    <!-- ===================================================
+         EMPTY STATE
+         =================================================== -->
+
+    <div
+      id="wardrobeEmpty"
+      class="wardrobe-empty"
+    >
+
+      <h3>
+        YOUR WARDROBE IS EMPTY.
+      </h3>
+
+      <p>
+        Add your first clothing item and
+        start building fits around what you own.
+      </p>
+
+      <button
+        id="emptyAddButton"
+        class="wardrobe-button primary"
+        type="button"
+        style="margin-top:20px;"
+      >
+        ADD YOUR FIRST ITEM →
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         WARDROBE GRID
+         =================================================== -->
+
+    <div
+      id="wardrobeGrid"
+      class="wardrobe-grid"
+    ></div>
 
 
   </section>
@@ -416,7 +617,9 @@
 </main>
 
 
-<!-- FOOTER -->
+<!-- =======================================================
+     FOOTER
+     ======================================================= -->
 
 <footer class="footer">
 
@@ -425,7 +628,10 @@
 
     <div class="footer-brand">
 
-      <a href="index.html" class="logo">
+      <a
+        href="index.html"
+        class="logo"
+      >
         NXT<span>LOOK</span>
       </a>
 
@@ -440,42 +646,80 @@
 
     <div class="footer-column">
 
-      <h4>PRODUCT</h4>
+      <h4>
+        PRODUCT
+      </h4>
 
-      <a href="generator.html">Generator</a>
-      <a href="wardrobe.html">Wardrobe</a>
-      <a href="inspo.html">AI Stylist</a>
-      <a href="shop.html">Shop</a>
-      <a href="plans.html">Plans</a>
+      <a href="generator.html">
+        Generator
+      </a>
 
-    </div>
+      <a href="wardrobe.html">
+        Wardrobe
+      </a>
 
+      <a href="inspo.html">
+        AI Stylist
+      </a>
 
-    <div class="footer-column">
+      <a href="shop.html">
+        Shop
+      </a>
 
-      <h4>DISCOVER</h4>
-
-      <a href="inspo.html">Inspo</a>
-      <a href="faq.html">FAQ</a>
-      <a href="account.html">Account</a>
-
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>ACCOUNT</h4>
-
-      <a href="account.html">My Account</a>
-      <a href="plans.html">Subscription</a>
-      <a href="wardrobe.html">Saved Wardrobe</a>
+      <a href="plans.html">
+        Plans
+      </a>
 
     </div>
 
 
     <div class="footer-column">
 
-      <h4>SOCIAL</h4>
+      <h4>
+        DISCOVER
+      </h4>
+
+      <a href="inspo.html">
+        Inspo
+      </a>
+
+      <a href="faq.html">
+        FAQ
+      </a>
+
+      <a href="account.html">
+        Account
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        ACCOUNT
+      </h4>
+
+      <a href="account.html">
+        My Account
+      </a>
+
+      <a href="plans.html">
+        Subscription
+      </a>
+
+      <a href="wardrobe.html">
+        Saved Wardrobe
+      </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+      <h4>
+        SOCIAL
+      </h4>
 
       <a
         href="https://www.instagram.com/15k_roy/"
@@ -490,11 +734,22 @@
 
     <div class="footer-column">
 
-      <h4>LEGAL</h4>
+      <h4>
+        LEGAL
+      </h4>
 
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="refunds.html">Refunds</a>
+      <a href="privacy.html">
+        Privacy
+      </a>
+
+      <a href="terms.html">
+        Terms
+      </a>
+
+      <a href="refunds.html">
+        Refunds
+      </a>
+
       <a href="mailto:hello@nxtlook.com">
         Contact
       </a>
@@ -519,587 +774,568 @@
 </footer>
 
 
+<!-- =======================================================
+     APP
+     ======================================================= -->
+
 <script src="app.js"></script>
 
 
+<!-- =======================================================
+     WARDROBE SYSTEM
+     ======================================================= -->
+
 <script>
 
-/* =========================
-   CLOTHING WARDROBE
-========================= */
-
-const wardrobeInput =
-  document.getElementById(
-    "wardrobeInput"
-  );
-
-const wardrobeGrid =
-  document.getElementById(
-    "wardrobeGrid"
-  );
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
 
 
-let wardrobe =
-  JSON.parse(
-    localStorage.getItem(
-      "nxtlookWardrobe"
-    ) || "[]"
-  );
+    const STORAGE_KEY =
+      "nxtlookWardrobe";
 
 
-function renderWardrobe() {
-
-  wardrobeGrid.innerHTML = "";
-
-
-  if (!wardrobe.length) {
-
-    wardrobeGrid.innerHTML = `
-
-      <div class="empty-wardrobe">
-
-        Your wardrobe is empty.
-        Add some pieces to get started.
-
-      </div>
-
-    `;
-
-    return;
-
-  }
+    const form =
+      document.getElementById(
+        "addWardrobeForm"
+      );
 
 
-  wardrobe.forEach(
-    function(item, index) {
+    const formBox =
+      document.getElementById(
+        "wardrobeForm"
+      );
 
-      const card =
-        document.createElement(
-          "div"
+
+    const grid =
+      document.getElementById(
+        "wardrobeGrid"
+      );
+
+
+    const empty =
+      document.getElementById(
+        "wardrobeEmpty"
+      );
+
+
+    const count =
+      document.getElementById(
+        "wardrobeCount"
+      );
+
+
+    const message =
+      document.getElementById(
+        "wardrobeMessage"
+      );
+
+
+    const addButton =
+      document.getElementById(
+        "addItemButton"
+      );
+
+
+    const emptyAddButton =
+      document.getElementById(
+        "emptyAddButton"
+      );
+
+
+    const cancelButton =
+      document.getElementById(
+        "cancelItemButton"
+      );
+
+
+    if (
+      !form ||
+      !formBox ||
+      !grid
+    ) {
+      return;
+    }
+
+
+    /* =====================================================
+       STORAGE
+       ===================================================== */
+
+    function getItems() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem(
+            STORAGE_KEY
+          ) || "[]"
         );
 
+      } catch {
 
-      card.className =
-        "wardrobe-item";
+        return [];
 
+      }
 
-      card.innerHTML = `
-
-        <img
-          src="${item}"
-          alt="Wardrobe item"
-        >
-
-        <button
-          class="wardrobe-remove"
-          onclick="removeWardrobeItem(${index})"
-        >
-          ×
-        </button>
-
-      `;
+    }
 
 
-      wardrobeGrid.appendChild(
-        card
+    function saveItems(items) {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(items)
       );
 
     }
-  );
-
-}
 
 
-wardrobeInput.addEventListener(
-  "change",
-  function() {
+    /* =====================================================
+       FORM
+       ===================================================== */
 
-    const files =
-      Array.from(
-        this.files
+    function openForm() {
+
+      formBox.classList.remove(
+        "hidden"
+      );
+
+      document
+        .getElementById("itemName")
+        .focus();
+
+      formBox.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    }
+
+
+    function closeForm() {
+
+      form.reset();
+
+      message.textContent =
+        "";
+
+      formBox.classList.add(
+        "hidden"
+      );
+
+    }
+
+
+    addButton.addEventListener(
+      "click",
+      openForm
+    );
+
+
+    emptyAddButton.addEventListener(
+      "click",
+      openForm
+    );
+
+
+    cancelButton.addEventListener(
+      "click",
+      closeForm
+    );
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHTML(value) {
+
+      return String(
+        value || ""
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =====================================================
+       RENDER
+       ===================================================== */
+
+    function render() {
+
+      const items =
+        getItems();
+
+
+      count.textContent =
+        items.length;
+
+
+      grid.innerHTML =
+        "";
+
+
+      if (
+        items.length === 0
+      ) {
+
+        empty.classList.remove(
+          "hidden"
+        );
+
+        return;
+
+      }
+
+
+      empty.classList.add(
+        "hidden"
       );
 
 
-    files.forEach(
-      function(file) {
-
-        const reader =
-          new FileReader();
+      items.forEach(
+        function (item) {
 
 
-        reader.onload =
-          function(event) {
-
-            wardrobe.push(
-              event.target.result
+          const card =
+            document.createElement(
+              "div"
             );
 
 
-            localStorage.setItem(
-              "nxtlookWardrobe",
-              JSON.stringify(
-                wardrobe
-              )
+          card.className =
+            "wardrobe-card";
+
+
+          let imageHTML =
+            `
+              <div class="wardrobe-placeholder">
+                ${escapeHTML(
+                  item.category
+                    ? item.category
+                        .charAt(0)
+                        .toUpperCase()
+                    : "N"
+                )}
+              </div>
+            `;
+
+
+          if (
+            item.image
+          ) {
+
+            imageHTML =
+              `
+                <img
+                  src="${escapeHTML(
+                    item.image
+                  )}"
+                  alt="${escapeHTML(
+                    item.name
+                  )}"
+                  onerror="
+                    this.style.display='none';
+                    this.nextElementSibling.style.display='flex';
+                  "
+                >
+
+                <div
+                  class="wardrobe-placeholder"
+                  style="display:none;"
+                >
+                  ${escapeHTML(
+                    item.category
+                      ? item.category
+                          .charAt(0)
+                          .toUpperCase()
+                      : "N"
+                  )}
+                </div>
+              `;
+
+          }
+
+
+          card.innerHTML = `
+
+            <div class="wardrobe-image">
+
+              ${imageHTML}
+
+            </div>
+
+
+            <div class="wardrobe-card-content">
+
+              <div class="wardrobe-category">
+                ${escapeHTML(
+                  item.category
+                )}
+              </div>
+
+              <h3>
+                ${escapeHTML(
+                  item.name
+                )}
+              </h3>
+
+              <div class="wardrobe-meta">
+
+                ${
+                  item.brand
+                    ? escapeHTML(
+                        item.brand
+                      )
+                    : "No brand"
+                }
+
+                ${
+                  item.color
+                    ? " • " +
+                      escapeHTML(
+                        item.color
+                      )
+                    : ""
+                }
+
+              </div>
+
+
+              <div class="wardrobe-card-actions">
+
+                <button
+                  class="wardrobe-delete"
+                  type="button"
+                  data-id="${escapeHTML(
+                    item.id
+                  )}"
+                >
+                  REMOVE ITEM
+                </button>
+
+              </div>
+
+            </div>
+
+          `;
+
+
+          const deleteButton =
+            card.querySelector(
+              ".wardrobe-delete"
             );
 
 
-            renderWardrobe();
+          deleteButton.addEventListener(
+            "click",
+            function () {
 
-          };
+              removeItem(
+                item.id
+              );
+
+            }
+          );
 
 
-        reader.readAsDataURL(
-          file
+          grid.appendChild(
+            card
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       ADD ITEM
+       ===================================================== */
+
+    form.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+
+        const name =
+          document
+            .getElementById(
+              "itemName"
+            )
+            .value
+            .trim();
+
+
+        const category =
+          document
+            .getElementById(
+              "itemCategory"
+            )
+            .value;
+
+
+        const brand =
+          document
+            .getElementById(
+              "itemBrand"
+            )
+            .value
+            .trim();
+
+
+        const color =
+          document
+            .getElementById(
+              "itemColor"
+            )
+            .value
+            .trim();
+
+
+        const image =
+          document
+            .getElementById(
+              "itemImage"
+            )
+            .value
+            .trim();
+
+
+        if (!name) {
+
+          message.textContent =
+            "Please enter an item name.";
+
+          return;
+
+        }
+
+
+        const items =
+          getItems();
+
+
+        const item = {
+
+          id:
+            "wardrobe_" +
+            Date.now(),
+
+          name,
+
+          category,
+
+          brand,
+
+          color,
+
+          image,
+
+          addedAt:
+            new Date().toISOString()
+
+        };
+
+
+        items.push(
+          item
+        );
+
+
+        saveItems(
+          items
+        );
+
+
+        message.textContent =
+          "✓ ITEM ADDED TO YOUR WARDROBE";
+
+
+        render();
+
+
+        setTimeout(
+          function () {
+
+            closeForm();
+
+          },
+          500
         );
 
       }
     );
 
 
-    this.value = "";
+    /* =====================================================
+       REMOVE ITEM
+       ===================================================== */
+
+    function removeItem(id) {
+
+      const items =
+        getItems()
+          .filter(
+            function (item) {
+
+              return String(
+                item.id
+              ) !== String(
+                id
+              );
+
+            }
+          );
+
+
+      saveItems(
+        items
+      );
+
+
+      render();
+
+    }
+
+
+    /* =====================================================
+       INITIAL RENDER
+       ===================================================== */
+
+    render();
 
   }
+
 );
-
-
-function removeWardrobeItem(
-  index
-) {
-
-  wardrobe.splice(
-    index,
-    1
-  );
-
-
-  localStorage.setItem(
-    "nxtlookWardrobe",
-    JSON.stringify(
-      wardrobe
-    )
-  );
-
-
-  renderWardrobe();
-
-}
-
-
-function clearWardrobe() {
-
-  if (!wardrobe.length) {
-    return;
-  }
-
-
-  const confirmed =
-    confirm(
-      "Clear your entire wardrobe?"
-    );
-
-
-  if (!confirmed) {
-    return;
-  }
-
-
-  wardrobe = [];
-
-
-  localStorage.removeItem(
-    "nxtlookWardrobe"
-  );
-
-
-  renderWardrobe();
-
-}
-
-
-function styleWardrobe() {
-
-  if (!wardrobe.length) {
-
-    alert(
-      "Add some clothing first."
-    );
-
-    return;
-
-  }
-
-
-  window.location.href =
-    "inspo.html";
-
-}
-
-
-/* =========================
-   SAVED LOOKS
-========================= */
-
-const savedLooksContainer =
-  document.getElementById(
-    "savedLooks"
-  );
-
-
-let savedLooks =
-  JSON.parse(
-    localStorage.getItem(
-      "nxtlook_saved_looks"
-    ) || "[]"
-  );
-
-
-function escapeHTML(value) {
-
-  return String(
-    value || ""
-  )
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-function formatSavedDate(
-  date
-) {
-
-  if (!date) {
-    return "";
-  }
-
-
-  const d =
-    new Date(date);
-
-
-  if (
-    Number.isNaN(
-      d.getTime()
-    )
-  ) {
-
-    return "";
-
-  }
-
-
-  return d.toLocaleDateString(
-    undefined,
-    {
-      month: "short",
-      day: "numeric",
-      year: "numeric"
-    }
-  );
-
-}
-
-
-function renderSavedLooks() {
-
-  savedLooksContainer.innerHTML =
-    "";
-
-
-  if (!savedLooks.length) {
-
-    savedLooksContainer.innerHTML = `
-
-      <div class="empty-saved">
-
-        <strong>
-          NO SAVED LOOKS YET.
-        </strong>
-
-        <p>
-          Generate a fit and hit
-          <b>SAVE LOOK ★</b>
-          to keep it here.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  /*
-    Show newest saved looks first.
-  */
-
-  const newestFirst =
-    [...savedLooks].reverse();
-
-
-  newestFirst.forEach(
-    function(look) {
-
-      const card =
-        document.createElement(
-          "article"
-        );
-
-
-      card.className =
-        "saved-look";
-
-
-      card.innerHTML = `
-
-        <div class="saved-look-title">
-
-          <h3>
-            ${escapeHTML(
-              look.style ||
-              "NXTLOOK FIT"
-            ).toUpperCase()}
-          </h3>
-
-          <span class="saved-date">
-            ${escapeHTML(
-              formatSavedDate(
-                look.savedAt
-              )
-            )}
-          </span>
-
-        </div>
-
-
-        <div class="saved-item">
-
-          <strong>
-            TOP
-          </strong>
-
-          <span>
-            ${escapeHTML(
-              look.top
-            )}
-          </span>
-
-        </div>
-
-
-        <div class="saved-item">
-
-          <strong>
-            BOTTOM
-          </strong>
-
-          <span>
-            ${escapeHTML(
-              look.bottom
-            )}
-          </span>
-
-        </div>
-
-
-        <div class="saved-item">
-
-          <strong>
-            SHOES
-          </strong>
-
-          <span>
-            ${escapeHTML(
-              look.shoes
-            )}
-          </span>
-
-        </div>
-
-
-        ${
-          look.layer
-          ? `
-
-            <div class="saved-item">
-
-              <strong>
-                LAYER
-              </strong>
-
-              <span>
-                ${escapeHTML(
-                  look.layer
-                )}
-              </span>
-
-            </div>
-
-          `
-          : ""
-        }
-
-
-        ${
-          look.accessory
-          ? `
-
-            <div class="saved-item">
-
-              <strong>
-                ACCESSORIES
-              </strong>
-
-              <span>
-                ${escapeHTML(
-                  look.accessory
-                )}
-              </span>
-
-            </div>
-
-          `
-          : ""
-        }
-
-
-        <div class="saved-item">
-
-          <strong>
-            COLOR
-          </strong>
-
-          <span>
-            ${escapeHTML(
-              look.color
-            )}
-          </span>
-
-        </div>
-
-
-        <div class="saved-item">
-
-          <strong>
-            BRAND VIBE
-          </strong>
-
-          <span>
-            ${escapeHTML(
-              look.brand
-            )}
-          </span>
-
-        </div>
-
-
-        <div class="saved-look-actions">
-
-          <button
-            class="saved-look-button"
-            onclick="useSavedLook()"
-          >
-            USE THIS FIT →
-          </button>
-
-          <button
-            class="saved-look-button delete"
-            onclick="deleteSavedLook(${look.id})"
-          >
-            DELETE
-          </button>
-
-        </div>
-
-      `;
-
-
-      savedLooksContainer.appendChild(
-        card
-      );
-
-    }
-  );
-
-}
-
-
-function deleteSavedLook(
-  id
-) {
-
-  const confirmed =
-    confirm(
-      "Delete this saved look?"
-    );
-
-
-  if (!confirmed) {
-    return;
-  }
-
-
-  savedLooks =
-    savedLooks.filter(
-      function(look) {
-
-        return look.id !== id;
-
-      }
-    );
-
-
-  localStorage.setItem(
-    "nxtlook_saved_looks",
-    JSON.stringify(
-      savedLooks
-    )
-  );
-
-
-  renderSavedLooks();
-
-}
-
-
-function useSavedLook() {
-
-  window.location.href =
-    "generator.html";
-
-}
-
-
-/* =========================
-   START
-========================= */
-
-renderWardrobe();
-
-renderSavedLooks();
 
 </script>
 
 
 </body>
+
 </html>
