@@ -1,12 +1,14 @@
 /* =========================================================
    NXTLOOK — MAIN APP
-   Handles:
-   - AI Stylist chat
-   - Clothing image upload preview
-   - Navigation helpers
-   - Basic saved wardrobe
+   Includes:
+   - AI Stylist
+   - Clothing image upload
+   - Wardrobe
    - Saved looks
    - Generator support
+   - Account creation
+   - Login / logout
+   - Account persistence with localStorage
    ========================================================= */
 
 
@@ -16,19 +18,19 @@
 
 const NXTLOOK_STORAGE = {
 
-  get(key, fallback = []) {
+  get(key, fallback = null) {
 
     try {
 
       const value = localStorage.getItem(key);
 
-      return value
+      return value !== null
         ? JSON.parse(value)
         : fallback;
 
     } catch (error) {
 
-      console.error("Storage read error:", error);
+      console.error("NXTLOOK storage read error:", error);
 
       return fallback;
 
@@ -50,7 +52,26 @@ const NXTLOOK_STORAGE = {
 
     } catch (error) {
 
-      console.error("Storage write error:", error);
+      console.error("NXTLOOK storage write error:", error);
+
+      return false;
+
+    }
+
+  },
+
+
+  remove(key) {
+
+    try {
+
+      localStorage.removeItem(key);
+
+      return true;
+
+    } catch (error) {
+
+      console.error("NXTLOOK storage remove error:", error);
 
       return false;
 
@@ -62,6 +83,515 @@ const NXTLOOK_STORAGE = {
 
 
 /* =========================================================
+   ACCOUNT SYSTEM
+   ========================================================= */
+
+/*
+   IMPORTANT:
+   This is a FRONT-END account system.
+
+   Accounts are stored in this browser's localStorage.
+   It is NOT a real secure online authentication system.
+
+   For a real production website, you would eventually
+   connect this to Firebase, Supabase, Auth0, or your own
+   backend.
+*/
+
+
+function getAccounts() {
+
+  return NXTLOOK_STORAGE.get(
+    "nxtlook_accounts",
+    []
+  );
+
+}
+
+
+function saveAccounts(accounts) {
+
+  return NXTLOOK_STORAGE.set(
+    "nxtlook_accounts",
+    accounts
+  );
+
+}
+
+
+function getCurrentUser() {
+
+  return NXTLOOK_STORAGE.get(
+    "nxtlook_current_user",
+    null
+  );
+
+}
+
+
+function setCurrentUser(user) {
+
+  return NXTLOOK_STORAGE.set(
+    "nxtlook_current_user",
+    user
+  );
+
+}
+
+
+function clearCurrentUser() {
+
+  return NXTLOOK_STORAGE.remove(
+    "nxtlook_current_user"
+  );
+
+}
+
+
+/* ---------------------------------------------------------
+   Create account
+   --------------------------------------------------------- */
+
+function createNXTLOOKAccount(username, email, password) {
+
+  username =
+    String(username || "")
+      .trim();
+
+  email =
+    String(email || "")
+      .trim()
+      .toLowerCase();
+
+  password =
+    String(password || "");
+
+
+  if (!username) {
+
+    return {
+      success: false,
+      message: "Please enter a username."
+    };
+
+  }
+
+
+  if (!email) {
+
+    return {
+      success: false,
+      message: "Please enter your email."
+    };
+
+  }
+
+
+  if (!password) {
+
+    return {
+      success: false,
+      message: "Please enter a password."
+    };
+
+  }
+
+
+  if (password.length < 6) {
+
+    return {
+      success: false,
+      message: "Password must be at least 6 characters."
+    };
+
+  }
+
+
+  const accounts =
+    getAccounts();
+
+
+  const usernameExists =
+    accounts.some(
+      account =>
+        account.username.toLowerCase() ===
+        username.toLowerCase()
+    );
+
+
+  if (usernameExists) {
+
+    return {
+      success: false,
+      message: "That username is already taken."
+    };
+
+  }
+
+
+  const emailExists =
+    accounts.some(
+      account =>
+        account.email.toLowerCase() === email
+    );
+
+
+  if (emailExists) {
+
+    return {
+      success: false,
+      message: "An account with that email already exists."
+    };
+
+  }
+
+
+  const account = {
+
+    id:
+      "user_" +
+      Date.now() +
+      "_" +
+      Math.random()
+        .toString(36)
+        .slice(2, 8),
+
+    username,
+
+    email,
+
+    /*
+      This is only suitable for a local demo.
+      Never store plain-text passwords in a real production app.
+    */
+    password,
+
+    plan:
+      "FREE",
+
+    createdAt:
+      new Date().toISOString()
+
+  };
+
+
+  accounts.push(account);
+
+
+  const saved =
+    saveAccounts(accounts);
+
+
+  if (!saved) {
+
+    return {
+      success: false,
+      message: "Unable to create the account."
+    };
+
+  }
+
+
+  setCurrentUser({
+
+    id:
+      account.id,
+
+    username:
+      account.username,
+
+    email:
+      account.email,
+
+    plan:
+      account.plan
+
+  });
+
+
+  return {
+
+    success: true,
+
+    message:
+      "Account created successfully.",
+
+    user:
+      account
+
+  };
+
+}
+
+
+/* ---------------------------------------------------------
+   Login
+   --------------------------------------------------------- */
+
+function loginNXTLOOK(email, password) {
+
+  email =
+    String(email || "")
+      .trim()
+      .toLowerCase();
+
+  password =
+    String(password || "");
+
+
+  if (!email || !password) {
+
+    return {
+      success: false,
+      message: "Enter your email and password."
+    };
+
+  }
+
+
+  const accounts =
+    getAccounts();
+
+
+  const account =
+    accounts.find(
+      user =>
+        user.email.toLowerCase() === email &&
+        user.password === password
+    );
+
+
+  if (!account) {
+
+    return {
+      success: false,
+      message: "Incorrect email or password."
+    };
+
+  }
+
+
+  const currentUser = {
+
+    id:
+      account.id,
+
+    username:
+      account.username,
+
+    email:
+      account.email,
+
+    plan:
+      account.plan || "FREE"
+
+  };
+
+
+  setCurrentUser(
+    currentUser
+  );
+
+
+  return {
+
+    success: true,
+
+    message:
+      "Logged in successfully.",
+
+    user:
+      currentUser
+
+  };
+
+}
+
+
+/* ---------------------------------------------------------
+   Logout
+   --------------------------------------------------------- */
+
+function logoutNXTLOOK() {
+
+  clearCurrentUser();
+
+  return true;
+
+}
+
+
+/* ---------------------------------------------------------
+   Get account
+   --------------------------------------------------------- */
+
+function getAccount() {
+
+  const currentUser =
+    getCurrentUser();
+
+
+  if (!currentUser) {
+
+    return null;
+
+  }
+
+
+  const accounts =
+    getAccounts();
+
+
+  const account =
+    accounts.find(
+      user =>
+        user.id === currentUser.id
+    );
+
+
+  if (!account) {
+
+    clearCurrentUser();
+
+    return null;
+
+  }
+
+
+  return {
+
+    id:
+      account.id,
+
+    username:
+      account.username,
+
+    email:
+      account.email,
+
+    plan:
+      account.plan || "FREE",
+
+    createdAt:
+      account.createdAt
+
+  };
+
+}
+
+
+/* ---------------------------------------------------------
+   Save account
+   --------------------------------------------------------- */
+
+function saveAccount(account) {
+
+  if (!account || !account.id) {
+
+    return false;
+
+  }
+
+
+  const accounts =
+    getAccounts();
+
+
+  const index =
+    accounts.findIndex(
+      user =>
+        user.id === account.id
+    );
+
+
+  if (index === -1) {
+
+    return false;
+
+  }
+
+
+  accounts[index] = {
+
+    ...accounts[index],
+
+    ...account
+
+  };
+
+
+  const saved =
+    saveAccounts(accounts);
+
+
+  if (saved) {
+
+    setCurrentUser({
+
+      id:
+        accounts[index].id,
+
+      username:
+        accounts[index].username,
+
+      email:
+        accounts[index].email,
+
+      plan:
+        accounts[index].plan || "FREE"
+
+    });
+
+  }
+
+
+  return saved;
+
+}
+
+
+/* ---------------------------------------------------------
+   Set plan
+   --------------------------------------------------------- */
+
+function setNXTLOOKPlan(plan) {
+
+  const account =
+    getAccount();
+
+
+  if (!account) {
+
+    return null;
+
+  }
+
+
+  account.plan =
+    String(plan || "FREE")
+      .toUpperCase();
+
+
+  saveAccount(account);
+
+
+  return getAccount();
+
+}
+
+
+/* ---------------------------------------------------------
+   Check login
+   --------------------------------------------------------- */
+
+function isNXTLOOKLoggedIn() {
+
+  return !!getAccount();
+
+}
+
+
+/* =========================================================
    AI STYLIST
    ========================================================= */
 
@@ -69,19 +599,25 @@ let selectedClothingImage = null;
 
 
 /* ---------------------------------------------------------
-   Add message to chat
+   Add chat message
    --------------------------------------------------------- */
 
 function addChatMessage(type, text) {
 
   const messages =
-    document.getElementById("chatMessages");
+    document.getElementById(
+      "chatMessages"
+    );
+
 
   if (!messages) return;
 
 
   const message =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
+
 
   message.className =
     type === "user"
@@ -90,7 +626,10 @@ function addChatMessage(type, text) {
 
 
   const label =
-    document.createElement("strong");
+    document.createElement(
+      "strong"
+    );
+
 
   label.textContent =
     type === "user"
@@ -99,9 +638,13 @@ function addChatMessage(type, text) {
 
 
   const paragraph =
-    document.createElement("p");
+    document.createElement(
+      "p"
+    );
 
-  paragraph.textContent = text;
+
+  paragraph.textContent =
+    text;
 
 
   message.appendChild(label);
@@ -124,15 +667,23 @@ function addChatMessage(type, text) {
 function showTyping() {
 
   const messages =
-    document.getElementById("chatMessages");
+    document.getElementById(
+      "chatMessages"
+    );
+
 
   if (!messages) return;
 
 
   const typing =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
-  typing.id = "nxtlookTyping";
+
+  typing.id =
+    "nxtlookTyping";
+
 
   typing.className =
     "message ai-message";
@@ -144,7 +695,10 @@ function showTyping() {
   `;
 
 
-  messages.appendChild(typing);
+  messages.appendChild(
+    typing
+  );
+
 
   messages.scrollTop =
     messages.scrollHeight;
@@ -163,6 +717,7 @@ function hideTyping() {
       "nxtlookTyping"
     );
 
+
   if (typing) {
 
     typing.remove();
@@ -178,11 +733,6 @@ function hideTyping() {
 
 function generateNXTLOOKResponse(message) {
 
-  /*
-   * fashion-brain.js must be loaded before app.js
-   * on pages using the AI Stylist.
-   */
-
   if (
     window.NXTLOOK_STYLE_BRAIN &&
     typeof window.NXTLOOK_STYLE_BRAIN.respond ===
@@ -197,7 +747,7 @@ function generateNXTLOOKResponse(message) {
 
 
   return `
-I’m having trouble loading my styling brain right now.
+I'm having trouble loading my styling brain right now.
 
 Make sure fashion-brain.js is connected before app.js.
 `;
@@ -212,7 +762,10 @@ Make sure fashion-brain.js is connected before app.js.
 function sendMessage() {
 
   const input =
-    document.getElementById("chatInput");
+    document.getElementById(
+      "chatInput"
+    );
+
 
   if (!input) return;
 
@@ -236,53 +789,50 @@ function sendMessage() {
   showTyping();
 
 
-  /*
-   * Small delay makes the interaction feel
-   * like an actual AI assistant.
-   */
+  setTimeout(
+    function () {
 
-  setTimeout(() => {
-
-    hideTyping();
+      hideTyping();
 
 
-    let response;
+      let response;
 
 
-    try {
+      try {
 
-      response =
-        generateNXTLOOKResponse(
-          message
+        response =
+          generateNXTLOOKResponse(
+            message
+          );
+
+      } catch (error) {
+
+        console.error(
+          "NXTLOOK AI error:",
+          error
         );
 
-    } catch (error) {
 
-      console.error(
-        "NXTLOOK AI error:",
-        error
+        response =
+          "Something went wrong while building the fit. Try asking again.";
+
+      }
+
+
+      addChatMessage(
+        "ai",
+        response
       );
 
-
-      response =
-        "Something went wrong while building the fit. Try asking again.";
-
-    }
-
-
-    addChatMessage(
-      "ai",
-      response
-    );
-
-
-  }, 450);
+    },
+    450
+  );
 
 }
 
 
 /* ---------------------------------------------------------
-   Enter key sends message
+   Enter key
    --------------------------------------------------------- */
 
 function setupChatInput() {
@@ -317,9 +867,9 @@ function setupChatInput() {
 }
 
 
-/* ---------------------------------------------------------
-   Image upload
-   --------------------------------------------------------- */
+/* =========================================================
+   IMAGE UPLOAD
+   ========================================================= */
 
 function setupImageUpload() {
 
@@ -416,7 +966,7 @@ function setupImageUpload() {
 
 
 /* ---------------------------------------------------------
-   Clear uploaded image
+   Clear image
    --------------------------------------------------------- */
 
 function clearClothingImage() {
@@ -457,40 +1007,55 @@ function clearClothingImage() {
    WARDROBE
    ========================================================= */
 
-
-/* ---------------------------------------------------------
-   Get wardrobe
-   --------------------------------------------------------- */
-
 function getWardrobe() {
 
+  const account =
+    getAccount();
+
+
+  /*
+   * Keep wardrobe separate per logged-in user.
+   */
+
+  const key =
+    account
+      ? "nxtlook_wardrobe_" + account.id
+      : "nxtlook_wardrobe_guest";
+
+
   return NXTLOOK_STORAGE.get(
-    "nxtlook_wardrobe",
+    key,
     []
   );
 
 }
 
 
-/* ---------------------------------------------------------
-   Save wardrobe
-   --------------------------------------------------------- */
-
 function saveWardrobe(items) {
 
+  const account =
+    getAccount();
+
+
+  const key =
+    account
+      ? "nxtlook_wardrobe_" + account.id
+      : "nxtlook_wardrobe_guest";
+
+
   return NXTLOOK_STORAGE.set(
-    "nxtlook_wardrobe",
+    key,
     items
   );
 
 }
 
 
-/* ---------------------------------------------------------
-   Add wardrobe item
-   --------------------------------------------------------- */
-
 function addWardrobeItem(item) {
+
+  item =
+    item || {};
+
 
   const wardrobe =
     getWardrobe();
@@ -534,10 +1099,6 @@ function addWardrobeItem(item) {
 }
 
 
-/* ---------------------------------------------------------
-   Remove wardrobe item
-   --------------------------------------------------------- */
-
 function removeWardrobeItem(id) {
 
   const wardrobe =
@@ -564,9 +1125,39 @@ function removeWardrobeItem(id) {
 
 function getSavedLooks() {
 
+  const account =
+    getAccount();
+
+
+  const key =
+    account
+      ? "nxtlook_saved_looks_" + account.id
+      : "nxtlook_saved_looks_guest";
+
+
   return NXTLOOK_STORAGE.get(
-    "nxtlook_saved_looks",
+    key,
     []
+  );
+
+}
+
+
+function saveSavedLooks(looks) {
+
+  const account =
+    getAccount();
+
+
+  const key =
+    account
+      ? "nxtlook_saved_looks_" + account.id
+      : "nxtlook_saved_looks_guest";
+
+
+  return NXTLOOK_STORAGE.set(
+    key,
+    looks
   );
 
 }
@@ -597,16 +1188,6 @@ function saveLook(look) {
 
 
   return looks;
-
-}
-
-
-function saveSavedLooks(looks) {
-
-  return NXTLOOK_STORAGE.set(
-    "nxtlook_saved_looks",
-    looks
-  );
 
 }
 
@@ -650,19 +1231,25 @@ function generateOutfit(style = "streetwear") {
   }
 
 
-  const fit =
-    window.NXTLOOK_STYLE_BRAIN
-      .generateFit(style);
+  if (
+    typeof window.NXTLOOK_STYLE_BRAIN.generateFit !==
+      "function"
+  ) {
+
+    console.error(
+      "generateFit() is missing."
+    );
+
+    return null;
+
+  }
 
 
-  return fit;
+  return window.NXTLOOK_STYLE_BRAIN
+    .generateFit(style);
 
 }
 
-
-/* ---------------------------------------------------------
-   Format generated outfit
-   --------------------------------------------------------- */
 
 function formatGeneratedOutfit(fit) {
 
@@ -707,78 +1294,41 @@ SHOES: ${fit.shoes || "—"}`;
 
 
 /* =========================================================
-   ACCOUNT HELPERS
+   UPGRADE
    ========================================================= */
 
-function getAccount() {
-
-  return NXTLOOK_STORAGE.get(
-    "nxtlook_account",
-    {
-
-      username:
-        "NXTLOOK USER",
-
-      plan:
-        "FREE"
-
-    }
-  );
-
-}
-
-
-function saveAccount(account) {
-
-  return NXTLOOK_STORAGE.set(
-    "nxtlook_account",
-    account
-  );
-
-}
-
-
-/* ---------------------------------------------------------
-   Set plan
-   --------------------------------------------------------- */
-
-function setNXTLOOKPlan(plan) {
+function upgrade(plan) {
 
   const account =
     getAccount();
 
 
-  account.plan =
-    plan;
+  if (!account) {
+
+    alert(
+      "Create an NXTLOOK account before upgrading."
+    );
 
 
-  saveAccount(
-    account
-  );
+    window.location.href =
+      "account.html";
 
 
-  return account;
+    return;
 
-}
+  }
 
-
-/* =========================================================
-   GLOBAL UPGRADE HANDLER
-   ========================================================= */
-
-function upgrade(plan) {
 
   alert(
-    plan +
-    " selected.\n\n" +
-    "Payments are not connected yet."
+    String(plan).toUpperCase() +
+    " selected.\n\nPayments are not connected yet."
   );
 
 }
 
 
 /* =========================================================
-   SHOP PLACEHOLDER HANDLER
+   SHOP
    ========================================================= */
 
 function shopAlert(event) {
@@ -811,12 +1361,6 @@ function setupMobileNavigation() {
 
   if (!nav) return;
 
-
-  /*
-   * Only add a mobile button if the
-   * existing website doesn't already
-   * have one.
-   */
 
   const existingButton =
     document.querySelector(
@@ -853,7 +1397,7 @@ function setupMobileNavigation() {
 
   button.addEventListener(
     "click",
-    () => {
+    function() {
 
       nav.classList.toggle(
         "mobile-open"
@@ -881,7 +1425,120 @@ function setupMobileNavigation() {
 
 
 /* =========================================================
-   PAGE INITIALIZATION
+   ACCOUNT PAGE UI HELPER
+   ========================================================= */
+
+/*
+   This automatically changes common account-page
+   elements if they exist.
+
+   It does NOT replace your account.html.
+*/
+
+function updateAccountPage() {
+
+  const account =
+    getAccount();
+
+
+  const usernameElements =
+    document.querySelectorAll(
+      "[data-account-username]"
+    );
+
+
+  const planElements =
+    document.querySelectorAll(
+      "[data-account-plan]"
+    );
+
+
+  const emailElements =
+    document.querySelectorAll(
+      "[data-account-email]"
+    );
+
+
+  usernameElements.forEach(
+    element => {
+
+      element.textContent =
+        account
+          ? account.username
+          : "GUEST";
+
+    }
+  );
+
+
+  planElements.forEach(
+    element => {
+
+      element.textContent =
+        account
+          ? account.plan
+          : "FREE";
+
+    }
+  );
+
+
+  emailElements.forEach(
+    element => {
+
+      element.textContent =
+        account
+          ? account.email
+          : "NOT LOGGED IN";
+
+    }
+  );
+
+
+  const savedLooks =
+    getSavedLooks();
+
+
+  const wardrobe =
+    getWardrobe();
+
+
+  const savedCountElements =
+    document.querySelectorAll(
+      "[data-saved-looks-count]"
+    );
+
+
+  const wardrobeCountElements =
+    document.querySelectorAll(
+      "[data-wardrobe-count]"
+    );
+
+
+  savedCountElements.forEach(
+    element => {
+
+      element.textContent =
+        savedLooks.length;
+
+    }
+  );
+
+
+  wardrobeCountElements.forEach(
+    element => {
+
+      element.textContent =
+        wardrobe.length;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   GLOBAL INITIALIZATION
    ========================================================= */
 
 function initNXTLOOK() {
@@ -892,16 +1549,17 @@ function initNXTLOOK() {
 
   setupMobileNavigation();
 
+  updateAccountPage();
+
 }
 
 
 /* =========================================================
-   START
+   START APP
    ========================================================= */
 
 if (
-  document.readyState ===
-  "loading"
+  document.readyState === "loading"
 ) {
 
   document.addEventListener(
