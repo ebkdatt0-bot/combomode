@@ -1,302 +1,277 @@
 /* =========================================================
-   NXTLOOK — APP.JS
+   NXTLOOK APP.JS
+   Shared site functionality
    ========================================================= */
 
-const NXTLOOK_STORAGE = {
+document.addEventListener("DOMContentLoaded", function () {
 
-  get(key, fallback = []) {
-    try {
-      const value = localStorage.getItem(key);
-      return value ? JSON.parse(value) : fallback;
-    } catch (error) {
-      console.error("Storage read error:", error);
-      return fallback;
-    }
-  },
+  /* =======================================================
+     ACTIVE NAV LINK
+     ======================================================= */
 
-  set(key, value) {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-      return true;
-    } catch (error) {
-      console.error("Storage write error:", error);
-      return false;
+  const currentPage =
+    window.location.pathname
+      .split("/")
+      .pop() || "index.html";
+
+  document
+    .querySelectorAll(".nav-links a")
+    .forEach(function (link) {
+
+      const href =
+        link.getAttribute("href");
+
+      if (
+        href === currentPage
+      ) {
+        link.classList.add("active");
+      }
+
+    });
+
+
+  /* =======================================================
+     SAVED LOOK COUNT
+     ======================================================= */
+
+  updateSavedLookCount();
+
+
+  /* =======================================================
+     GLOBAL LOGOUT BUTTONS
+     ======================================================= */
+
+  document
+    .querySelectorAll("[data-logout]")
+    .forEach(function (button) {
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          localStorage.removeItem(
+            "nxtlook_current_user"
+          );
+
+          window.location.href =
+            "account.html";
+
+        }
+      );
+
+    });
+
+
+  /* =======================================================
+     SMOOTH INTERNAL LINKS
+     ======================================================= */
+
+  document
+    .querySelectorAll('a[href^="#"]')
+    .forEach(function (link) {
+
+      link.addEventListener(
+        "click",
+        function (event) {
+
+          const targetID =
+            link.getAttribute("href");
+
+          const target =
+            document.querySelector(
+              targetID
+            );
+
+          if (!target) {
+            return;
+          }
+
+          event.preventDefault();
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+        }
+      );
+
+    });
+
+
+  /* =======================================================
+     MOBILE NAV
+     ======================================================= */
+
+  const nav =
+    document.querySelector(".navbar");
+
+  if (nav) {
+
+    const navLinks =
+      document.querySelector(".nav-links");
+
+    if (navLinks) {
+
+      navLinks.addEventListener(
+        "wheel",
+        function (event) {
+
+          if (
+            window.innerWidth <= 650
+          ) {
+
+            event.preventDefault();
+
+            navLinks.scrollLeft +=
+              event.deltaY;
+
+          }
+
+        },
+        { passive: false }
+      );
+
     }
+
   }
 
-};
+});
 
 
 /* =========================================================
-   AI STYLIST
+   SAVED LOOK HELPERS
    ========================================================= */
 
-let selectedClothingImage = null;
+function getSavedLooks() {
 
+  try {
 
-function addChatMessage(type, text) {
+    return JSON.parse(
+      localStorage.getItem(
+        "nxtlook_saved_looks"
+      ) || "[]"
+    );
 
-  const messages =
-    document.getElementById("chatMessages");
+  } catch {
 
-  if (!messages) return;
-
-  const message =
-    document.createElement("div");
-
-  message.className =
-    type === "user"
-      ? "message user-message"
-      : "message ai-message";
-
-  const label =
-    document.createElement("strong");
-
-  label.textContent =
-    type === "user"
-      ? "YOU"
-      : "NXTLOOK";
-
-  const paragraph =
-    document.createElement("p");
-
-  paragraph.textContent = text;
-
-  message.appendChild(label);
-  message.appendChild(paragraph);
-  messages.appendChild(message);
-
-  messages.scrollTop =
-    messages.scrollHeight;
-}
-
-
-function showTyping() {
-
-  const messages =
-    document.getElementById("chatMessages");
-
-  if (!messages) return;
-
-  const typing =
-    document.createElement("div");
-
-  typing.id = "nxtlookTyping";
-  typing.className = "message ai-message";
-
-  typing.innerHTML = `
-    <strong>NXTLOOK</strong>
-    <p>Thinking...</p>
-  `;
-
-  messages.appendChild(typing);
-
-  messages.scrollTop =
-    messages.scrollHeight;
-}
-
-
-function hideTyping() {
-
-  const typing =
-    document.getElementById("nxtlookTyping");
-
-  if (typing) typing.remove();
-}
-
-
-function generateNXTLOOKResponse(message) {
-
-  if (
-    window.NXTLOOK_STYLE_BRAIN &&
-    typeof window.NXTLOOK_STYLE_BRAIN.respond === "function"
-  ) {
-
-    return window.NXTLOOK_STYLE_BRAIN.respond(message);
+    return [];
 
   }
 
-  return "NXTLOOK's fashion brain isn't loaded yet.";
 }
 
 
-function sendMessage() {
+function saveLook(look) {
 
-  const input =
-    document.getElementById("chatInput");
+  const savedLooks =
+    getSavedLooks();
 
-  if (!input) return;
-
-  const message =
-    input.value.trim();
-
-  if (!message) return;
-
-  addChatMessage("user", message);
-
-  input.value = "";
-
-  showTyping();
-
-  setTimeout(() => {
-
-    hideTyping();
-
-    let response;
-
-    try {
-
-      response =
-        generateNXTLOOKResponse(message);
-
-    } catch (error) {
-
-      console.error("NXTLOOK AI error:", error);
-
-      response =
-        "Something went wrong while building the fit.";
-
-    }
-
-    addChatMessage("ai", response);
-
-  }, 450);
-}
-
-
-function setupChatInput() {
-
-  const input =
-    document.getElementById("chatInput");
-
-  if (!input) return;
-
-  input.addEventListener("keydown", event => {
-
-    if (
-      event.key === "Enter" &&
-      !event.shiftKey
-    ) {
-
-      event.preventDefault();
-
-      sendMessage();
-
-    }
-
+  savedLooks.push({
+    ...look,
+    id:
+      look.id ||
+      Date.now(),
+    savedAt:
+      look.savedAt ||
+      new Date().toISOString()
   });
+
+  localStorage.setItem(
+    "nxtlook_saved_looks",
+    JSON.stringify(
+      savedLooks
+    )
+  );
+
+  updateSavedLookCount();
+
+}
+
+
+function deleteSavedLook(id) {
+
+  const savedLooks =
+    getSavedLooks()
+      .filter(function (look) {
+
+        return String(look.id) !==
+          String(id);
+
+      });
+
+  localStorage.setItem(
+    "nxtlook_saved_looks",
+    JSON.stringify(
+      savedLooks
+    )
+  );
+
+  updateSavedLookCount();
+
+}
+
+
+function clearSavedLooks() {
+
+  localStorage.removeItem(
+    "nxtlook_saved_looks"
+  );
+
+  updateSavedLookCount();
+
+}
+
+
+function updateSavedLookCount() {
+
+  const count =
+    getSavedLooks().length;
+
+  document
+    .querySelectorAll(
+      "[data-saved-look-count]"
+    )
+    .forEach(function (element) {
+
+      element.textContent =
+        count;
+
+    });
 
 }
 
 
 /* =========================================================
-   IMAGE UPLOAD
-   ========================================================= */
-
-function setupImageUpload() {
-
-  const input =
-    document.getElementById("clothesImage");
-
-  const preview =
-    document.getElementById("uploadPreview");
-
-  if (!input || !preview) return;
-
-  input.addEventListener("change", () => {
-
-    const file =
-      input.files && input.files[0];
-
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-
-      preview.textContent =
-        "Please choose an image.";
-
-      return;
-    }
-
-    selectedClothingImage = file;
-
-    const reader = new FileReader();
-
-    reader.onload = event => {
-
-      preview.innerHTML = `
-        <div class="nxtlook-uploaded-image">
-
-          <img
-            src="${event.target.result}"
-            alt="Uploaded clothing"
-            style="
-              max-width:120px;
-              max-height:120px;
-              object-fit:cover;
-              border-radius:10px;
-              display:block;
-            "
-          >
-
-          <button
-            type="button"
-            onclick="clearClothingImage()"
-            style="
-              margin-top:8px;
-              cursor:pointer;
-            "
-          >
-            REMOVE
-          </button>
-
-        </div>
-      `;
-
-    };
-
-    reader.readAsDataURL(file);
-
-  });
-
-}
-
-
-function clearClothingImage() {
-
-  const input =
-    document.getElementById("clothesImage");
-
-  const preview =
-    document.getElementById("uploadPreview");
-
-  selectedClothingImage = null;
-
-  if (input) input.value = "";
-
-  if (preview) preview.innerHTML = "";
-}
-
-
-/* =========================================================
-   WARDROBE
+   WARDROBE HELPERS
    ========================================================= */
 
 function getWardrobe() {
 
-  return NXTLOOK_STORAGE.get(
-    "nxtlook_wardrobe",
-    []
-  );
+  try {
+
+    return JSON.parse(
+      localStorage.getItem(
+        "nxtlookWardrobe"
+      ) || "[]"
+    );
+
+  } catch {
+
+    return [];
+
+  }
 
 }
 
 
 function saveWardrobe(items) {
 
-  return NXTLOOK_STORAGE.set(
-    "nxtlook_wardrobe",
-    items
+  localStorage.setItem(
+    "nxtlookWardrobe",
+    JSON.stringify(
+      items
+    )
   );
 
 }
@@ -308,320 +283,374 @@ function addWardrobeItem(item) {
     getWardrobe();
 
   wardrobe.push({
-
-    id: Date.now(),
-
-    name:
-      item.name ||
-      "Untitled item",
-
-    category:
-      item.category ||
-      "Other",
-
-    brand:
-      item.brand ||
-      "",
-
-    color:
-      item.color ||
-      "",
-
-    image:
-      item.image ||
-      null
-
+    ...item,
+    id:
+      item.id ||
+      Date.now(),
+    addedAt:
+      item.addedAt ||
+      new Date().toISOString()
   });
 
-  saveWardrobe(wardrobe);
+  saveWardrobe(
+    wardrobe
+  );
 
-  return wardrobe;
 }
 
 
-function removeWardrobeItem(id) {
+function deleteWardrobeItem(id) {
 
   const wardrobe =
-    getWardrobe().filter(
-      item => item.id !== id
-    );
+    getWardrobe()
+      .filter(function (item) {
 
-  saveWardrobe(wardrobe);
+        return String(item.id) !==
+          String(id);
 
-  return wardrobe;
-}
+      });
 
-
-/* =========================================================
-   SAVED LOOKS
-   ========================================================= */
-
-function getSavedLooks() {
-
-  return NXTLOOK_STORAGE.get(
-    "nxtlook_saved_looks",
-    []
+  saveWardrobe(
+    wardrobe
   );
 
 }
 
 
-function saveSavedLooks(looks) {
-
-  return NXTLOOK_STORAGE.set(
-    "nxtlook_saved_looks",
-    looks
-  );
-
-}
-
-
-function saveLook(look) {
-
-  const looks =
-    getSavedLooks();
-
-  looks.push({
-
-    id: Date.now(),
-
-    createdAt:
-      new Date().toISOString(),
-
-    ...look
-
-  });
-
-  saveSavedLooks(looks);
-
-  return looks;
-}
-
-
-function removeSavedLook(id) {
-
-  const looks =
-    getSavedLooks().filter(
-      look => look.id !== id
-    );
-
-  saveSavedLooks(looks);
-
-  return looks;
-}
-
-
 /* =========================================================
-   GENERATOR
+   CURRENT USER
    ========================================================= */
 
-function generateOutfit(style = "streetwear") {
+function getNXTLOOKCurrentUser() {
 
-  if (
-    !window.NXTLOOK_STYLE_BRAIN ||
-    typeof window.NXTLOOK_STYLE_BRAIN.generateFit !== "function"
-  ) {
-
-    console.error(
-      "fashion-brain.js is not loaded."
+  const email =
+    localStorage.getItem(
+      "nxtlook_current_user"
     );
 
+  if (!email) {
     return null;
   }
 
-  return window.NXTLOOK_STYLE_BRAIN.generateFit(style);
-}
+  try {
 
+    const users =
+      JSON.parse(
+        localStorage.getItem(
+          "nxtlook_users"
+        ) || "[]"
+      );
 
-function formatGeneratedOutfit(fit) {
+    return users.find(
+      function (user) {
 
-  if (!fit) {
-    return "Unable to generate outfit.";
+        return user.email ===
+          email;
+
+      }
+    ) || null;
+
+  } catch {
+
+    return null;
+
   }
 
-  let text = `
-LOOK — ${String(
-    fit.style || "STREETWEAR"
-  ).toUpperCase()}
-
-TOP: ${fit.top || "—"}
-
-BOTTOM: ${fit.bottom || "—"}
-
-SHOES: ${fit.shoes || "—"}
-`;
-
-  if (fit.layer) {
-    text += `\nLAYER: ${fit.layer}\n`;
-  }
-
-  if (fit.accessory) {
-    text += `\nACCESSORIES: ${fit.accessory}\n`;
-  }
-
-  return text.trim();
 }
 
 
 /* =========================================================
-   ACCOUNT
+   UPDATE USER
    ========================================================= */
 
-function getAccount() {
+function updateNXTLOOKUser(updates) {
 
-  return NXTLOOK_STORAGE.get(
-    "nxtlook_account",
-    {
-      username: "NXTLOOK USER",
-      plan: "FREE"
+  const currentUser =
+    getNXTLOOKCurrentUser();
+
+  if (!currentUser) {
+    return null;
+  }
+
+  try {
+
+    const users =
+      JSON.parse(
+        localStorage.getItem(
+          "nxtlook_users"
+        ) || "[]"
+      );
+
+    const index =
+      users.findIndex(
+        function (user) {
+
+          return user.email ===
+            currentUser.email;
+
+        }
+      );
+
+    if (index === -1) {
+      return null;
     }
-  );
 
-}
+    users[index] = {
+      ...users[index],
+      ...updates
+    };
 
-
-function saveAccount(account) {
-
-  return NXTLOOK_STORAGE.set(
-    "nxtlook_account",
-    account
-  );
-
-}
-
-
-function setNXTLOOKPlan(plan) {
-
-  const account =
-    getAccount();
-
-  account.plan = plan;
-
-  saveAccount(account);
-
-  return account;
-}
-
-
-/* =========================================================
-   UPGRADE
-   ========================================================= */
-
-function upgrade(plan) {
-
-  alert(
-    plan +
-    " selected.\n\nPayments are not connected yet."
-  );
-}
-
-
-/* =========================================================
-   SHOP
-   ========================================================= */
-
-function shopAlert(event) {
-
-  if (event) {
-    event.preventDefault();
-  }
-
-  alert(
-    "NXTLOOK Shop is coming soon."
-  );
-}
-
-
-/* =========================================================
-   MOBILE NAVIGATION
-   ========================================================= */
-
-function setupMobileNavigation() {
-
-  const nav =
-    document.querySelector(".nav-links");
-
-  if (!nav) return;
-
-  const existingButton =
-    document.querySelector(".mobile-menu-button");
-
-  if (existingButton) return;
-
-  const button =
-    document.createElement("button");
-
-  button.className =
-    "mobile-menu-button";
-
-  button.type = "button";
-
-  button.textContent = "☰";
-
-  button.setAttribute(
-    "aria-label",
-    "Open navigation"
-  );
-
-  button.addEventListener("click", () => {
-
-    nav.classList.toggle(
-      "mobile-open"
+    localStorage.setItem(
+      "nxtlook_users",
+      JSON.stringify(
+        users
+      )
     );
 
-  });
+    return users[index];
 
-  const navbar =
-    document.querySelector(".navbar, nav");
+  } catch {
 
-  if (navbar) {
-    navbar.appendChild(button);
+    return null;
+
   }
 
 }
 
 
 /* =========================================================
-   GLOBAL HELPERS
+   HTML ESCAPE
    ========================================================= */
 
-function escapeHTML(value) {
+function escapeNXTLOOKHTML(value) {
 
-  return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return String(
+    value || ""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
 }
 
 
 /* =========================================================
-   INITIALIZATION
+   FORMAT DATE
    ========================================================= */
 
-function initNXTLOOK() {
+function formatNXTLOOKDate(date) {
 
-  setupChatInput();
+  try {
 
-  setupImageUpload();
+    return new Date(
+      date
+    ).toLocaleDateString(
+      undefined,
+      {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      }
+    );
 
-  setupMobileNavigation();
+  } catch {
+
+    return "";
+
+  }
 
 }
 
 
-if (
-  document.readyState === "loading"
+/* =========================================================
+   NXTLOOK NOTIFICATION
+   ========================================================= */
+
+function nxtlookNotify(
+  message,
+  type = "success"
 ) {
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    initNXTLOOK
+  const existing =
+    document.querySelector(
+      ".nxtlook-notification"
+    );
+
+  if (existing) {
+    existing.remove();
+  }
+
+  const notification =
+    document.createElement(
+      "div"
+    );
+
+  notification.className =
+    "nxtlook-notification";
+
+  notification.textContent =
+    message;
+
+  notification.style.position =
+    "fixed";
+
+  notification.style.bottom =
+    "25px";
+
+  notification.style.right =
+    "25px";
+
+  notification.style.zIndex =
+    "9999";
+
+  notification.style.padding =
+    "15px 20px";
+
+  notification.style.border =
+    "1px solid #333";
+
+  notification.style.borderRadius =
+    "10px";
+
+  notification.style.background =
+    "#0d0d0d";
+
+  notification.style.color =
+    type === "error"
+      ? "#ff5555"
+      : "#a8ff00";
+
+  notification.style.fontSize =
+    "13px";
+
+  notification.style.fontWeight =
+    "800";
+
+  notification.style.boxShadow =
+    "0 15px 40px rgba(0,0,0,.4)";
+
+  document.body.appendChild(
+    notification
   );
 
-} else {
+  setTimeout(
+    function () {
 
-  initNXTLOOK();
+      notification.style.opacity =
+        "0";
+
+      notification.style.transition =
+        "opacity .25s ease";
+
+      setTimeout(
+        function () {
+
+          notification.remove();
+
+        },
+        300
+      );
+
+    },
+    2500
+  );
 
 }
+
+
+/* =========================================================
+   PROTECTED PAGE CHECK
+   ========================================================= */
+
+function requireNXTLOOKLogin() {
+
+  const user =
+    getNXTLOOKCurrentUser();
+
+  if (!user) {
+
+    window.location.href =
+      "account.html";
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+/* =========================================================
+   PAGE TRANSITION
+   ========================================================= */
+
+document.addEventListener(
+  "click",
+  function (event) {
+
+    const link =
+      event.target.closest(
+        "a"
+      );
+
+    if (!link) {
+      return;
+    }
+
+    const href =
+      link.getAttribute(
+        "href"
+      );
+
+    if (
+      !href ||
+      href.startsWith("#") ||
+      href.startsWith("http") ||
+      href.startsWith("mailto:") ||
+      link.target === "_blank"
+    ) {
+      return;
+    }
+
+    document.body.classList.add(
+      "page-loading"
+    );
+
+  }
+);
+
+
+/* =========================================================
+   GLOBAL ERROR PROTECTION
+   ========================================================= */
+
+window.addEventListener(
+  "error",
+  function (event) {
+
+    console.error(
+      "NXTLOOK Error:",
+      event.error ||
+      event.message
+    );
+
+  }
+);
