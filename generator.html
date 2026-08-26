@@ -1,1478 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Generator — NXTLOOK</title>
-
-  <link
-    rel="stylesheet"
-    href="styles.css"
-  >
-
-  <style>
-
-    .generator-page {
-      max-width: 1100px;
-      margin: auto;
-      padding: 90px 7%;
-    }
-
-    .generator-box {
-      margin-top: 45px;
-      padding: 35px;
-      background: #0d0d0d;
-      border: 1px solid #292929;
-      border-radius: 20px;
-    }
-
-    .generator-form {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    .field label {
-      color: #aaa;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .field select,
-    .field input {
-      width: 100%;
-      padding: 15px;
-      background: #050505;
-      color: white;
-      border: 1px solid #292929;
-      border-radius: 9px;
-      outline: none;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
-
-    .field select:focus,
-    .field input:focus {
-      border-color: #a8ff00;
-    }
-
-    .generate-button {
-      margin-top: 10px;
-      padding: 16px 24px;
-      background: #a8ff00;
-      color: #050505;
-      border: none;
-      border-radius: 9px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .generate-button:hover {
-      opacity: .85;
-    }
-
-    .secondary-button {
-      margin-top: 10px;
-      padding: 16px 24px;
-      background: #151515;
-      color: #fff;
-      border: 1px solid #333;
-      border-radius: 9px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .secondary-button:hover {
-      border-color: #a8ff00;
-      color: #a8ff00;
-    }
-
-    .result-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 25px;
-    }
-
-    .generator-result {
-      margin-top: 30px;
-      padding: 25px;
-      background: #050505;
-      border: 1px solid #292929;
-      border-radius: 15px;
-      min-height: 100px;
-    }
-
-    .generator-result h3 {
-      color: #a8ff00;
-    }
-
-    .result-item {
-      margin: 15px 0;
-      padding: 15px;
-      background: #0d0d0d;
-      border: 1px solid #222;
-      border-radius: 10px;
-    }
-
-    .result-item strong {
-      color: #a8ff00;
-      font-size: 11px;
-      letter-spacing: 1px;
-    }
-
-    .result-item p {
-      margin: 7px 0 0;
-      color: #ccc;
-      line-height: 1.6;
-    }
-
-    .fit-score {
-      font-size: 32px;
-      font-weight: 900;
-      color: #a8ff00;
-    }
-
-    .saved-message {
-      margin-top: 15px;
-      color: #a8ff00;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .loading {
-      color: #888;
-    }
-
-    .error {
-      color: #ff5555;
-    }
-
-    @media (max-width: 650px) {
-
-      .generator-form {
-        grid-template-columns: 1fr;
-      }
-
-      .field.full {
-        grid-column: auto;
-      }
-
-      .generator-box {
-        padding: 20px;
-      }
-
-      .result-actions {
-        flex-direction: column;
-      }
-
-      .result-actions button {
-        width: 100%;
-      }
-
-    }
-
-  </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Home — ComboMODE</title>
+<link rel="stylesheet" href="styles.css">
 </head>
-
-
 <body>
 
-
-<!-- NAVBAR -->
-
-<nav class="navbar">
-
-  <a
-    href="index.html"
-    class="logo"
-  >
-    NXT<span>LOOK</span>
-  </a>
-
-
+<nav>
+  <a class="logo" href="index.html">Combo<span>MODE</span></a>
   <div class="nav-links">
-
-    <a href="index.html">
-      Home
-    </a>
-
-    <a
-      class="active"
-      href="generator.html"
-    >
-      Generator
-    </a>
-
-    <a href="wardrobe.html">
-      Wardrobe
-    </a>
-
-    <a href="inspo.html">
-      AI Stylist
-    </a>
-
-    <a href="plans.html">
-      Plans
-    </a>
-
-    <a href="shop.html">
-      Shop
-    </a>
-
-    <a href="account.html">
-      Account
-    </a>
-
+    <a class="active" href="index.html">Home</a>
+    <a href="generator.html">Generator</a>
+    <a href="wardrobe.html">Wardrobe</a>
+    <a href="inspo.html">AI Stylist</a>
+    <a href="plans.html">Plans</a>
+    <a href="shop.html">Shop</a>
+    <a href="account.html">Account</a>
   </div>
-
 </nav>
-
 
 <main>
 
-  <section class="generator-page">
-
-    <p class="eyebrow">
-      NXTLOOK AI
-    </p>
+<section class="hero">
+  <div class="copy">
+    <div class="eyebrow">FITS • INSPO • YOUR VIBE</div>
 
     <h1>
-      BUILD YOUR
-      <br>
+      YOUR NEXT<br>
       <span>FIT.</span>
     </h1>
 
-    <p class="hero-text">
-      Tell NXTLOOK what you're going for.
-      We'll build an intentional outfit around it.
+    <p class="sub">
+      Find fits that actually hit. Pick your vibe, silhouette,
+      colors and occasion — ComboMODE turns your choices
+      into a smarter next look.
     </p>
 
+    <a class="cta" href="generator.html">
+      GENERATE YOUR LOOK →
+    </a>
+  </div>
 
-    <div class="generator-box">
+  <div class="scene" aria-hidden="true">
 
-      <form
-        id="generatorForm"
-        class="generator-form"
+    <div class="photo p1">
+      <img
+        src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=900"
+        alt="Streetwear outfit"
       >
-
-
-        <!-- STYLE -->
-
-        <div class="field">
-
-          <label for="style">
-            STYLE
-          </label>
-
-          <select id="style">
-
-            <option value="dark streetwear">
-              Dark Streetwear
-            </option>
-
-            <option value="streetwear">
-              Streetwear
-            </option>
-
-            <option value="archive">
-              Archive
-            </option>
-
-            <option value="grunge">
-              Grunge
-            </option>
-
-            <option value="minimal">
-              Minimal
-            </option>
-
-            <option value="old money">
-              Old Money
-            </option>
-
-            <option value="Y2K">
-              Y2K
-            </option>
-
-            <option value="techwear">
-              Techwear
-            </option>
-
-            <option value="casual">
-              Casual
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- COLOR -->
-
-        <div class="field">
-
-          <label for="color">
-            MAIN COLOR
-          </label>
-
-          <select id="color">
-
-            <option value="black">
-              Black
-            </option>
-
-            <option value="white">
-              White
-            </option>
-
-            <option value="grey">
-              Grey
-            </option>
-
-            <option value="navy">
-              Navy
-            </option>
-
-            <option value="brown">
-              Brown
-            </option>
-
-            <option value="beige">
-              Beige
-            </option>
-
-            <option value="earth tones">
-              Earth Tones
-            </option>
-
-            <option value="dark colors">
-              Dark Colors
-            </option>
-
-            <option value="mixed colors">
-              Mixed Colors
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- OCCASION -->
-
-        <div class="field">
-
-          <label for="occasion">
-            OCCASION
-          </label>
-
-          <select id="occasion">
-
-            <option value="everyday casual">
-              Everyday
-            </option>
-
-            <option value="school">
-              School
-            </option>
-
-            <option value="church">
-              Church
-            </option>
-
-            <option value="party">
-              Party
-            </option>
-
-            <option value="date">
-              Date
-            </option>
-
-            <option value="night out">
-              Night Out
-            </option>
-
-            <option value="formal event">
-              Formal
-            </option>
-
-            <option value="summer day">
-              Summer Day
-            </option>
-
-            <option value="winter">
-              Winter
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- SILHOUETTE -->
-
-        <div class="field">
-
-          <label for="fit">
-            SILHOUETTE
-          </label>
-
-          <select id="fit">
-
-            <option value="oversized">
-              Oversized
-            </option>
-
-            <option value="baggy">
-              Baggy
-            </option>
-
-            <option value="relaxed">
-              Relaxed
-            </option>
-
-            <option value="straight">
-              Straight
-            </option>
-
-            <option value="slim">
-              Slim
-            </option>
-
-            <option value="fitted">
-              Fitted
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- FOOTWEAR -->
-
-        <div class="field">
-
-          <label for="footwear">
-            FOOTWEAR
-          </label>
-
-          <select id="footwear">
-
-            <option value="sneakers">
-              Sneakers
-            </option>
-
-            <option value="chunky sneakers">
-              Chunky Sneakers
-            </option>
-
-            <option value="boots">
-              Boots
-            </option>
-
-            <option value="loafers">
-              Loafers
-            </option>
-
-            <option value="dress shoes">
-              Dress Shoes
-            </option>
-
-            <option value="any footwear">
-              Anything
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- BRAND -->
-
-        <div class="field">
-
-          <label for="brand">
-            BRAND VIBE
-          </label>
-
-          <select id="brand">
-
-            <option value="no specific brand">
-              No Specific Brand
-            </option>
-
-            <option value="Stussy">
-              Stüssy
-            </option>
-
-            <option value="Carhartt">
-              Carhartt
-            </option>
-
-            <option value="Stone Island">
-              Stone Island
-            </option>
-
-            <option value="New Balance">
-              New Balance
-            </option>
-
-            <option value="Nike">
-              Nike
-            </option>
-
-            <option value="Adidas">
-              adidas
-            </option>
-
-            <option value="Supreme">
-              Supreme
-            </option>
-
-            <option value="FTP">
-              FTP
-            </option>
-
-            <option value="Fear of God ESSENTIALS">
-              Fear of God ESSENTIALS
-            </option>
-
-            <option value="ASICS">
-              ASICS
-            </option>
-
-            <option value="Salomon">
-              Salomon
-            </option>
-
-            <option value="Vans">
-              Vans
-            </option>
-
-            <option value="Dickies">
-              Dickies
-            </option>
-
-            <option value="Levi's">
-              Levi's
-            </option>
-
-            <option value="mixed streetwear brands">
-              Mixed Streetwear Brands
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <!-- WARDROBE -->
-
-        <div class="field full">
-
-          <label for="wardrobeItems">
-            WHAT DO YOU ALREADY OWN?
-          </label>
-
-          <input
-            id="wardrobeItems"
-            type="text"
-            placeholder="Example: black oversized tee, baggy jeans, black Vans..."
-          >
-
-        </div>
-
-
-        <!-- SUBMIT -->
-
-        <div class="field full">
-
-          <button
-            class="generate-button"
-            id="generateButton"
-            type="submit"
-          >
-            GENERATE MY FIT →
-          </button>
-
-        </div>
-
-
-      </form>
-
-
-      <!-- RESULT -->
-
-      <div
-        id="generatorResult"
-        class="generator-result"
-      >
-
-        <p>
-          Your generated outfit will appear here.
-        </p>
-
-      </div>
-
-
+      <div class="photo-label">BAGGY / CITY</div>
     </div>
 
-  </section>
+    <div class="photo p2">
+      <img
+        src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=900"
+        alt="Statement streetwear outfit"
+      >
+      <div class="photo-label">BLACK / STATEMENT</div>
+    </div>
+
+    <div class="photo p3">
+      <img
+        src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=900"
+        alt="Streetwear group outfits"
+      >
+      <div class="photo-label">CREW / STREET</div>
+    </div>
+
+    <div class="photo p4">
+      <img
+        src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=900"
+        alt="Colorful oversized streetwear outfit"
+      >
+      <div class="photo-label">COLOR / OVERSIZED</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="home-cards">
+  <div class="grid three">
+
+    <div class="card">
+      <h3>AI GENERATOR</h3>
+      <p>
+        Build a complete fit from your vibe, silhouette,
+        colors and occasion.
+      </p>
+      <a class="mini-btn" href="generator.html">
+        OPEN GENERATOR →
+      </a>
+    </div>
+
+    <div class="card">
+      <h3>YOUR WARDROBE</h3>
+      <p>
+        Save your real clothes and let ComboMODE
+        style around what you own.
+      </p>
+      <a class="mini-btn" href="wardrobe.html">
+        OPEN WARDROBE →
+      </a>
+    </div>
+
+    <div class="card">
+      <h3>AI STYLIST</h3>
+      <p>
+        Upload a clothing photo and ask ComboMODE
+        to style, identify or rate it.
+      </p>
+      <a class="mini-btn" href="inspo.html">
+        OPEN AI STYLIST →
+      </a>
+    </div>
+
+  </div>
+</section>
 
 </main>
 
+<footer>
+  <div class="footer-wrap">
 
-<!-- FOOTER -->
+    <div class="footer-grid">
 
-<footer class="footer">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          Combo<span>MODE</span>
+        </a>
 
-  <div class="footer-grid">
+        <p>
+          Your next fit starts here.
+          AI styling built around your vibe,
+          your wardrobe and your proportions.
+        </p>
+      </div>
 
+      <div class="footer-col">
+        <h4>PRODUCT</h4>
+        <a href="generator.html">Generator</a>
+        <a href="wardrobe.html">Wardrobe</a>
+        <a href="shop.html">Shop</a>
+        <a href="plans.html">Plans</a>
+      </div>
 
-    <div class="footer-brand">
+      <div class="footer-col">
+        <h4>DISCOVER</h4>
+        <a href="inspo.html">AI Stylist</a>
+        <a href="faq.html">FAQ</a>
+        <a href="account.html">Account</a>
+      </div>
 
-      <a
-        href="index.html"
-        class="logo"
-      >
-        NXT<span>LOOK</span>
-      </a>
+      <div class="footer-col">
+        <h4>ACCOUNT</h4>
+        <a href="account.html">My Account</a>
+        <a href="plans.html">Subscription</a>
+        <a href="wardrobe.html">Saved Wardrobe</a>
+      </div>
 
-      <p>
-        Your next look starts here.
-        AI styling built around your vibe,
-        wardrobe and proportions.
-      </p>
+      <div class="footer-col">
+        <h4>SOCIAL</h4>
+        <a
+          href="https://www.instagram.com/15k_roy/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram — @15k_roy ↗
+        </a>
+      </div>
 
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>
-        PRODUCT
-      </h4>
-
-      <a href="generator.html">
-        Generator
-      </a>
-
-      <a href="wardrobe.html">
-        Wardrobe
-      </a>
-
-      <a href="inspo.html">
-        AI Stylist
-      </a>
-
-      <a href="shop.html">
-        Shop
-      </a>
-
-      <a href="plans.html">
-        Plans
-      </a>
-
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>
-        DISCOVER
-      </h4>
-
-      <a href="inspo.html">
-        Inspo
-      </a>
-
-      <a href="faq.html">
-        FAQ
-      </a>
-
-      <a href="account.html">
-        Account
-      </a>
+      <div class="footer-col">
+        <h4>LEGAL</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="mailto:hello@nxtlook.com">Contact</a>
+      </div>
 
     </div>
 
-
-    <div class="footer-column">
-
-      <h4>
-        ACCOUNT
-      </h4>
-
-      <a href="account.html">
-        My Account
-      </a>
-
-      <a href="plans.html">
-        Subscription
-      </a>
-
-      <a href="wardrobe.html">
-        Saved Wardrobe
-      </a>
-
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>
-        SOCIAL
-      </h4>
-
-      <a
-        href="https://www.instagram.com/15k_roy/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Instagram — @15k_roy ↗
-      </a>
-
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>
-        LEGAL
-      </h4>
-
-      <a href="privacy.html">
-        Privacy
-      </a>
-
-      <a href="terms.html">
-        Terms
-      </a>
-
-      <a href="refunds.html">
-        Refunds
-      </a>
-
-      <a href="mailto:hello@nxtlook.com">
-        Contact
-      </a>
-
+    <div class="footer-bottom">
+      <span>© 2026 ComboMODE. All rights reserved.</span>
+      <span>BUILT FOR BETTER FITS.</span>
     </div>
 
   </div>
-
-
-  <div class="footer-bottom">
-
-    <span>
-      © 2026 NXTLOOK. All rights reserved.
-    </span>
-
-    <span>
-      BUILT FOR BETTER FITS.
-    </span>
-
-  </div>
-
 </footer>
-
-
-<!-- FASHION BRAIN FIRST -->
-
-<script src="fashion-brain.js"></script>
 
 <script src="app.js"></script>
 
-
-<script>
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
-
-
-    const form =
-      document.getElementById(
-        "generatorForm"
-      );
-
-
-    const result =
-      document.getElementById(
-        "generatorResult"
-      );
-
-
-    const button =
-      document.getElementById(
-        "generateButton"
-      );
-
-
-    if (!form || !result) {
-      return;
-    }
-
-
-    form.addEventListener(
-      "submit",
-      function (event) {
-
-        event.preventDefault();
-
-        generateNXTLOOKFit();
-
-      }
-    );
-
-
-    function generateNXTLOOKFit() {
-
-
-      if (
-        !window.NXTLOOK_STYLE_BRAIN ||
-        typeof
-          window.NXTLOOK_STYLE_BRAIN.generateFit !==
-          "function"
-      ) {
-
-        result.innerHTML = `
-          <p class="error">
-            NXTLOOK's fashion brain isn't loaded.
-          </p>
-        `;
-
-        return;
-
-      }
-
-
-      const style =
-        document.getElementById(
-          "style"
-        ).value;
-
-
-      const color =
-        document.getElementById(
-          "color"
-        ).value;
-
-
-      const occasion =
-        document.getElementById(
-          "occasion"
-        ).value;
-
-
-      const silhouette =
-        document.getElementById(
-          "fit"
-        ).value;
-
-
-      const footwear =
-        document.getElementById(
-          "footwear"
-        ).value;
-
-
-      const brand =
-        document.getElementById(
-          "brand"
-        ).value;
-
-
-      const wardrobe =
-        document.getElementById(
-          "wardrobeItems"
-        ).value;
-
-
-      const styleMap = {
-
-        "dark streetwear":
-          "dark",
-
-        "streetwear":
-          "streetwear",
-
-        "archive":
-          "archive",
-
-        "grunge":
-          "grunge",
-
-        "minimal":
-          "clean",
-
-        "old money":
-          "clean",
-
-        "Y2K":
-          "streetwear",
-
-        "techwear":
-          "technical",
-
-        "casual":
-          "streetwear"
-
-      };
-
-
-      const brainStyle =
-        styleMap[style] ||
-        "streetwear";
-
-
-      button.disabled = true;
-
-      button.textContent =
-        "BUILDING YOUR FIT…";
-
-
-      result.innerHTML = `
-        <p class="loading">
-          NXTLOOK is building your fit… 👀
-        </p>
-      `;
-
-
-      setTimeout(
-        function () {
-
-
-          try {
-
-
-            const fit =
-              window.NXTLOOK_STYLE_BRAIN
-                .generateFit(
-                  brainStyle
-                );
-
-
-            let html = `
-
-              <h3>
-                YOUR NXTLOOK
-              </h3>
-
-              <div class="result-item">
-
-                <strong>
-                  STYLE
-                </strong>
-
-                <p>
-                  ${escapeHTML(style)}
-                </p>
-
-              </div>
-
-
-              <div class="result-item">
-
-                <strong>
-                  TOP
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    fit.top
-                  )}
-                </p>
-
-              </div>
-
-
-              <div class="result-item">
-
-                <strong>
-                  BOTTOM
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    fit.bottom
-                  )}
-                </p>
-
-              </div>
-
-
-              <div class="result-item">
-
-                <strong>
-                  SHOES
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    fit.shoes
-                  )}
-                </p>
-
-              </div>
-
-            `;
-
-
-            if (fit.layer) {
-
-              html += `
-
-                <div class="result-item">
-
-                  <strong>
-                    LAYER
-                  </strong>
-
-                  <p>
-                    ${escapeHTML(
-                      fit.layer
-                    )}
-                  </p>
-
-                </div>
-
-              `;
-
-            }
-
-
-            html += `
-
-              <div class="result-item">
-
-                <strong>
-                  ACCESSORIES
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    fit.accessory
-                  )}
-                </p>
-
-              </div>
-
-
-              <div class="result-item">
-
-                <strong>
-                  COLOR
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    color
-                  )}
-                </p>
-
-              </div>
-
-
-              <div class="result-item">
-
-                <strong>
-                  SILHOUETTE
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    silhouette
-                  )}
-                </p>
-
-              </div>
-
-
-              <div class="result-item">
-
-                <strong>
-                  OCCASION
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    occasion
-                  )}
-                </p>
-
-              </div>
-
-
-              <div class="result-item">
-
-                <strong>
-                  BRAND VIBE
-                </strong>
-
-                <p>
-                  ${escapeHTML(
-                    brand
-                  )}
-                </p>
-
-              </div>
-
-            `;
-
-
-            if (
-              wardrobe.trim()
-            ) {
-
-              html += `
-
-                <div class="result-item">
-
-                  <strong>
-                    YOUR WARDROBE
-                  </strong>
-
-                  <p>
-                    ${escapeHTML(
-                      wardrobe
-                    )}
-                  </p>
-
-                </div>
-
-              `;
-
-            }
-
-
-            html += `
-
-              <div class="result-item">
-
-                <strong>
-                  FIT SCORE
-                </strong>
-
-                <p class="fit-score">
-                  9/10
-                </p>
-
-              </div>
-
-
-              <div class="result-actions">
-
-                <button
-                  type="button"
-                  class="generate-button"
-                  id="saveLookButton"
-                >
-                  SAVE LOOK ★
-                </button>
-
-
-                <button
-                  type="button"
-                  class="secondary-button"
-                  id="regenerateButton"
-                >
-                  GENERATE AGAIN →
-                </button>
-
-
-                <button
-                  type="button"
-                  class="secondary-button"
-                  id="startOverButton"
-                >
-                  START OVER
-                </button>
-
-              </div>
-
-
-              <div
-                id="saveMessage"
-              ></div>
-
-            `;
-
-
-            result.innerHTML =
-              html;
-
-
-            const saveButton =
-              document.getElementById(
-                "saveLookButton"
-              );
-
-
-            const regenerateButton =
-              document.getElementById(
-                "regenerateButton"
-              );
-
-
-            const startOverButton =
-              document.getElementById(
-                "startOverButton"
-              );
-
-
-            saveButton.addEventListener(
-              "click",
-              function () {
-
-                saveGeneratedLook(
-                  fit,
-                  {
-                    style,
-                    color,
-                    occasion,
-                    silhouette,
-                    footwear,
-                    brand,
-                    wardrobe
-                  }
-                );
-
-              }
-            );
-
-
-            regenerateButton.addEventListener(
-              "click",
-              function () {
-
-                generateNXTLOOKFit();
-
-              }
-            );
-
-
-            startOverButton.addEventListener(
-              "click",
-              function () {
-
-                form.reset();
-
-                result.innerHTML = `
-
-                  <p>
-                    Your generated outfit
-                    will appear here.
-                  </p>
-
-                `;
-
-                window.scrollTo({
-                  top: form.offsetTop - 50,
-                  behavior: "smooth"
-                });
-
-              }
-            );
-
-
-            result.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-
-
-          } catch (error) {
-
-            console.error(
-              "NXTLOOK Generator Error:",
-              error
-            );
-
-
-            result.innerHTML = `
-
-              <h3>
-                GENERATOR ERROR
-              </h3>
-
-              <p class="error">
-                Something went wrong while
-                building the fit.
-              </p>
-
-            `;
-
-          } finally {
-
-            button.disabled =
-              false;
-
-            button.textContent =
-              "GENERATE MY FIT →";
-
-          }
-
-
-        },
-        450
-      );
-
-    }
-
-
-    function saveGeneratedLook(
-      fit,
-      preferences
-    ) {
-
-
-      const savedLooks =
-        JSON.parse(
-          localStorage.getItem(
-            "nxtlook_saved_looks"
-          ) || "[]"
-        );
-
-
-      const look = {
-
-        id:
-          Date.now(),
-
-        savedAt:
-          new Date().toISOString(),
-
-        style:
-          preferences.style,
-
-        color:
-          preferences.color,
-
-        occasion:
-          preferences.occasion,
-
-        silhouette:
-          preferences.silhouette,
-
-        footwear:
-          preferences.footwear,
-
-        brand:
-          preferences.brand,
-
-        wardrobe:
-          preferences.wardrobe,
-
-        top:
-          fit.top,
-
-        bottom:
-          fit.bottom,
-
-        shoes:
-          fit.shoes,
-
-        layer:
-          fit.layer || "",
-
-        accessory:
-          fit.accessory || ""
-
-      };
-
-
-      savedLooks.push(
-        look
-      );
-
-
-      localStorage.setItem(
-        "nxtlook_saved_looks",
-        JSON.stringify(
-          savedLooks
-        )
-      );
-
-
-      const message =
-        document.getElementById(
-          "saveMessage"
-        );
-
-
-      if (message) {
-
-        message.innerHTML = `
-
-          <div class="saved-message">
-            ✓ LOOK SAVED TO YOUR NXTLOOK ACCOUNT
-          </div>
-
-        `;
-
-      }
-
-    }
-
-
-    function escapeHTML(value) {
-
-      return String(
-        value || ""
-      )
-        .replace(
-          /&/g,
-          "&amp;"
-        )
-        .replace(
-          /</g,
-          "&lt;"
-        )
-        .replace(
-          />/g,
-          "&gt;"
-        )
-        .replace(
-          /"/g,
-          "&quot;"
-        )
-        .replace(
-          /'/g,
-          "&#039;"
-        );
-
-    }
-
-
-  }
-
-);
-
-</script>
-
-
 </body>
-
 </html>
