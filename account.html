@@ -2,245 +2,319 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Generator — ComboMODE</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<nav>
-  <a class="logo" href="index.html">Combo<span>MODE</span></a>
+<nav class="navbar">
+<a href="index.html" class="logo">Combo<span>MODE</span></a>
 
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a class="active" href="generator.html">Generator</a>
-    <a href="wardrobe.html">Wardrobe</a>
-    <a href="inspo.html">AI Stylist</a>
-    <a href="plans.html">Plans</a>
-    <a href="shop.html">Shop</a>
-    <a href="account.html">Account</a>
-  </div>
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a class="active" href="generator.html">Generator</a>
+<a href="wardrobe.html">Wardrobe</a>
+<a href="inspo.html">AI Stylist</a>
+<a href="plans.html">Plans</a>
+<a href="shop.html">Shop</a>
+<a href="account.html">Account</a>
+</div>
 </nav>
 
 <main>
 
-<section class="page-head">
-  <h1>GENERATOR.</h1>
-  <p>Built into ComboMODE as its own page.</p>
-</section>
+<section class="page">
 
-<section class="section" id="generator">
+<p class="eyebrow">COMBOMODE GENERATOR</p>
 
-  <h2>Build your fit.</h2>
+<h1>
+BUILD YOUR
+<br>
+<span>FIT.</span>
+</h1>
 
-  <p>
-    Give ComboMODE the constraints.
-    The AI makes the styling decisions.
-  </p>
+<p class="hero-text">
+Tell ComboMODE what you're going for.
+We'll build a fit around your vibe.
+</p>
 
-  <div class="generator">
+<div class="panel">
 
-    <div class="grid">
+<form id="generatorForm" class="form-grid">
 
-      <div class="field">
-        <label>Style</label>
+<div class="field">
+<label>STYLE</label>
+<select id="style">
+<option value="dark">Dark Streetwear</option>
+<option value="streetwear">Streetwear</option>
+<option value="archive">Archive</option>
+<option value="grunge">Grunge</option>
+<option value="clean">Minimal</option>
+<option value="clean">Old Money</option>
+<option value="streetwear">Y2K</option>
+<option value="technical">Techwear</option>
+<option value="streetwear">Casual</option>
+</select>
+</div>
 
-        <select id="style">
-          <option>Streetwear</option>
-          <option>Dark Streetwear</option>
-          <option>Clean</option>
-          <option>Y2K</option>
-          <option>Vintage</option>
-          <option>Old Money</option>
-          <option>Sporty</option>
-          <option>Grunge</option>
-          <option>Techwear</option>
-          <option>Archive-inspired</option>
-        </select>
-      </div>
+<div class="field">
+<label>MAIN COLOR</label>
+<select id="color">
+<option>Black</option>
+<option>White</option>
+<option>Grey</option>
+<option>Navy</option>
+<option>Brown</option>
+<option>Beige</option>
+<option>Earth Tones</option>
+<option>Dark Colors</option>
+<option>Mixed Colors</option>
+</select>
+</div>
 
-      <div class="field">
-        <label>Occasion</label>
+<div class="field">
+<label>OCCASION</label>
+<select id="occasion">
+<option>Everyday</option>
+<option>School</option>
+<option>Church</option>
+<option>Party</option>
+<option>Date</option>
+<option>Night Out</option>
+<option>Formal</option>
+<option>Summer Day</option>
+<option>Winter</option>
+</select>
+</div>
 
-        <select id="occasion">
-          <option>Going out</option>
-          <option>School</option>
-          <option>Casual</option>
-          <option>Party</option>
-          <option>Date</option>
-          <option>Church</option>
-          <option>Photoshoot</option>
-          <option>Event</option>
-        </select>
-      </div>
+<div class="field">
+<label>SILHOUETTE</label>
+<select id="fit">
+<option>Oversized</option>
+<option>Baggy</option>
+<option>Relaxed</option>
+<option>Straight</option>
+<option>Slim</option>
+<option>Fitted</option>
+</select>
+</div>
 
-      <div class="field">
-        <label>Main color</label>
+<div class="field">
+<label>FOOTWEAR</label>
+<select id="footwear">
+<option>Sneakers</option>
+<option>Chunky Sneakers</option>
+<option>Boots</option>
+<option>Loafers</option>
+<option>Dress Shoes</option>
+<option>Anything</option>
+</select>
+</div>
 
-        <select id="color">
-          <option>Black</option>
-          <option>White</option>
-          <option>Grey</option>
-          <option>Navy</option>
-          <option>Brown</option>
-          <option>Red</option>
-          <option>Blue</option>
-          <option>Pink</option>
-          <option>Purple</option>
-          <option>Lime</option>
-          <option>Cream</option>
-          <option>Olive</option>
-        </select>
-      </div>
+<div class="field">
+<label>BRAND VIBE</label>
+<select id="brand">
+<option>No Specific Brand</option>
+<option>Stüssy</option>
+<option>Carhartt</option>
+<option>Stone Island</option>
+<option>New Balance</option>
+<option>Nike</option>
+<option>adidas</option>
+<option>Supreme</option>
+<option>Fear of God ESSENTIALS</option>
+<option>ASICS</option>
+<option>Salomon</option>
+<option>Vans</option>
+<option>Dickies</option>
+<option>Levi's</option>
+</select>
+</div>
 
-      <div class="field">
-        <label>Silhouette</label>
+<div class="field full">
+<label>WHAT DO YOU ALREADY OWN?</label>
+<input id="wardrobeItems"
+placeholder="black oversized tee, baggy jeans, black Vans...">
+</div>
 
-        <select id="silhouette">
-          <option>Oversized</option>
-          <option>Baggy</option>
-          <option>Relaxed</option>
-          <option>Slim</option>
-          <option>Fitted</option>
-          <option>Layered</option>
-          <option>Wide-leg</option>
-          <option>Balanced</option>
-        </select>
-      </div>
+<div class="field full">
+<button class="btn primary" type="submit">
+GENERATE MY FIT →
+</button>
+</div>
 
-      <div class="field">
-        <label>Bottom</label>
+</form>
 
-        <select id="bottom">
-          <option>Wide-leg jeans</option>
-          <option>Stacked jeans</option>
-          <option>Cargo pants</option>
-          <option>Baggy trousers</option>
-          <option>Flared pants</option>
-          <option>Shorts</option>
-          <option>Chinos</option>
-          <option>Open choice</option>
-        </select>
-      </div>
+<div id="generatorResult" class="result">
+<p>Your generated outfit will appear here.</p>
+</div>
 
-      <div class="field">
-        <label>Shoes</label>
-
-        <select id="shoes">
-          <option>Sneakers</option>
-          <option>High-top sneakers</option>
-          <option>Classic shoes</option>
-          <option>Boots</option>
-          <option>Skate shoes</option>
-          <option>Open choice</option>
-        </select>
-      </div>
-
-    </div>
-
-    <button
-      class="generate"
-      id="generateBtn"
-      onclick="generateFit()"
-    >
-      GENERATE MY LOOK →
-    </button>
-
-    <p class="hint">
-      ComboMODE will treat these as constraints,
-      not blindly copy them.
-    </p>
-
-    <div class="result" id="result">
-
-      <h3 id="resultTitle"></h3>
-
-      <div id="resultText"></div>
-
-      <button
-        class="generate"
-        onclick="generateFit()"
-      >
-        ↻ REGENERATE
-      </button>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
 
 </main>
 
-<footer>
-  <div class="footer-wrap">
+<footer class="footer" data-footer></footer>
 
-    <div class="footer-grid">
-
-      <div class="footer-brand">
-        <a class="logo" href="index.html">
-          Combo<span>MODE</span>
-        </a>
-        <p>
-          Your next fit starts here.
-          AI styling built around your vibe,
-          your wardrobe and your proportions.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h4>PRODUCT</h4>
-        <a href="generator.html">Generator</a>
-        <a href="wardrobe.html">Wardrobe</a>
-        <a href="shop.html">Shop</a>
-        <a href="plans.html">Plans</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>DISCOVER</h4>
-        <a href="inspo.html">AI Stylist</a>
-        <a href="faq.html">FAQ</a>
-        <a href="account.html">Account</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>ACCOUNT</h4>
-        <a href="account.html">My Account</a>
-        <a href="plans.html">Subscription</a>
-        <a href="wardrobe.html">Saved Wardrobe</a>
-      </div>
-
-      <div class="footer-col">
-        <h4>SOCIAL</h4>
-        <a
-          href="https://www.instagram.com/15k_roy/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Instagram — @15k_roy ↗
-        </a>
-      </div>
-
-      <div class="footer-col">
-        <h4>LEGAL</h4>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="refunds.html">Refunds</a>
-        <a href="mailto:hello@nxtlook.com">Contact</a>
-      </div>
-
-    </div>
-
-    <div class="footer-bottom">
-      <span>© 2026 ComboMODE. All rights reserved.</span>
-      <span>BUILT FOR BETTER FITS.</span>
-    </div>
-
-  </div>
-</footer>
-
+<script src="fashion-brain.js"></script>
 <script src="app.js"></script>
+
+<script>
+
+const form = document.getElementById("generatorForm");
+const result = document.getElementById("generatorResult");
+
+form.addEventListener("submit", e => {
+
+  e.preventDefault();
+
+  const style = document.getElementById("style").value;
+  const color = document.getElementById("color").value;
+  const occasion = document.getElementById("occasion").value;
+  const fitStyle = document.getElementById("fit").value;
+  const footwear = document.getElementById("footwear").value;
+  const brand = document.getElementById("brand").value;
+  const wardrobe = document.getElementById("wardrobeItems").value;
+
+  const fit =
+    window.NXTLOOK_STYLE_BRAIN.generateFit(style);
+
+  result.innerHTML = `
+
+    <h3>YOUR COMBOMODE</h3>
+
+    <div class="result-item">
+      <strong>TOP</strong>
+      <p>${escapeHTML(fit.top)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>BOTTOM</strong>
+      <p>${escapeHTML(fit.bottom)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>SHOES</strong>
+      <p>${escapeHTML(fit.shoes)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>LAYER</strong>
+      <p>${escapeHTML(fit.layer)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>ACCESSORIES</strong>
+      <p>${escapeHTML(fit.accessory)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>COLOR</strong>
+      <p>${escapeHTML(color)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>OCCASION</strong>
+      <p>${escapeHTML(occasion)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>SILHOUETTE</strong>
+      <p>${escapeHTML(fitStyle)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>FOOTWEAR VIBE</strong>
+      <p>${escapeHTML(footwear)}</p>
+    </div>
+
+    <div class="result-item">
+      <strong>BRAND VIBE</strong>
+      <p>${escapeHTML(brand)}</p>
+    </div>
+
+    ${
+      wardrobe.trim()
+      ? `
+      <div class="result-item">
+        <strong>YOUR WARDROBE</strong>
+        <p>${escapeHTML(wardrobe)}</p>
+      </div>
+      `
+      : ""
+    }
+
+    <div class="result-item">
+      <strong>FIT SCORE</strong>
+      <p style="font-size:32px;color:#a8ff00;font-weight:900">
+        9/10
+      </p>
+    </div>
+
+    <button
+      id="saveFit"
+      class="btn primary"
+      type="button">
+      SAVE LOOK ★
+    </button>
+
+    <button
+      id="again"
+      class="btn secondary"
+      type="button">
+      GENERATE AGAIN →
+    </button>
+  `;
+
+  document.getElementById("saveFit").onclick = () => {
+
+    if (!getCurrentUser()) {
+      window.location.href = "account.html";
+      return;
+    }
+
+    saveLook({
+      style,
+      color,
+      occasion,
+      silhouette: fitStyle,
+      footwear,
+      brand,
+      wardrobe,
+      top: fit.top,
+      bottom: fit.bottom,
+      shoes: fit.shoes,
+      layer: fit.layer,
+      accessory: fit.accessory
+    });
+
+    alert("LOOK SAVED ✓");
+  };
+
+  document.getElementById("again").onclick = () => {
+    form.requestSubmit();
+  };
+
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+});
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+</script>
 
 </body>
 </html>
