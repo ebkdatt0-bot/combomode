@@ -7,7 +7,139 @@
 <link rel="stylesheet" href="styles.css">
 
 <style>
-.account-page{
+.account-page{<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Stylist — ComboMODE</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+<a href="index.html" class="logo">Combo<span>MODE</span></a>
+
+<div class="nav-links">
+<a href="index.html">Home</a>
+<a href="generator.html">Generator</a>
+<a href="wardrobe.html">Wardrobe</a>
+<a class="active" href="inspo.html">AI Stylist</a>
+<a href="plans.html">Plans</a>
+<a href="shop.html">Shop</a>
+<a href="account.html">Account</a>
+</div>
+</nav>
+
+<main>
+
+<section class="page">
+
+<p class="eyebrow">AI STYLIST</p>
+
+<h1>
+YOUR
+<br>
+<span>STYLE GUIDE.</span>
+</h1>
+
+<p class="hero-text">
+Ask ComboMODE for styling ideas.
+</p>
+
+<div class="panel">
+
+<div class="field">
+<label>WHAT DO YOU WANT TO WEAR?</label>
+<textarea id="styleQuestion"
+placeholder="Example: I have black cargos and want a dark streetwear fit for a night out."></textarea>
+</div>
+
+<br>
+
+<button id="styleButton" class="btn primary">
+STYLE IT →
+</button>
+
+<div id="styleResult" class="result">
+<p>Your styling advice will appear here.</p>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer class="footer" data-footer></footer>
+
+<script src="app.js"></script>
+
+<script>
+
+const button = document.getElementById("styleButton");
+const input = document.getElementById("styleQuestion");
+const result = document.getElementById("styleResult");
+
+button.onclick = () => {
+
+  const text = input.value.trim();
+
+  if (!text) {
+    result.innerHTML =
+      `<p class="error">Tell me what you're working with first.</p>`;
+    return;
+  }
+
+  result.innerHTML = `
+
+    <h3>COMBOMODE TAKE</h3>
+
+    <div class="result-item">
+      <strong>START HERE</strong>
+      <p>
+        Keep the main piece simple, then build contrast
+        through silhouette, texture and accessories.
+      </p>
+    </div>
+
+    <div class="result-item">
+      <strong>SILHOUETTE</strong>
+      <p>
+        Try one oversized or relaxed piece with a cleaner
+        opposite piece so the outfit stays intentional.
+      </p>
+    </div>
+
+    <div class="result-item">
+      <strong>COLORS</strong>
+      <p>
+        Use a dark base and one controlled accent.
+        Avoid making every item compete for attention.
+      </p>
+    </div>
+
+    <div class="result-item">
+      <strong>FINISH</strong>
+      <p>
+        Add one strong accessory and keep the footwear
+        consistent with the overall silhouette.
+      </p>
+    </div>
+
+    <div class="result-item">
+      <strong>YOUR REQUEST</strong>
+      <p>${escapeHTML(text)}</p>
+    </div>
+
+  `;
+};
+
+</script>
+
+</body>
+</html>
   max-width:1000px;
   margin:auto;
   padding:80px 7%;
