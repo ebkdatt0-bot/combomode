@@ -1,91 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop — NXTLOOK</title>
-  <link rel="stylesheet" href="styles.css">
-
-  <style>
-    .shop-page {
-      max-width: 1200px;
-      margin: auto;
-      padding: 90px 7%;
-    }
-
-    .shop-grid {
-      margin-top: 50px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .product {
-      background: #0d0d0d;
-      border: 1px solid #292929;
-      border-radius: 18px;
-      overflow: hidden;
-    }
-
-    .product-image {
-      height: 300px;
-      background: #151515;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #555;
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
-
-    .product-info {
-      padding: 22px;
-    }
-
-    .product-info h3 {
-      margin-bottom: 8px;
-    }
-
-    .product-info p {
-      color: #777;
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
-
-    .product-price {
-      color: #a8ff00;
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 18px;
-    }
-
-    .shop-button {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      text-align: center;
-      border-radius: 9px;
-      background: #a8ff00;
-      color: #050505;
-      font-weight: 900;
-      text-decoration: none;
-    }
-
-    @media (max-width: 800px) {
-      .shop-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shop — ComboMODE</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<nav class="navbar">
-
-  <a href="index.html" class="logo">
-    NXT<span>LOOK</span>
-  </a>
+<nav>
+  <a class="logo" href="index.html">Combo<span>MODE</span></a>
 
   <div class="nav-links">
     <a href="index.html">Home</a>
@@ -96,236 +21,155 @@
     <a class="active" href="shop.html">Shop</a>
     <a href="account.html">Account</a>
   </div>
-
 </nav>
 
 <main>
 
-  <section class="shop-page">
+<section class="page-head">
+  <h1>SHOP.</h1>
+  <p>Built into ComboMODE as its own page.</p>
+</section>
 
-    <p class="eyebrow">
-      NXTLOOK SHOP
-    </p>
+<section class="section section-anchor" id="shop">
 
-    <h1>
-      SHOP THE
-      <br>
-      <span>VIBE.</span>
-    </h1>
+  <h2>THE COMBOMODE SHOP.</h2>
 
-    <p class="hero-text">
-      Pieces selected to build harder, cleaner fits.
-    </p>
+  <p>
+    Style references and essentials.
+    Prices are placeholders until real products are connected.
+  </p>
 
-    <div class="shop-grid">
+  <div class="shop-grid">
 
-      <div class="product">
+    <div class="shop-card">
+      <h3>STYLE ESSENTIALS</h3>
 
-        <div class="product-image">
-          NXTLOOK TEE
-        </div>
+      <p class="muted">
+        Curated basics for building stronger outfits.
+      </p>
 
-        <div class="product-info">
-
-          <h3>
-            NXTLOOK Oversized Tee
-          </h3>
-
-          <p>
-            Heavyweight oversized black tee
-            with minimal NXTLOOK branding.
-          </p>
-
-          <div class="product-price">
-            $24.99
-          </div>
-
-          <a
-            href="#"
-            class="shop-button"
-            onclick="shopAlert(event)"
-          >
-            VIEW PRODUCT →
-          </a>
-
-        </div>
-
+      <div class="shop-price">
+        From $15
       </div>
 
+      <a class="mini-btn" href="plans.html">
+        VIEW PICKS →
+      </a>
+    </div>
 
-      <div class="product">
+    <div class="shop-card">
 
-        <div class="product-image">
-          NXTLOOK HOODIE
-        </div>
+      <h3>STREETWEAR</h3>
 
-        <div class="product-info">
+      <p class="muted">
+        Oversized tees, cargos, denim and layers.
+      </p>
 
-          <h3>
-            NXTLOOK Core Hoodie
-          </h3>
-
-          <p>
-            Oversized heavyweight hoodie
-            made for a clean streetwear silhouette.
-          </p>
-
-          <div class="product-price">
-            $44.99
-          </div>
-
-          <a
-            href="#"
-            class="shop-button"
-            onclick="shopAlert(event)"
-          >
-            VIEW PRODUCT →
-          </a>
-
-        </div>
-
+      <div class="shop-price">
+        From $25
       </div>
 
-
-      <div class="product">
-
-        <div class="product-image">
-          NXTLOOK CAP
-        </div>
-
-        <div class="product-info">
-
-          <h3>
-            NXTLOOK Signature Cap
-          </h3>
-
-          <p>
-            Minimal black cap with
-            understated NXTLOOK branding.
-          </p>
-
-          <div class="product-price">
-            $19.99
-          </div>
-
-          <a
-            href="#"
-            class="shop-button"
-            onclick="shopAlert(event)"
-          >
-            VIEW PRODUCT →
-          </a>
-
-        </div>
-
-      </div>
+      <a class="mini-btn" href="plans.html">
+        VIEW PICKS →
+      </a>
 
     </div>
 
-  </section>
+    <div class="shop-card">
+
+      <h3>ACCESSORIES</h3>
+
+      <p class="muted">
+        Bags, caps, chains and finishing pieces.
+      </p>
+
+      <div class="shop-price">
+        From $10
+      </div>
+
+      <a class="mini-btn" href="plans.html">
+        VIEW PICKS →
+      </a>
+
+    </div>
+
+  </div>
+
+  <p class="legal-note">
+    No purchase is processed by these demo cards yet.
+    Connect a real catalog/payment provider before accepting orders.
+  </p>
+
+</section>
 
 </main>
 
-<footer class="footer">
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-grid">
 
-  <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          Combo<span>MODE</span>
+        </a>
+        <p>
+          Your next fit starts here.
+          AI styling built around your vibe,
+          your wardrobe and your proportions.
+        </p>
+      </div>
 
-    <div class="footer-brand">
+      <div class="footer-col">
+        <h4>PRODUCT</h4>
+        <a href="generator.html">Generator</a>
+        <a href="wardrobe.html">Wardrobe</a>
+        <a href="shop.html">Shop</a>
+        <a href="plans.html">Plans</a>
+      </div>
 
-      <a href="index.html" class="logo">
-        NXT<span>LOOK</span>
-      </a>
+      <div class="footer-col">
+        <h4>DISCOVER</h4>
+        <a href="inspo.html">AI Stylist</a>
+        <a href="faq.html">FAQ</a>
+        <a href="account.html">Account</a>
+      </div>
 
-      <p>
-        Your next look starts here.
-        AI styling built around your vibe,
-        wardrobe and proportions.
-      </p>
+      <div class="footer-col">
+        <h4>ACCOUNT</h4>
+        <a href="account.html">My Account</a>
+        <a href="plans.html">Subscription</a>
+        <a href="wardrobe.html">Saved Wardrobe</a>
+      </div>
 
-    </div>
+      <div class="footer-col">
+        <h4>SOCIAL</h4>
+        <a
+          href="https://www.instagram.com/15k_roy/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram — @15k_roy ↗
+        </a>
+      </div>
 
-    <div class="footer-column">
-
-      <h4>PRODUCT</h4>
-
-      <a href="generator.html">Generator</a>
-      <a href="wardrobe.html">Wardrobe</a>
-      <a href="inspo.html">AI Stylist</a>
-      <a href="shop.html">Shop</a>
-      <a href="plans.html">Plans</a>
-
-    </div>
-
-    <div class="footer-column">
-
-      <h4>DISCOVER</h4>
-
-      <a href="inspo.html">Inspo</a>
-      <a href="faq.html">FAQ</a>
-      <a href="account.html">Account</a>
-
-    </div>
-
-    <div class="footer-column">
-
-      <h4>ACCOUNT</h4>
-
-      <a href="account.html">My Account</a>
-      <a href="plans.html">Subscription</a>
-      <a href="wardrobe.html">Saved Wardrobe</a>
-
-    </div>
-
-    <div class="footer-column">
-
-      <h4>SOCIAL</h4>
-
-      <a
-        href="https://www.instagram.com/15k_roy/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Instagram — @15k_roy ↗
-      </a>
+      <div class="footer-col">
+        <h4>LEGAL</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="mailto:hello@nxtlook.com">Contact</a>
+      </div>
 
     </div>
 
-    <div class="footer-column">
-
-      <h4>LEGAL</h4>
-
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="refunds.html">Refunds</a>
-      <a href="mailto:hello@nxtlook.com">Contact</a>
-
+    <div class="footer-bottom">
+      <span>© 2026 ComboMODE. All rights reserved.</span>
+      <span>BUILT FOR BETTER FITS.</span>
     </div>
-
   </div>
-
-  <div class="footer-bottom">
-
-    <span>
-      © 2026 NXTLOOK. All rights reserved.
-    </span>
-
-    <span>
-      BUILT FOR BETTER FITS.
-    </span>
-
-  </div>
-
 </footer>
 
-<script>
-  function shopAlert(event) {
-    event.preventDefault();
-
-    alert(
-      "NXTLOOK Shop is coming soon."
-    );
-  }
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
