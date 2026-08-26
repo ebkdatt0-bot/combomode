@@ -1,721 +1,726 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>AI Stylist — NXTLOOK</title>
-
-  <link
-    rel="stylesheet"
-    href="styles.css"
-  >
-
-  <style>
-
-    .stylist-page {
-      max-width: 1200px;
-      margin: auto;
-      padding: 90px 7%;
-    }
-
-    .inspo-grid {
-      margin-top: 45px;
-
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .inspo-grid img {
-      width: 100%;
-      height: 330px;
-
-      object-fit: cover;
-
-      border-radius: 15px;
-      border: 1px solid #292929;
-    }
-
-    .ai-chat {
-      margin-top: 55px;
-
-      background: #0c0c0c;
-
-      border: 1px solid #292929;
-      border-radius: 20px;
-
-      overflow: hidden;
-    }
-
-    .chat-header {
-      padding: 20px 24px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      border-bottom: 1px solid #292929;
-      background: #101010;
-    }
-
-    .chat-header strong {
-      display: block;
-      color: #fff;
-      font-size: 15px;
-    }
-
-    .chat-header span {
-      display: block;
-      margin-top: 4px;
-
-      color: #666;
-      font-size: 9px;
-      letter-spacing: 2px;
-    }
-
-    .online-dot {
-      width: 9px;
-      height: 9px;
-
-      border-radius: 50%;
-
-      background: #a8ff00;
-
-      box-shadow:
-        0 0 12px
-        rgba(168, 255, 0, .7);
-    }
-
-    .chat-messages {
-      height: 440px;
-
-      padding: 25px;
-
-      overflow-y: auto;
-
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .message {
-      max-width: 80%;
-
-      padding: 15px 17px;
-
-      border-radius: 12px;
-
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .message strong {
-      display: block;
-
-      margin-bottom: 6px;
-
-      color: #a8ff00;
-
-      font-size: 10px;
-      letter-spacing: 1px;
-    }
-
-    .message p {
-      white-space: pre-wrap;
-    }
-
-    .ai-message {
-      align-self: flex-start;
-
-      background: #151515;
-
-      border: 1px solid #292929;
-    }
-
-    .user-message {
-      align-self: flex-end;
-
-      background: #a8ff00;
-
-      color: #050505;
-    }
-
-    .user-message strong {
-      color: #050505;
-    }
-
-    .user-message p {
-      color: #050505;
-    }
-
-    .upload-preview {
-      padding: 0 20px;
-    }
-
-    .image-preview {
-      position: relative;
-
-      width: 130px;
-
-      margin-bottom: 15px;
-    }
-
-    .image-preview img {
-      width: 130px;
-      height: 130px;
-
-      object-fit: cover;
-
-      border-radius: 10px;
-
-      border: 1px solid #333;
-    }
-
-    .image-preview button {
-      position: absolute;
-
-      top: -8px;
-      right: -8px;
-
-      width: 25px;
-      height: 25px;
-
-      border: none;
-      border-radius: 50%;
-
-      background: #fff;
-      color: #000;
-
-      cursor: pointer;
-      font-weight: 900;
-    }
-
-    .chat-input-area {
-      padding: 15px;
-
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      border-top: 1px solid #292929;
-      background: #101010;
-    }
-
-    .upload-btn {
-      width: 45px;
-      height: 45px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background: #181818;
-
-      border: 1px solid #292929;
-      border-radius: 9px;
-
-      color: #a8ff00;
-
-      font-size: 25px;
-
-      cursor: pointer;
-    }
-
-    #chatInput {
-      flex: 1;
-
-      min-width: 0;
-
-      height: 45px;
-
-      padding: 0 15px;
-
-      background: #050505;
-
-      border: 1px solid #292929;
-      border-radius: 9px;
-
-      color: #fff;
-
-      outline: none;
-    }
-
-    #chatInput:focus {
-      border-color: #a8ff00;
-    }
-
-    #sendBtn {
-      height: 45px;
-
-      padding: 0 20px;
-
-      border: none;
-      border-radius: 9px;
-
-      background: #a8ff00;
-      color: #050505;
-
-      font-size: 12px;
-      font-weight: 900;
-
-      cursor: pointer;
-    }
-
-    #sendBtn:hover {
-      opacity: .85;
-    }
-
-    @media (max-width: 900px) {
-
-      .inspo-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-    }
-
-    @media (max-width: 600px) {
-
-      .inspo-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .inspo-grid img {
-        height: 400px;
-      }
-
-      .chat-messages {
-        height: 400px;
-      }
-
-      .message {
-        max-width: 90%;
-      }
-
-      .chat-input-area {
-        flex-wrap: wrap;
-      }
-
-      #chatInput {
-        order: 2;
-        width: calc(100% - 55px);
-      }
-
-      #sendBtn {
-        order: 3;
-        width: 100%;
-      }
-
-    }
-
-  </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Account — ComboMODE</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+.account-page{
+  max-width:1000px;
+  margin:auto;
+  padding:80px 7%;
+}
+
+.account-card{
+  margin-top:30px;
+  padding:28px;
+  background:#0d0d0d;
+  border:1px solid #292929;
+  border-radius:20px;
+}
+
+.account-form{
+  display:grid;
+  gap:14px;
+  margin-top:20px;
+}
+
+.account-input{
+  width:100%;
+  padding:15px;
+  box-sizing:border-box;
+  background:#151515;
+  color:#fff;
+  border:1px solid #292929;
+  border-radius:9px;
+  outline:none;
+}
+
+.account-input:focus{
+  border-color:#a8ff00;
+}
+
+.account-button{
+  padding:14px 20px;
+  border-radius:9px;
+  border:1px solid #333;
+  background:#151515;
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.account-button.primary{
+  background:#a8ff00;
+  color:#050505;
+  border-color:#a8ff00;
+}
+
+.account-tabs{
+  display:flex;
+  gap:10px;
+}
+
+.account-tab{
+  flex:1;
+  padding:13px;
+  border:1px solid #292929;
+  background:#151515;
+  color:#888;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:900;
+}
+
+.account-tab.active{
+  background:#a8ff00;
+  color:#050505;
+  border-color:#a8ff00;
+}
+
+.account-row{
+  padding:18px 0;
+  border-bottom:1px solid #222;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.account-label{
+  color:#777;
+  font-size:11px;
+  letter-spacing:1px;
+}
+
+.account-value{
+  color:#fff;
+  font-weight:700;
+  text-align:right;
+}
+
+.account-actions{
+  margin-top:25px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.account-error{
+  margin-top:12px;
+  color:#ff5555;
+  font-size:13px;
+}
+
+.account-success{
+  margin-top:12px;
+  color:#a8ff00;
+  font-size:13px;
+}
+
+.account-switch{
+  margin-top:18px;
+  color:#777;
+  font-size:13px;
+  text-align:center;
+}
+
+.account-switch button{
+  border:0;
+  background:none;
+  color:#a8ff00;
+  cursor:pointer;
+  font-weight:800;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:600px){
+  .account-row{
+    flex-direction:column;
+  }
+
+  .account-value{
+    text-align:left;
+  }
+}
+</style>
 </head>
-
 
 <body>
 
-
-<!-- NAVIGATION -->
-
-<nav class="navbar">
-
-  <a
-    class="logo"
-    href="index.html"
-  >
-    NXT<span>LOOK</span>
-  </a>
-
+<nav>
+  <a class="logo" href="index.html">Combo<span>MODE</span></a>
 
   <div class="nav-links">
-
-    <a href="index.html">
-      Home
-    </a>
-
-    <a href="generator.html">
-      Generator
-    </a>
-
-    <a href="wardrobe.html">
-      Wardrobe
-    </a>
-
-    <a
-      class="active"
-      href="inspo.html"
-    >
-      AI Stylist
-    </a>
-
-    <a href="plans.html">
-      Plans
-    </a>
-
-    <a href="shop.html">
-      Shop
-    </a>
-
-    <a href="account.html">
-      Account
-    </a>
-
+    <a href="index.html">Home</a>
+    <a href="generator.html">Generator</a>
+    <a href="wardrobe.html">Wardrobe</a>
+    <a href="inspo.html">AI Stylist</a>
+    <a href="plans.html">Plans</a>
+    <a href="shop.html">Shop</a>
+    <a class="active" href="account.html">Account</a>
   </div>
-
 </nav>
-
 
 <main>
 
-  <section class="stylist-page">
+<section class="account-page">
 
-    <p class="eyebrow">
-      NXTLOOK AI
-    </p>
+  <p class="eyebrow">COMBOMODE ACCOUNT</p>
 
-    <h1>
-      AI
-      <br>
-      <span>STYLIST.</span>
-    </h1>
+  <h1>
+    YOUR<br>
+    <span>ACCOUNT.</span>
+  </h1>
 
-    <p class="hero-text">
-      Upload what you're wearing,
-      show us your clothes, or simply
-      tell NXTLOOK what vibe you're after.
-    </p>
+  <p class="hero-text">
+    Create your ComboMODE account and keep
+    your profile, wardrobe and saved looks together.
+  </p>
 
+  <div id="authCard" class="account-card">
 
-    <!-- INSPIRATION -->
+    <div class="account-tabs">
 
-    <section>
+      <button
+        id="loginTab"
+        class="account-tab active"
+        type="button"
+        onclick="showLogin()"
+      >
+        LOGIN
+      </button>
 
-      <p class="eyebrow">
-        INSPO
-      </p>
+      <button
+        id="signupTab"
+        class="account-tab"
+        type="button"
+        onclick="showSignup()"
+      >
+        CREATE ACCOUNT
+      </button>
 
-      <h2>
-        FITS THAT
-        <span>HIT.</span>
-      </h2>
+    </div>
 
-      <p>
-        Streetwear references for your next look.
-      </p>
+    <form id="loginForm" class="account-form">
 
+      <input
+        id="loginEmail"
+        class="account-input"
+        type="email"
+        placeholder="Email"
+        required
+      >
 
-      <div class="inspo-grid">
+      <input
+        id="loginPassword"
+        class="account-input"
+        type="password"
+        placeholder="Password"
+        required
+      >
 
-        <img
-          src="https://images.pexels.com/photos/33780926/pexels-photo-33780926.jpeg?auto=compress&cs=tinysrgb&w=700"
-          alt="Streetwear inspiration"
-        >
+      <button
+        class="account-button primary"
+        type="submit"
+      >
+        LOGIN →
+      </button>
 
-        <img
-          src="https://images.pexels.com/photos/35043254/pexels-photo-35043254.jpeg?auto=compress&cs=tinysrgb&w=700"
-          alt="Statement streetwear inspiration"
-        >
+    </form>
 
-        <img
-          src="https://images.pexels.com/photos/30289402/pexels-photo-30289402.jpeg?auto=compress&cs=tinysrgb&w=700"
-          alt="Colorful streetwear inspiration"
-        >
+    <form
+      id="signupForm"
+      class="account-form hidden"
+    >
 
-        <img
-          src="https://images.pexels.com/photos/5238215/pexels-photo-5238215.jpeg?auto=compress&cs=tinysrgb&w=700"
-          alt="Streetwear group inspiration"
-        >
+      <input
+        id="signupUsername"
+        class="account-input"
+        type="text"
+        placeholder="Username"
+        maxlength="30"
+        required
+      >
 
-      </div>
+      <input
+        id="signupEmail"
+        class="account-input"
+        type="email"
+        placeholder="Email"
+        required
+      >
 
-    </section>
+      <input
+        id="signupPassword"
+        class="account-input"
+        type="password"
+        placeholder="Password"
+        minlength="6"
+        required
+      >
 
+      <input
+        id="signupPasswordConfirm"
+        class="account-input"
+        type="password"
+        placeholder="Confirm password"
+        minlength="6"
+        required
+      >
 
-    <!-- AI CHAT -->
+      <button
+        class="account-button primary"
+        type="submit"
+      >
+        CREATE ACCOUNT →
+      </button>
 
-    <section style="margin-top: 110px">
+    </form>
 
-      <p class="eyebrow">
-        STYLE ASSISTANT
-      </p>
+    <div
+      id="authError"
+      class="account-error"
+    ></div>
 
-      <h2>
-        ASK
-        <span>NXTLOOK.</span>
-      </h2>
+    <div
+      id="authSuccess"
+      class="account-success"
+    ></div>
 
-      <p>
-        Tell me what you have and what you're trying to wear.
-      </p>
+    <div
+      id="accountSwitch"
+      class="account-switch"
+    >
+      Don't have an account?
+      <button type="button" onclick="showSignup()">
+        Create one
+      </button>
+    </div>
 
+  </div>
 
-      <div class="ai-chat">
+  <div
+    id="profileCard"
+    class="account-card hidden"
+  >
 
+    <div class="account-row">
+      <div class="account-label">USERNAME</div>
+      <div id="profileUsername" class="account-value">—</div>
+    </div>
 
-        <!-- HEADER -->
+    <div class="account-row">
+      <div class="account-label">EMAIL</div>
+      <div id="profileEmail" class="account-value">—</div>
+    </div>
 
-        <div class="chat-header">
+    <div class="account-row">
+      <div class="account-label">PLAN</div>
+      <div id="profilePlan" class="account-value">FREE</div>
+    </div>
 
-          <div>
+    <div class="account-row">
+      <div class="account-label">SAVED LOOKS</div>
+      <div id="profileLooks" class="account-value">0</div>
+    </div>
 
-            <strong>
-              NXTLOOK AI
-            </strong>
+    <div class="account-row">
+      <div class="account-label">WARDROBE</div>
+      <div id="profileWardrobe" class="account-value">0 ITEMS</div>
+    </div>
 
-            <span>
-              STYLE ASSISTANT
-            </span>
+    <div class="account-actions">
 
-          </div>
+      <a
+        href="wardrobe.html"
+        class="account-button primary"
+      >
+        OPEN WARDROBE →
+      </a>
 
-          <div class="online-dot"></div>
+      <a
+        href="plans.html"
+        class="account-button"
+      >
+        VIEW PLANS
+      </a>
 
-        </div>
+      <a
+        href="generator.html"
+        class="account-button"
+      >
+        CREATE A FIT
+      </a>
 
+      <button
+        class="account-button"
+        type="button"
+        onclick="logout()"
+      >
+        LOG OUT
+      </button>
 
-        <!-- MESSAGES -->
+    </div>
 
-        <div
-          class="chat-messages"
-          id="chatMessages"
-        >
+  </div>
 
-          <div class="message ai-message">
-
-            <strong>
-              NXTLOOK
-            </strong>
-
-            <p>
-              Yo 👋 Tell me what you're working with.
-              I can build, fix, rate or completely
-              rethink a fit.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <!-- IMAGE PREVIEW -->
-
-        <div
-          class="upload-preview"
-          id="uploadPreview"
-        ></div>
-
-
-        <!-- INPUT -->
-
-        <div class="chat-input-area">
-
-          <label
-            class="upload-btn"
-            for="clothesImage"
-          >
-            ＋
-          </label>
-
-
-          <input
-            type="file"
-            id="clothesImage"
-            accept="image/*"
-            hidden
-          >
-
-
-          <input
-            type="text"
-            id="chatInput"
-            placeholder="Ask NXTLOOK what to wear..."
-            autocomplete="off"
-          >
-
-
-          <button
-            id="sendBtn"
-            type="button"
-            onclick="sendMessage()"
-          >
-            SEND →
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </section>
+</section>
 
 </main>
 
+<footer>
+  <div class="footer-wrap">
+    <div class="footer-grid">
 
-<!-- FOOTER -->
+      <div class="footer-brand">
+        <a class="logo" href="index.html">
+          Combo<span>MODE</span>
+        </a>
+        <p>
+          Your next fit starts here.
+          AI styling built around your vibe,
+          your wardrobe and your proportions.
+        </p>
+      </div>
 
-<footer class="footer">
+      <div class="footer-col">
+        <h4>PRODUCT</h4>
+        <a href="generator.html">Generator</a>
+        <a href="wardrobe.html">Wardrobe</a>
+        <a href="shop.html">Shop</a>
+        <a href="plans.html">Plans</a>
+      </div>
 
-  <div class="footer-grid">
+      <div class="footer-col">
+        <h4>DISCOVER</h4>
+        <a href="inspo.html">AI Stylist</a>
+        <a href="faq.html">FAQ</a>
+        <a href="account.html">Account</a>
+      </div>
 
+      <div class="footer-col">
+        <h4>ACCOUNT</h4>
+        <a href="account.html">My Account</a>
+        <a href="plans.html">Subscription</a>
+        <a href="wardrobe.html">Saved Wardrobe</a>
+      </div>
 
-    <div class="footer-brand">
+      <div class="footer-col">
+        <h4>SOCIAL</h4>
+        <a
+          href="https://www.instagram.com/15k_roy/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Instagram — @15k_roy ↗
+        </a>
+      </div>
 
-      <a
-        class="logo"
-        href="index.html"
-      >
-        NXT<span>LOOK</span>
-      </a>
-
-      <p>
-        Your next look starts here.
-        AI styling built around your vibe,
-        wardrobe and proportions.
-      </p>
-
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>
-        PRODUCT
-      </h4>
-
-      <a href="generator.html">
-        Generator
-      </a>
-
-      <a href="wardrobe.html">
-        Wardrobe
-      </a>
-
-      <a href="inspo.html">
-        AI Stylist
-      </a>
-
-      <a href="shop.html">
-        Shop
-      </a>
-
-      <a href="plans.html">
-        Plans
-      </a>
-
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>
-        DISCOVER
-      </h4>
-
-      <a href="inspo.html">
-        Inspo
-      </a>
-
-      <a href="faq.html">
-        FAQ
-      </a>
-
-      <a href="account.html">
-        Account
-      </a>
+      <div class="footer-col">
+        <h4>LEGAL</h4>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="mailto:hello@nxtlook.com">Contact</a>
+      </div>
 
     </div>
 
-
-    <div class="footer-column">
-
-      <h4>
-        ACCOUNT
-      </h4>
-
-      <a href="account.html">
-        My Account
-      </a>
-
-      <a href="plans.html">
-        Subscription
-      </a>
-
-      <a href="wardrobe.html">
-        Saved Wardrobe
-      </a>
-
+    <div class="footer-bottom">
+      <span>© 2026 ComboMODE. All rights reserved.</span>
+      <span>BUILT FOR BETTER FITS.</span>
     </div>
-
-
-    <div class="footer-column">
-
-      <h4>
-        SOCIAL
-      </h4>
-
-      <a
-        href="https://www.instagram.com/15k_roy/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Instagram — @15k_roy ↗
-      </a>
-
-    </div>
-
-
-    <div class="footer-column">
-
-      <h4>
-        LEGAL
-      </h4>
-
-      <a href="privacy.html">
-        Privacy
-      </a>
-
-      <a href="terms.html">
-        Terms
-      </a>
-
-      <a href="refunds.html">
-        Refunds
-      </a>
-
-      <a href="mailto:hello@nxtlook.com">
-        Contact
-      </a>
-
-    </div>
-
   </div>
-
-
-  <div class="footer-bottom">
-
-    <span>
-      © 2026 NXTLOOK. All rights reserved.
-    </span>
-
-    <span>
-      BUILT FOR BETTER FITS.
-    </span>
-
-  </div>
-
 </footer>
 
+<script>
+const ACCOUNT_KEY = "combomode_users";
+const SESSION_KEY = "combomode_current_user";
 
-<script src="fashion-brain.js"></script>
-<script src="app.js"></script>
+function getUsers(){
+  try{
+    return JSON.parse(
+      localStorage.getItem(ACCOUNT_KEY) || "[]"
+    );
+  }catch{
+    return [];
+  }
+}
+
+function saveUsers(users){
+  localStorage.setItem(
+    ACCOUNT_KEY,
+    JSON.stringify(users)
+  );
+}
+
+function getCurrentUser(){
+  const email = localStorage.getItem(SESSION_KEY);
+
+  if(!email) return null;
+
+  return getUsers().find(
+    user => user.email === email
+  ) || null;
+}
+
+function setCurrentUser(email){
+  localStorage.setItem(
+    SESSION_KEY,
+    email
+  );
+}
+
+function clearMessages(){
+  document.getElementById("authError").textContent = "";
+  document.getElementById("authSuccess").textContent = "";
+}
+
+function showError(message){
+  document.getElementById("authSuccess").textContent = "";
+  document.getElementById("authError").textContent = message;
+}
+
+function showSuccess(message){
+  document.getElementById("authError").textContent = "";
+  document.getElementById("authSuccess").textContent = message;
+}
+
+function showLogin(){
+  clearMessages();
+
+  document
+    .getElementById("loginForm")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("signupForm")
+    .classList.add("hidden");
+
+  document
+    .getElementById("loginTab")
+    .classList.add("active");
+
+  document
+    .getElementById("signupTab")
+    .classList.remove("active");
+
+  document.getElementById("accountSwitch").innerHTML =
+    `Don't have an account?
+     <button type="button" onclick="showSignup()">
+       Create one
+     </button>`;
+}
+
+function showSignup(){
+  clearMessages();
+
+  document
+    .getElementById("loginForm")
+    .classList.add("hidden");
+
+  document
+    .getElementById("signupForm")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("loginTab")
+    .classList.remove("active");
+
+  document
+    .getElementById("signupTab")
+    .classList.add("active");
+
+  document.getElementById("accountSwitch").innerHTML =
+    `Already have an account?
+     <button type="button" onclick="showLogin()">
+       Login
+     </button>`;
+}
+
+document
+  .getElementById("signupForm")
+  .addEventListener("submit", function(event){
+
+    event.preventDefault();
+    clearMessages();
+
+    const username =
+      document.getElementById("signupUsername").value.trim();
+
+    const email =
+      document
+        .getElementById("signupEmail")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const password =
+      document.getElementById("signupPassword").value;
+
+    const confirmPassword =
+      document.getElementById("signupPasswordConfirm").value;
+
+    if(username.length < 2){
+      showError("Username must be at least 2 characters.");
+      return;
+    }
+
+    if(password.length < 6){
+      showError("Password must be at least 6 characters.");
+      return;
+    }
+
+    if(password !== confirmPassword){
+      showError("Passwords do not match.");
+      return;
+    }
+
+    const users = getUsers();
+
+    if(users.some(user => user.email === email)){
+      showError("An account with this email already exists.");
+      return;
+    }
+
+    if(
+      users.some(
+        user =>
+          user.username.toLowerCase() ===
+          username.toLowerCase()
+      )
+    ){
+      showError("That username is already taken.");
+      return;
+    }
+
+    users.push({
+      id:"user_" + Date.now(),
+      username,
+      email,
+      password,
+      plan:"FREE",
+      createdAt:new Date().toISOString()
+    });
+
+    saveUsers(users);
+    setCurrentUser(email);
+
+    showProfile();
+  });
+
+document
+  .getElementById("loginForm")
+  .addEventListener("submit", function(event){
+
+    event.preventDefault();
+    clearMessages();
+
+    const email =
+      document
+        .getElementById("loginEmail")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const password =
+      document.getElementById("loginPassword").value;
+
+    const user = getUsers().find(
+      account =>
+        account.email === email &&
+        account.password === password
+    );
+
+    if(!user){
+      showError("Incorrect email or password.");
+      return;
+    }
+
+    setCurrentUser(user.email);
+    showProfile();
+  });
+
+function showProfile(){
+
+  const user = getCurrentUser();
+
+  if(!user){
+    showAuth();
+    return;
+  }
+
+  document
+    .getElementById("authCard")
+    .classList.add("hidden");
+
+  document
+    .getElementById("profileCard")
+    .classList.remove("hidden");
+
+  document.getElementById("profileUsername").textContent =
+    user.username;
+
+  document.getElementById("profileEmail").textContent =
+    user.email;
+
+  document.getElementById("profilePlan").textContent =
+    user.plan || "FREE";
+
+  let savedLooks = [];
+
+  try{
+    savedLooks =
+      JSON.parse(
+        localStorage.getItem("nxtlook_saved_looks") || "[]"
+      );
+  }catch{}
+
+  let wardrobe = [];
+
+  try{
+    wardrobe =
+      JSON.parse(
+        localStorage.getItem("nxtlook_wardrobe_v1") ||
+        localStorage.getItem("nxtlook_wardrobe") ||
+        "[]"
+      );
+  }catch{}
+
+  document.getElementById("profileLooks").textContent =
+    savedLooks.length;
+
+  document.getElementById("profileWardrobe").textContent =
+    wardrobe.length + " ITEMS";
+}
+
+function showAuth(){
+  document
+    .getElementById("authCard")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("profileCard")
+    .classList.add("hidden");
+}
+
+function logout(){
+  localStorage.removeItem(SESSION_KEY);
+  showAuth();
+  showLogin();
+}
+
+if(getCurrentUser()){
+  showProfile();
+}else{
+  showAuth();
+}
+</script>
 
 </body>
 </html>
